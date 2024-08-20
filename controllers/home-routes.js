@@ -1,18 +1,32 @@
 const router = require("express").Router();
+const withAuth = require("../utils/auth");
 
-// Render the landingpage as the main page
+// Render the landing page as the main page
 router.get("/", (req, res) => {
   res.render("landing", { title: "Reader-Reply" });
 });
 
 // Render the login page
 router.get("/login", (req, res) => {
-  res.render("login", { title: "Log In" }); 
+  if (req.session.loggedIn) {
+    res.redirect("/dashboard");
+    return;
+  }
+  res.render("login");
 });
 
 // Render the signup page
 router.get("/signup", (req, res) => {
-  res.render("signup", { title: "Sign Up" }); 
+  if (req.session.loggedIn) {
+    res.redirect("/dashboard");
+    return;
+  }
+  res.render("signup");
+});
+
+// Render the dashboard page, only accessible to logged-in users
+router.get("/dashboard", withAuth, (req, res) => {
+  res.render("dashboard", { title: "Dashboard" });
 });
 
 module.exports = router;
