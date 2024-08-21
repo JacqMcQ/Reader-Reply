@@ -1,6 +1,8 @@
+// Import Sequelize library
 const Sequelize = require("sequelize");
 require("dotenv").config();
 
+// Create a Sequelize instance, using DB_URL if available, otherwise use individual credentials
 const sequelize = process.env.DB_URL
   ? new Sequelize(process.env.DB_URL)
   : new Sequelize(
@@ -13,4 +15,5 @@ const sequelize = process.env.DB_URL
       }
     );
 
+// Export the Sequelize instance
 module.exports = sequelize;

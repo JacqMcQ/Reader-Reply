@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title}}</title>
-    <link rel="stylesheet" href="/style.css">
-</head>
-<body class="landing">
-    <header class="title">Reader-Reply</header>
-    
-    {{{body}}}
 
-    {{!-- <footer>
-        {{> footer}}
-    </footer> --}}
+<head>
+  <meta charset="UTF-8" />
+  <title>My Application</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+
+<body class="{{#if isHomepage}}homepage{{/if}}">
+  {{#unless isHomepage}}
+    <header>
+      {{> navdetails}}
+    </header>
+  {{/unless}}
+
+  <main class="container container-fluid mt-5">
+    {{{body}}}
+    {{#if loggedIn}}
+      <!-- Load logout script if logged in -->
+      <script src="/js/logout.js"></script>
+    {{/if}}
+  </main>
+
+  {{#unless isHomepage}}
+    {{> footerdetails}}
+  {{/unless}}
+
+  <script src="/js/login.js"></script>
 </body>
+
 </html>

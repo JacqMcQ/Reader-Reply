@@ -1,15 +1,33 @@
-   <div class="container">
-        <form>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+<div class="row justify-space-between-md">
+  <!-- Signup card section -->
+  <div class="login-card">
+    <h3 class="page-title">Sign Up</h3>
 
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
+    <!-- User signup form -->
+    <form id="signup-form" class="signup-form">     
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+      <!-- Username Field -->
+      <label for="username-signup">Username:</label>
+      <input class="form-input" type="text" id="username-signup" required />
 
-            <button type="submit" class="button">Sign Up</button>
-        </form>
-        <p>Already have an account? <a href="/login">Login instead</a>.</p>
-    </div>
+      <!-- Email Field -->
+      <label for="email-signup">Email:</label>
+      <input class="form-input" type="email" id="email-signup" required />
+
+      <!-- Password Field -->
+      <label for="password-signup">Password:</label>
+      <input class="form-input" type="password" id="password-signup" required />
+
+      <!-- Sign Up Button -->
+      <button class="new-post-btn form-button" type="submit">Sign Up!</button>
+    </form>
+
+    <!-- Link to login instead -->
+    <p>
+      <a href="/login" class="login-link">Login instead</a>
+    </p>
+  </div>
+</div>
+
+<!-- Include JavaScript for handling signup -->
+<script src="./js/signup.js"></script>

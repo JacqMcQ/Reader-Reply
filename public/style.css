@@ -7,8 +7,15 @@
   --bluevariable: #046865;
 }
 
-/* Common Styles */
-html, body {
+/* General reset and body styling */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
   height: 100%;
   margin: 0;
   padding: 0;
@@ -22,32 +29,193 @@ body {
   color: var(--bluevariable);
 }
 
-header nav ul {
-  list-style: none;
+/* Header and Navigation */
+header {
   background-color: var(--blackvariable);
-  text-align: center;
-  padding: 20px 0;
-  margin: 0;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-header nav ul li a {
   color: var(--whitevariable);
-  font-size: 28px;
-  text-decoration: none;
+  padding: 10px;
 }
 
-/* Landing Page Styles */
-body.landing {
+nav {
+  padding: 5px 0;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--whitevariable);
+  font-size: 14px;
+  margin: 0 5px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Heading Styles */
+h2,
+h3.page-title {
+  padding: 5px 0;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+h3.page-title {
+  text-align: center;
+  font-size: 24px;
+  padding: 20px 0;
+}
+
+/* Form-specific styles */
+#login-form,
+#signup-form {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  margin: 20px auto 15px auto;
+  width: 100%;
+  max-width: 600px;
+}
+
+.login-link,
+.signup-link {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+  text-align: center;
+}
+
+.login-link:hover,
+.signup-link:hover {
+  text-decoration: underline;
+}
+
+.form-button {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.form-button:hover {
+  background-color: #218838;
+}
+
+.new-item-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.new-item-btn:hover {
+  background-color: #218838;
+}
+
+/* General styling for all input fields */
+#signup-form input[type="email"],
+#signup-form input[type="text"],
+#signup-form input[type="password"],
+#login-form input[type="text"],
+#login-form input[type="password"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+/* Dashboard Container */
+.dashboard-container {
+  margin-left: 1in;
+  margin-right: 1in;
+}
+
+.homepage {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background-color: var(--grayvariable);
-  background-image: url("./assets/images/hero.jpg");
+  background-image: url("./assets/hero.jpg");
   background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  height: 100vh;
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center center; /* Centers the image */
+  background-attachment: fixed; /* Keeps the background fixed when scrolling */
+  height: 100vh; /* Ensures the body takes up the full viewport height */
+  margin: 0;
+  padding: 0;
+}
+
+.homepage .title {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  text-align: center;
+  color: var(--redvariable);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 3px 3px 6px rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 10px 20px;
+  border-radius: 10px;
+  display: inline-block;
+}
+
+.homepage .container {
+  text-align: center;
+  background-color: var(--whitevariable);
+  padding: 50px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.homepage .message {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+.homepage .auth-buttons {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--redvariable);
+}
+
+.homepage .button {
+  font-size: 16px;
+  padding: 10px 20px;
+  border: 1px solid var(--blackvariable);
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--blackvariable);
 }
 
 .title {
@@ -95,7 +263,7 @@ body.landing {
 }
 
 /* Dashboard Styles */
-.body.dashboard {
+body.dashboard {
   display: flex;
   padding: 20px;
   flex: 1;
@@ -126,7 +294,7 @@ body.landing {
 .column#continue-writing {
   background-color: var(--grayvariable);
   border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
 }
 
@@ -211,7 +379,7 @@ body.landing {
 }
 
 /* Editor Page Styles */
-.body.editor {
+body.editor {
   display: flex;
   padding: 20px;
   flex: 1;

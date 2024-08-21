@@ -1,22 +1,36 @@
-document.querySelector("form").addEventListener("submit", async (event) => {
-  event.preventDefault();
+const signupFormHandler = async (event) => {
+  event.preventDefault(); // Prevent default form submission
 
-  const username = document.querySelector("#username").value.trim();
-  const email = document.querySelector("#email").value.trim();
-  const password = document.querySelector("#password").value.trim();
+  // Get email, username, and password values
+  const email = document.querySelector("#email-signup").value.trim();
+  const username = document.querySelector("#username-signup").value.trim();
+  const password = document.querySelector("#password-signup").value.trim();
 
-  if (username && email && password) {
-    const response = await fetch("/api/users", {
-      // Change the path to /api/users
-      method: "POST",
-      body: JSON.stringify({ username, email, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+  if (email && username && password) {
+    try {
+      // Send POST request to sign up
+      const response = await fetch("/api/users", {
+        method: "POST",
+        body: JSON.stringify({ email, username, password }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    if (response.ok) {
-      document.location.replace("/dashboard"); // Redirect to dashboard after successful signup
-    } else {
-      alert("Failed to sign up.");
+      if (response.ok) {
+        // Redirect to dashboard on success
+        document.location.replace("/dashboard");
+      } else {
+        alert("Failed to sign up."); // Alert on failure
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+      alert("An error occurred. Please try again.");
     }
+  } else {
+    alert("Please fill out all fields."); // Alert if any field is missing
   }
-});
+};
+
+// Add event listener for signup form submission
+document
+  .querySelector(".signup-form")
+  .addEventListener("submit", signupFormHandler);

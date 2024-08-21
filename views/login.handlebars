@@ -1,13 +1,22 @@
+<div class="row justify-space-between-md">
+  <!-- Login card section -->
+  <div class="login-card">
+    <h3 class="page-title">Login</h3>
 
-    <div class="container">
-        <form>
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+    <!-- User login form -->
+    <form id="login-form" class="login-form">
+      <label for="username-login">Username:</label>
+      <input class="form-input" type="text" id="username-login" required />
 
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+      <label for="password-login">Password:</label>
+      <input class="form-input" type="password" id="password-login" required />
 
-            <button type="submit" class="button">Log In</button>
-        </form>
-        <p>Need to sign up? <a href="/signup">Sign up here</a>.</p>
-    </div>
+      <button class="new-post-btn form-button" type="submit">Login</button>
+    </form>
+
+    <!-- Link to sign up instead -->
+    <p>
+      <a href="/signup" class="signup-link">Need to sign up?</a>
+    </p>
+  </div>
+</div>
