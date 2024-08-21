@@ -36,17 +36,12 @@ header {
 
 nav ul {
     list-style: none;
-    background-color: var(--blackvariable);
     text-align: center;
     padding: 20px 0;
     margin: 0;
     display: flex; /* Use flexbox to align items */
     justify-content: space-around; /* Distribute items evenly */
     align-items: center; /* Center items vertically */
-}
-
-nav ul li {
-    margin: 0; /* Remove right margin to use flexbox spacing */
 }
 
 nav ul li a {
@@ -59,21 +54,16 @@ nav a:hover {
   text-decoration: underline;
 }
 
-/* Heading Styles */
-h2,
-h3.page-title {
-  padding: 5px 0;
+/* Page Heading Styles */
+h2.page-title {
+  text-align: center;
+  font-size: 24px;
+  padding: 20px 0;
   margin-top: 20px;
   margin-bottom: 20px;
 }
 
-h3.page-title {
-  text-align: center;
-  font-size: 24px;
-  padding: 20px 0;
-}
-
-/* Form-specific styles */
+/* Login/Signup Form-specific styles */
 #login-form,
 #signup-form {
   background-color: #f0f0f0;
@@ -89,7 +79,7 @@ h3.page-title {
 .login-link,
 .signup-link {
   text-decoration: none;
-  color: #007bff;
+  color: var(--redvariable);
   font-size: 14px;
   margin-top: 10px;
   display: block;
@@ -102,42 +92,18 @@ h3.page-title {
 }
 
 .form-button {
-  background-color: #28a745;
-  color: white;
+  font-size: 16px;
   padding: 10px 20px;
-  border: none;
+  border: 1px solid var(--blackvariable);
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  display: inline-block;
-  margin-top: 10px;
+  text-decoration: none;
+  color: var(--blackvariable);
 }
 
 .form-button:hover {
-  background-color: #218838;
-}
-
-.new-item-btn {
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #28a745;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-.new-item-btn:hover {
-  background-color: #218838;
+  background-color: var(--blackvariable);
+  color: var(--whitevariable);
 }
 
 /* General styling for all input fields */
@@ -155,11 +121,12 @@ h3.page-title {
   box-sizing: border-box;
 }
 
-label {
+form label {
   display: block;
   margin-bottom: 0.5rem;
 }
 
+/* Homepage Styles */
 .homepage {
   font-family: Arial, sans-serif;
   display: flex;
@@ -222,97 +189,8 @@ label {
   color: var(--redvariable);
 }
 
-.title {
-  font-size: 48px;
-  font-weight: bold;
-  margin-bottom: 40px;
-  margin-top: 20px;
-  text-align: center;
-  color: var(--redvariable);
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 3px 3px 6px rgba(0, 0, 0, 0.7);
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 10px 20px;
-  border-radius: 10px;
-  display: inline-block;
-}
-
-.container {
-  text-align: center;
-  padding: 50px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.message {
-  font-size: 18px;
-  margin-bottom: 30px;
-}
-
-.auth-buttons {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: var(--redvariable);
-}
-
-.button {
-  font-size: 16px;
-  padding: 10px 20px;
-  border: 1px solid var(--blackvariable);
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  color: var(--blackvariable);
-}
-
 /* Dashboard Styles */
-body.dashboard {
-  display: flex;
-  padding: 20px;
-  flex: 1;
-  gap: 20px;
-}
 
-.column#create-new button {
-  width: 100%;
-  box-sizing: border-box;
-  background-color: var(--bluevariable);
-  color: var(--whitevariable);
-  font-size: 36px;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.column#create-new button:hover {
-  background-color: #035d6a;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-}
-
-.column .quote-container,
-.column#continue-reading,
-.column#continue-writing {
-  background-color: var(--grayvariable);
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-}
-
-.column .view-more {
-  display: block;
-  margin-top: auto;
-  text-align: center;
-  color: var(--redvariable);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.column .view-more:hover {
-  text-decoration: underline;
-}
 
 /* Footer Styles */
 footer {
