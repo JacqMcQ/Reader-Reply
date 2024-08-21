@@ -159,12 +159,6 @@ label {
   margin-bottom: 0.5rem;
 }
 
-/* Dashboard Container */
-.dashboard-container {
-  margin-left: 1in;
-  margin-right: 1in;
-}
-
 .homepage {
   font-family: Arial, sans-serif;
   display: flex;
@@ -318,105 +312,6 @@ body.dashboard {
 
 .column .view-more:hover {
   text-decoration: underline;
-}
-
-/* Discover Page Styles */
-.discover-body .post-box {
-  background-color: var(--grayvariable);
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-}
-
-.post-title a {
-  color: var(--redvariable);
-  text-decoration: none;
-  font-size: 24px;
-}
-
-.post-title a:hover {
-  text-decoration: underline;
-}
-
-.post-author,
-.post-summary {
-  color: var(--redvariable);
-}
-
-/* Profile Page Styles */
-.profile-body .row {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.section {
-  background-color: var(--whitevariable);
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-.user-info-form label {
-  font-weight: bold;
-}
-
-.user-info-form input {
-  padding: 8px;
-  border: 1px solid var(--grayvariable);
-  border-radius: 4px;
-}
-
-.change-password {
-  background-color: var(--bluevariable);
-  color: var(--whitevariable);
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.change-password:hover {
-  background-color: var(--redvariable);
-}
-
-.profile-image {
-  width: 90%;
-  border-radius: 5px;
-  object-fit: cover;
-}
-
-/* Editor Page Styles */
-body.editor {
-  display: flex;
-  padding: 20px;
-  flex: 1;
-  gap: 20px;
-}
-
-.column-1 {
-  background-color: var(--grayvariable);
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  color: var(--redvariable);
-}
-
-.column-2 {
-  background-color: var(--grayvariable);
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.comments-section .comment {
-  background-color: var(--whitevariable);
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.username {
-  color: var(--bluevariable);
 }
 
 /* Footer Styles */
