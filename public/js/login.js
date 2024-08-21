@@ -1,21 +1,37 @@
-document.querySelector("form").addEventListener("submit", async (event) => {
-  event.preventDefault();
+const loginFormHandler = async (event) => {
+  event.preventDefault(); // Prevent default form submission
 
-  const username = document.querySelector("#username").value.trim();
-  const password = document.querySelector("#password").value.trim();
+  // Get username and password values
+  const username = document.querySelector("#username-login").value.trim();
+  const password = document.querySelector("#password-login").value.trim();
 
   if (username && password) {
-    const response = await fetch("/api/users/login", {
-      // Change the path to /api/users/login
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-      headers: { "Content-Type": "application/json" },
-    });
+    try {
+      // Send POST request to log in
+      const response = await fetch("/api/users/login", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+        headers: { "Content-Type": "application/json" },
+      });
 
-    if (response.ok) {
-      document.location.replace("/dashboard"); // Redirect to dashboard after successful login
-    } else {
-      alert("Failed to log in.");
+      if (response.ok) {
+        // Redirect to dashboard on success
+        document.location.replace("/dashboard");
+      } else {
+        alert("Failed to log in."); // Alert on failure
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      alert("An error occurred. Please try again.");
     }
+  } else {
+    alert("Please enter both username and password."); // Alert if missing
   }
-});
+};
+
+// Add event listener for login form submission if the form exists
+const loginForm = document.querySelector(".login-form");
+
+if (loginForm) {
+  loginForm.addEventListener("submit", loginFormHandler);
+}

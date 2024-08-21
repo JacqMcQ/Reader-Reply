@@ -1,6 +1,7 @@
+// controllers/api/index.js
 const router = require("express").Router();
-const userRoutes = require("./user-routes"); // Import the user routes
+const userRoutes = require("./user-routes");
 
-router.use("/users", userRoutes); // Use the user routes
+router.use("/users", userRoutes);
 
 module.exports = router;

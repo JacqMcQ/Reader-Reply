@@ -1,2 +1,5 @@
-DROP DATABASE IF EXISTS rr_db;
-CREATE DATABASE rr_db;
+-- Drop the existing blog_db database if it exists
+DROP DATABASE IF EXISTS user_db;
+
+-- Create a new blog_db database
+CREATE DATABASE user_db;
