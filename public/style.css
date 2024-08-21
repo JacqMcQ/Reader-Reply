@@ -35,19 +35,19 @@ header {
 }
 
 nav ul {
-    list-style: none;
-    text-align: center;
-    padding: 20px 0;
-    margin: 0;
-    display: flex; /* Use flexbox to align items */
-    justify-content: space-around; /* Distribute items evenly */
-    align-items: center; /* Center items vertically */
+  list-style: none;
+  text-align: center;
+  padding: 20px 0;
+  margin: 0;
+  display: flex; /* Use flexbox to align items */
+  justify-content: space-around; /* Distribute items evenly */
+  align-items: center; /* Center items vertically */
 }
 
 nav ul li a {
-    color: var(--whitevariable);
-    font-size: 28px;
-    text-decoration: none;
+  color: var(--whitevariable);
+  font-size: 28px;
+  text-decoration: none;
 }
 
 nav a:hover {
@@ -189,8 +189,80 @@ form label {
   color: var(--redvariable);
 }
 
-/* Dashboard Styles */
+/* Dashboard-specific styles */
+#dashboard .dashboard-container {
+  display: flex; /* Use flexbox to arrange columns side by side */
+  width: 100%; /* Ensure the container spans the full width */
+  gap: 20px; /* Add some space between columns */
+  padding: 20px;
+}
 
+#dashboard .column {
+  padding: 10px; /* Add some padding inside each column */
+  background-color: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for better visuals */
+  border-radius: 8px; /* Optional rounded corners */
+}
+
+#dashboard .create-new {
+  width: 25%;
+  display: flex;
+  flex-direction: column; /* Stack child elements vertically */
+  justify-content: space-between; /* Space out child elements */
+  position: relative; /* Allows positioning of child elements */
+  padding: 10px;
+}
+
+#dashboard .create-new button {
+  width: 100%; /* Make the button span the full width of the column */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  background-color: var(
+    --bluevariable
+  ); /* Set the background color to bluevariable */
+  color: var(--whitevariable); /* Set the font color to whitevariable */
+  font-size: 36px; /* Set the font size to 36px */
+  padding: 10px; /* Optional: Add some padding around the text */
+  border: none; /* Remove the default border */
+  border-radius: 5px; /* Optional: Add rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow for a 3D effect */
+  cursor: pointer; /* Change the cursor to a pointer to indicate it's clickable */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effects */
+}
+
+#dashboard .create-new button:hover {
+  background-color: #035d6a; /* Slightly darker blue for hover effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Slightly larger shadow on hover */
+}
+
+#dashboard .create-new .quote-container {
+    flex-grow: 1; /* Allow the quote container to take up available space */
+    margin-top: 20px; /* Space between button and quote container */
+    padding: 10px;
+    background-color: var(--grayvariable);
+    border-radius: 5px; /* Optional: Add rounded corners */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: Add shadow */
+}
+
+#dashboard .continue-reading,
+#dashboard .continue-writing {
+  width: 37.5%; /* Each takes up 37.5% of the body width (half of 75%) */
+    padding: 10px;
+    background-color: var(--grayvariable);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+#dashboard .view-more {
+    display: block;
+    margin-top: auto; /* Push the link to the bottom */
+    text-align: center; /* Center the text */
+    color: var(--redvariable);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#dashboard .view-more:hover {
+    text-decoration: underline; /* Underline on hover */
+}
 
 /* Footer Styles */
 footer {
