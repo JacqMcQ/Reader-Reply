@@ -264,6 +264,85 @@ form label {
     text-decoration: underline; /* Underline on hover */
 }
 
+/*Discover*/
+
+/*Profile specific styles*/
+#profile .profile-body {
+    padding: 20px;
+    background-color: var(--whitevariable);
+}
+
+#profile .row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+#profile .section {
+    background-color: var(--whitevariable);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+#profile .section-1 {
+    width: 60%;
+}
+
+#profile .user-info-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#profile .user-info-form label {
+    font-weight: bold;
+}
+
+#profile .user-info-form input, .user-info-form textarea {
+    padding: 8px;
+    border: 1px solid var(--grayvariable);
+    border-radius: 4px;
+}
+
+#profile .update-profile {
+    background-color: var(--bluevariable);
+    color: var(--whitevariable);
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#profile .update-profile:hover {
+    background-color: var(--redvariable);
+}
+
+#profile .section-2 {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile .profile-image {
+    width: 90%;
+    max-width: 100%;
+    border-radius: 5px;
+    object-fit: cover;
+}
+
+#profile .section-3 {
+    width: 100%;
+}
+
+#profile .info-box {
+    background-color: var(--grayvariable);
+    color: var(--redvariable);
+    padding: 20px;
+    border-radius: 5px;
+}
+
 /* Footer Styles */
 footer {
   background-color: var(--blackvariable);
