@@ -61,6 +61,31 @@ router.get("/profile", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// Route to render the discover
+router.get("/discover", async (req, res) => {
+  try {
+    if (!req.session.loggedIn) {
+      return res.redirect("/login");
+    }
+    if (!req.session.user_id) {
+      throw new Error("User ID is not defined in the session.");
+    }
+    // Fetch the user data from the database
+    const user = await User.findByPk(req.session.user_id);
+    if (!user) {
+      throw new Error("User not found.");
+    }
+    // Render the profile template, passing in the user data
+    res.render("discover", {
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Route to render the editor page
 router.get("/editor", async (req, res) => {
   try {
