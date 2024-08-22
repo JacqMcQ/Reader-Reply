@@ -1,8 +1,8 @@
-// Middleware to check if user is logged in
 module.exports = (req, res, next) => {
-  if (!req.session.user_id) {
-    res.redirect("/login"); // Redirect to login if not logged in
-    return;
+  if (req.session.loggedIn) {
+    // User is authenticated, proceed to the next middleware or route handler
+    return next();
   }
-  next(); // Proceed if logged in
+  // User is not authenticated, redirect to login page or handle unauthorized access
+  res.redirect("/login");
 };

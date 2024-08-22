@@ -1,82 +1,58 @@
-// Create a new router instance
 const router = require("express").Router();
-
-// Import the User model
 const { User } = require("../../models");
+
+// Utility function to handle errors and responses
+const handleError = (res, err, statusCode = 500) => {
+  console.error(err); // Log error details
+  res.status(statusCode).json({ error: err.message });
+};
+
+// Utility function to handle session saving
+const saveSession = (req, user, res, successMessage, statusCode = 200) => {
+  req.session.save(() => {
+    req.session.user_id = user.id;
+    req.session.loggedIn = true;
+    console.log("Session after operation:", req.session);
+    res.status(statusCode).json({ user, message: successMessage });
+  });
+};
 
 // CREATE new user
 router.post("/", async (req, res) => {
   try {
-    const dbUserData = await User.create({
-      username: req.body.username,
-      email: req.body.email,
-      password: req.body.password,
-    });
-
+    const { username, email, password } = req.body;
+    const dbUserData = await User.create({ username, email, password });
     console.log("New User Created:", dbUserData);
-
-    // Save session and set user_id
-    req.session.save(() => {
-      req.session.user_id = dbUserData.id;
-      req.session.loggedIn = true;
-
-      console.log("Session after saving user:", req.session);
-
-      res.status(200).json(dbUserData);
-    });
+    saveSession(req, dbUserData, res, "User created successfully");
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    handleError(res, err);
   }
 });
 
-// Login
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
-    const dbUserData = await User.findOne({
-      where: {
-        username: req.body.username,
-      },
-    });
+    const { username, password } = req.body;
+    const dbUserData = await User.findOne({ where: { username } });
 
-    if (!dbUserData) {
-      res
+    if (!dbUserData || !(await dbUserData.checkPassword(password))) {
+      return res
         .status(400)
         .json({ message: "Incorrect username or password. Please try again!" });
-      return;
     }
 
-    const validPassword = await dbUserData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: "Incorrect username or password. Please try again!" });
-      return;
-    }
-
-    req.session.save(() => {
-      req.session.user_id = dbUserData.id;
-      req.session.loggedIn = true;
-
-      console.log("Session after login:", req.session);
-
-      res
-        .status(200)
-        .json({ user: dbUserData, message: "You are now logged in!" });
-    });
+    saveSession(req, dbUserData, res, "You are now logged in!");
   } catch (err) {
-    console.log(err);
-    res.status(500).json(err);
+    handleError(res, err);
   }
 });
 
-// Logout
+// LOGOUT
 router.get("/logout", (req, res) => {
   if (req.session.loggedIn) {
     req.session.destroy((err) => {
       if (err) {
-        return res.status(500).json({ error: "Failed to log out." });
+        return handleError(res, err);
       }
       res.redirect("/login"); // Redirect to the login page on successful logout
     });
@@ -85,5 +61,4 @@ router.get("/logout", (req, res) => {
   }
 });
 
-// Export the router
 module.exports = router;
