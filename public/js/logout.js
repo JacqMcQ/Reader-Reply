@@ -1,29 +1,25 @@
-// Get the logout button element
-const logoutButton = document.querySelector("#logout");
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutLink = document.querySelector("#logout-link");
 
-// Check if the logout button exists before adding the event listener
-if (logoutButton) {
-  logoutButton.addEventListener("click", (event) => {
-    event.preventDefault();
-    logout();
-  });
-}
+  if (logoutLink) {
+    logoutLink.addEventListener("click", (event) => {
+      event.preventDefault(); // Prevent default link behavior
 
-// Function to handle the logout process
-const logout = async () => {
-  try {
-    const response = await fetch("/api/users/logout", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      // Send a GET request to the logout endpoint
+      fetch("/api/users/logout", {
+        method: "GET",
+      })
+        .then((response) => {
+          if (response.ok) {
+            window.location.href = "/login"; // Redirect to the login page
+          } else {
+            alert("Failed to log out.");
+          }
+        })
+        .catch((error) => {
+          console.error("Error during logout:", error);
+          alert("An error occurred while logging out. Please try again.");
+        });
     });
-
-    if (response.ok) {
-      document.location.replace("/"); // Redirect to the homepage on success
-    } else {
-      alert("Failed to log out."); // Alert on failure
-    }
-  } catch (error) {
-    console.error("Error during logout:", error);
-    alert("An error occurred while logging out. Please try again.");
   }
-};
+});
