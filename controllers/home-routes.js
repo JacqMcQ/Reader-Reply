@@ -107,4 +107,4 @@ router.get("/logout", (req, res) => {
     res.status(404).json({ error: "User not logged in." });
   }
 });
-
+module.exports = router;
