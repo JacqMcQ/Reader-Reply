@@ -235,33 +235,124 @@ form label {
 }
 
 #dashboard .create-new .quote-container {
-    flex-grow: 1; /* Allow the quote container to take up available space */
-    margin-top: 20px; /* Space between button and quote container */
-    padding: 10px;
-    background-color: var(--grayvariable);
-    border-radius: 5px; /* Optional: Add rounded corners */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Optional: Add shadow */
+  flex-grow: 1; /* Allow the quote container to take up available space */
+  margin-top: 20px; /* Space between button and quote container */
+  padding: 10px;
+  background-color: var(--grayvariable);
+  border-radius: 5px; /* Optional: Add rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
 }
 
 #dashboard .continue-reading,
 #dashboard .continue-writing {
   width: 37.5%; /* Each takes up 37.5% of the body width (half of 75%) */
-    padding: 10px;
-    background-color: var(--grayvariable);
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  padding: 10px;
+  background-color: var(--grayvariable);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 #dashboard .view-more {
-    display: block;
-    margin-top: auto; /* Push the link to the bottom */
-    text-align: center; /* Center the text */
-    color: var(--redvariable);
-    text-decoration: none;
-    font-weight: bold;
+  display: block;
+  margin-top: auto; /* Push the link to the bottom */
+  text-align: center; /* Center the text */
+  color: var(--redvariable);
+  text-decoration: none;
+  font-weight: bold;
 }
 
 #dashboard .view-more:hover {
-    text-decoration: underline; /* Underline on hover */
+  text-decoration: underline; /* Underline on hover */
+}
+
+/*Discover*/
+
+/* Profile specific styles */
+#profile {
+  min-height: 100vh; /* Minimum height of 100% of the viewport height */
+  background-color: var(--whitevariable);
+}
+
+#profile h2 {
+  padding-bottom: 2%;
+}
+
+#profile .profile-container {
+  padding: 20px;
+  background-color: var(--whitevariable);
+  color: var(--bluevariable);
+  min-height: 100vh; /* Minimum height of 100% of the viewport height */
+  display: flex;
+  flex-direction: column;
+}
+
+#profile .row {
+  display: flex;
+  gap: 20px; /* Space between sections */
+  margin-bottom: 20px; /* Space between rows */
+}
+
+#profile .section {
+  background-color: var(--whitevariable);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+#profile .section-1 {
+  width: 60%; /* Adjust width as needed */
+}
+
+#profile .user-info-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#profile .user-info-form label {
+    font-weight: bold;
+}
+
+#profile .user-info-form input {
+    padding: 8px;
+    border: 1px solid var(--grayvariable);
+    border-radius: 4px;
+}
+
+#profile .change-password {
+    background-color: var(--bluevariable);
+    color: var(--whitevariable);
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#profile .change-password:hover {
+    background-color: var(--redvariable);
+}
+
+#profile .section-2 {
+  width: 40%; /* Adjust width as needed */
+}
+
+#profile .profile-image {
+  width: 100%;
+  height: 100%; /* Set a height for the container */
+  background-image: url('/assets/profile.jpg'); /* Adjust path if necessary */
+  background-size: cover; /* Cover the entire container */
+  background-position: center; /* Center the image */
+}
+
+#profile .section-3 {
+  width: 100%;
+  background-color: var(--grayvariable);
+  color: var(--redvariable);
+}
+
+#profile #bio {
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
 }
 
 /* Footer Styles */
