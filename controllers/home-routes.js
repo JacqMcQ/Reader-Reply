@@ -38,7 +38,22 @@ router.get("/dashboard", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+// Route to render the editor page
+router.get("/editor", async (req, res) => {
+  try {
+    if (!req.session.loggedIn) {
+      return res.redirect("/login");
+    }
 
+    // Render the editor template
+    res.render("editor", {
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 // Route to render the signup page
 router.get("/signup", (req, res) => {
   if (req.session.loggedIn) {

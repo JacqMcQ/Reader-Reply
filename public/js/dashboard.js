@@ -1,11 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const actionButton = document.querySelector(".action-btn");
+  const createNewButton = document.getElementById("create-new-btn");
 
-  // Handle the action button (e.g., create new item)
-  if (actionButton) {
-    actionButton.addEventListener("click", (event) => {
-      event.preventDefault();
-      // No action is performed when the button is clicked
+  if (createNewButton) {
+    createNewButton.addEventListener("click", (event) => {
+      event.preventDefault(); 
+      window.location.href = "/editor"; 
     });
   }
 });
