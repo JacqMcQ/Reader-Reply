@@ -1,9 +1,7 @@
 // Create a new router instance
 const router = require("express").Router();
-
 // Import the User model
 const { User } = require("../models");
-
 // Route to render the homepage
 router.get("/", async (req, res) => {
   try {
@@ -17,18 +15,15 @@ router.get("/", async (req, res) => {
     res.status(500).json(err); // Respond with a server error
   }
 });
-
 // Route to render the dashboard
 router.get("/dashboard", async (req, res) => {
   try {
     if (!req.session.loggedIn) {
       return res.redirect("/login");
     }
-
     if (!req.session.user_id) {
       throw new Error("User ID is not defined in the session.");
     }
-
     // Render the dashboard template, passing in the login status
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
@@ -38,25 +33,20 @@ router.get("/dashboard", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
 // Route to render the profile
 router.get("/profile", async (req, res) => {
   try {
     if (!req.session.loggedIn) {
       return res.redirect("/login");
     }
-
     if (!req.session.user_id) {
       throw new Error("User ID is not defined in the session.");
     }
-
     // Fetch the user data from the database
     const user = await User.findByPk(req.session.user_id);
-
     if (!user) {
       throw new Error("User not found.");
     }
-
     // Render the profile template, passing in the user data
     res.render("profile", {
       loggedIn: req.session.loggedIn,
@@ -71,6 +61,22 @@ router.get("/profile", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+// Route to render the editor page
+router.get("/editor", async (req, res) => {
+  try {
+    if (!req.session.loggedIn) {
+      return res.redirect("/login");
+    }
+
+    // Render the editor template
+    res.render("editor", {
+      loggedIn: req.session.loggedIn,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 // Route to render the signup page
 router.get("/signup", (req, res) => {
@@ -80,7 +86,6 @@ router.get("/signup", (req, res) => {
   }
   res.render("signup");
 });
-
 // Route to render the login page
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
@@ -89,7 +94,6 @@ router.get("/login", (req, res) => {
   }
   res.render("login");
 });
-
 // Route to handle logout
 router.get("/logout", (req, res) => {
   if (req.session.loggedIn) {
@@ -103,6 +107,3 @@ router.get("/logout", (req, res) => {
     res.status(404).json({ error: "User not logged in." });
   }
 });
-
-// Export the router
-module.exports = router;

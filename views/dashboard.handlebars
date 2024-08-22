@@ -1,13 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/public/assets/style.css">
+</head>
+<body>
 <div id="dashboard" class="body">
   <div class="dashboard-container">
     <div class="column create-new">
-      <button>+Create New</button>
+      <button id="create-new-btn" class="action-btn">Create New</button>
       <div class="quote-container">Inspirational quote here...</div>
     </div>
 
     <div class="column continue-reading">
       <h2>Continue Reading</h2>
-      <!-- Dynamically populated links -->
+      
       <p><a href="#">Story Title 1</a></p>
       <p><a href="#">Story Title 2</a></p>
       <a href="#" class="view-more">View More</a>
@@ -15,7 +24,7 @@
 
     <div class="column continue-writing">
       <h2>Continue Writing</h2>
-      <!-- Dynamically populated links and comments -->
+  
       <div class="story-item">
         <p><a href="#">Story Title 1</a></p>
         <p class="comment">- Recent comment here...</p>
@@ -28,3 +37,6 @@
     </div>
   </div>
 </div>
+ <script src="/js/dashboard.js"></script>
+</body>
+</html>
