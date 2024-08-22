@@ -272,6 +272,10 @@ form label {
   background-color: var(--whitevariable);
 }
 
+#profile h2 {
+  padding-bottom: 2%;
+}
+
 #profile .profile-container {
   padding: 20px;
   background-color: var(--whitevariable);
