@@ -5,6 +5,12 @@ class WrittenWork extends Model {}
 
 WrittenWork.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -22,6 +28,10 @@ WrittenWork.init(
     },
     existingWorkId: {
       type: DataTypes.INTEGER,
+      references: {
+        model: "writtenWork",
+        key: "id",
+      },
       allowNull: true,
     },
   },
@@ -30,6 +40,7 @@ WrittenWork.init(
     modelName: "writtenWork",
     freezeTableName: true,
     underscored: true,
+    timestamps: false,
   }
 );
 
