@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { WrittenWork } = require("../../models");
 
+// Create new work
 router.post("/", async (req, res) => {
   try {
     const newWork = await WrittenWork.create({
@@ -16,6 +17,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Update existing work
 router.put("/:id", async (req, res) => {
   try {
     const updatedWork = await WrittenWork.update(
@@ -36,6 +38,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Retrieve work by ID for editing
 router.get("/:id", async (req, res) => {
   try {
     const work = await WrittenWork.findByPk(req.params.id);
@@ -43,6 +46,17 @@ router.get("/:id", async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: "Failed to retrieve work." });
+  }
+});
+
+// Retrieve all works
+router.get("/", async (req, res) => {
+  try {
+    const works = await WrittenWork.findAll();
+    res.status(200).json(works);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Failed to retrieve works." });
   }
 });
 

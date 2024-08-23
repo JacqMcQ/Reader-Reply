@@ -24,12 +24,10 @@ router.get("/dashboard", async (req, res) => {
     if (!req.session.user_id) {
       throw new Error("User ID is not defined in the session.");
     }
-
     // Fetch the written works created by the user
     const writtenWorks = await WrittenWork.findAll({
       where: { userId: req.session.user_id }
     });
-
     // Pass the written works to the dashboard template
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
@@ -63,6 +61,29 @@ router.get("/profile", async (req, res) => {
       lastName: user.lastName,
       email: user.email,
       bio: user.bio
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+// Route to render the discover
+router.get("/discover", async (req, res) => {
+  try {
+    if (!req.session.loggedIn) {
+      return res.redirect("/login");
+    }
+    if (!req.session.user_id) {
+      throw new Error("User ID is not defined in the session.");
+    }
+    // Fetch the user data from the database
+    const user = await User.findByPk(req.session.user_id);
+    if (!user) {
+      throw new Error("User not found.");
+    }
+    // Render the profile template, passing in the user data
+    res.render("discover", {
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     console.log(err);

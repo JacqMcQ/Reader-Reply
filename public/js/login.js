@@ -15,10 +15,9 @@ const loginFormHandler = async (event) => {
       });
 
       if (response.ok) {
-        // Redirect to dashboard on success
         document.location.replace("/dashboard");
       } else {
-        alert("Failed to log in."); // Alert on failure
+        alert("Failed to log in."); 
       }
     } catch (error) {
       console.error("Error during login:", error);

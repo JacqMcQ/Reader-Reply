@@ -4,17 +4,24 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Editor</title>
-  <link rel="stylesheet" href="/assets/style.css"> <!-- Link to your CSS -->
+  <link rel="stylesheet" href="/assets/style.css"> 
 </head>
 <body>
 <div id="dashboard">
   <div class="form-container">
+      <!-- Existing Works List -->
+    <div class="existing-works">
+      <h2>Your Works</h2>
+      <ul id="works-list">
+        <!-- Works will be dynamically populated here -->
+      </ul>
+    </div>
     <div class="column-1">
-      <form id="editor-form">
-        <input type="hidden" id="work-id" name="work-id" value="{{workId}}" />
+       <form id="editor-form">
+        <input type="hidden" id="work-id" value="{{workId}}" />
 
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" required value="{{title}}" />
+        <input type="text" id="title" name="title" value="{{title}}" required />
 
         <label for="existing-works">Add to Existing Works</label>
         <select id="existing-works" name="existing-works">
