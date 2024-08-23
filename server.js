@@ -52,3 +52,17 @@ sequelize.sync({ force: true }).then(() => {
     console.log(`Server listening at http://localhost:${PORT}`)
   );
 });
+
+const { User, WrittenWork } = require("./models");
+
+const syncModels = async () => {
+  try {
+    await User.sync({ alter: true }); // Use alter to apply changes
+    await WrittenWork.sync({ alter: true });
+    console.log("Models synced successfully");
+  } catch (err) {
+    console.error("Error syncing models:", err);
+  }
+};
+
+syncModels();

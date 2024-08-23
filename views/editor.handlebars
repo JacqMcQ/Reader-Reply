@@ -1,27 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Editor</title>
   <link rel="stylesheet" href="/assets/style.css"> 
-</head>
-<body>
+
 <div id="dashboard">
   <div class="form-container">
-      <!-- Existing Works List -->
-    <div class="existing-works">
-      <h2>Your Works</h2>
-      <ul id="works-list">
-        <!-- Works will be dynamically populated here -->
-      </ul>
-    </div>
     <div class="column-1">
        <form id="editor-form">
-        <input type="hidden" id="work-id" value="{{workId}}" />
+        <input type="hidden" id="work-id" value="{{work.id}}" />
 
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" value="{{title}}" required />
+        <input type="text" id="title" name="title" value="{{work.title}}" required />
 
         <label for="existing-works">Add to Existing Works</label>
         <select id="existing-works" name="existing-works">
@@ -30,7 +16,7 @@
         </select>
 
         <label for="content">Content</label>
-        <textarea id="content" name="content" rows="10" required>{{content}}</textarea>
+        <textarea id="content" name="content" rows="10" required>{{work.content}}</textarea>
 
         <div class="form-buttons">
           <button id="save-button" type="button">Save</button>
@@ -60,5 +46,3 @@
   </div>
 </div>
 <script src="/js/editor.js"></script> 
-</body>
-</html>
