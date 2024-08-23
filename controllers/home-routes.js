@@ -135,7 +135,8 @@ router.get("/logout", (req, res) => {
       res.redirect("/"); // Redirect to homepage
     });
   } else {
-    res.status(404).json({ error: "User not logged in." });
+    res.redirect("/login"); // Redirect to login page if not logged in
   }
 });
+
 module.exports = router;
