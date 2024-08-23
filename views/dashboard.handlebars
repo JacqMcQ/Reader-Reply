@@ -1,28 +1,36 @@
 
 <div id="dashboard" class="body">
   <div class="dashboard-container">
+    <!-- Create New Section -->
     <div class="column create-new">
       <button id="create-new-btn" class="action-btn">Create New</button>
-      <div id="quote" class="quote-container">Inspirational quote here...</div>
+    <div id="quote" class="quote-container">Inspirational quote here...</div>
     </div>
+    <!-- Continue Reading Section -->
     <div class="column continue-reading">
       <h2>Continue Reading</h2>
-      <p><a href="#">Story Title 1</a></p>
-      <p><a href="#">Story Title 2</a></p>
-      <a href="#" class="view-more">View More</a>
+      
+      <p><a href="/works/1">Story Title 1</a></p> <!-- Functional link -->
+      <p><a href="/works/2">Story Title 2</a></p> <!-- Functional link -->
+      <a href="/works" class="view-more">View More</a> <!-- Functional link -->
     </div>
+
+    <!-- Continue Writing Section -->
     <div class="column continue-writing">
       <h2>Continue Writing</h2>
-      <div class="story-item">
-        <p><a href="#">Story Title 1</a></p>
-        <p class="comment">- Recent comment here...</p>
-      </div>
-      <div class="story-item">
-        <p><a href="#">Story Title 2</a></p>
-        <p class="comment">- Recent comment here...</p>
-      </div>
-      <a href="#" class="view-more">View More</a>
+
+      {{#each writtenWorks}}
+        <div class="story-item">
+          <p><a href="/editor?id={{this.id}}">{{this.title}}</a></p> <!-- Dynamic link to work -->
+          <p class="comment">{{this.comment}}</p>
+        </div>
+      {{/each}}
+      <a href="/works" class="view-more">View More</a> <!-- Link to view all written works -->
     </div>
   </div>
 </div>
+
+<!-- Link to external JavaScript file -->
 <script src="/js/dashboard.js"></script>
+
+

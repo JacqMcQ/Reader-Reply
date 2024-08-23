@@ -1,7 +1,7 @@
 // Create a new router instance
 const router = require("express").Router();
 // Import the User model
-const { User } = require("../models");
+const { User, WrittenWork } = require("../models");
 // Route to render the homepage
 router.get("/", async (req, res) => {
   try {
@@ -24,15 +24,21 @@ router.get("/dashboard", async (req, res) => {
     if (!req.session.user_id) {
       throw new Error("User ID is not defined in the session.");
     }
-    // Render the dashboard template, passing in the login status
+    // Fetch the written works created by the user
+    const writtenWorks = await WrittenWork.findAll({
+      where: { userId: req.session.user_id }
+    });
+    // Pass the written works to the dashboard template
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
+      writtenWorks: writtenWorks.map(work => work.get({ plain: true })), // Send plain JS objects
     });
   } catch (err) {
     console.log(err);
     res.status(500).json({ error: err.message });
   }
 });
+
 // Route to render the profile
 router.get("/profile", async (req, res) => {
   try {

@@ -1,20 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor</title>
+  <link rel="stylesheet" href="/assets/style.css"> 
+</head>
+<body>
 <div id="dashboard">
   <div class="form-container">
+      <!-- Existing Works List -->
+    <div class="existing-works">
+      <h2>Your Works</h2>
+      <ul id="works-list">
+        <!-- Works will be dynamically populated here -->
+      </ul>
+    </div>
     <div class="column-1">
-      <form>
+       <form id="editor-form">
+        <input type="hidden" id="work-id" value="{{workId}}" />
+
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="{{title}}" required />
+
         <label for="existing-works">Add to Existing Works</label>
         <select id="existing-works" name="existing-works">
-          <option value="">Select an existing work</option>
-          
+          <option value="">Select an existing work (Optional)</option>
+          <!-- Add options dynamically in your JavaScript if needed -->
         </select>
 
         <label for="content">Content</label>
-        <textarea id="content" name="content" rows="10"></textarea>
+        <textarea id="content" name="content" rows="10" required>{{content}}</textarea>
 
         <div class="form-buttons">
           <button id="save-button" type="button">Save</button>
           <button id="edit-button" type="button">Edit</button>
-          <button id="post-button" type="button">Post</button>
+          <button id="post-button" type="submit">Post</button>
           <button id="delete-button" type="button">
             <i class="fa-solid fa-trash-can"></i> Delete
           </button>
@@ -38,3 +59,6 @@
     </div>
   </div>
 </div>
+<script src="/js/editor.js"></script> 
+</body>
+</html>
