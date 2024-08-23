@@ -52,6 +52,7 @@ sequelize.sync({ force: true }).then(() => {
     console.log(`Server listening at http://localhost:${PORT}`)
   );
 });
+
 const { User, WrittenWork } = require("./models");
 
 const syncModels = async () => {

@@ -134,7 +134,7 @@ form label {
   justify-content: center;
   align-items: center;
   background-color: var(--grayvariable);
-  background-image: url("./assets/hero.jpg");
+  background-image: url("./hero.jpg");
   background-size: contain;
   background-repeat: no-repeat; /* Prevents the image from repeating */
   background-position: center center; /* Centers the image */
@@ -338,7 +338,7 @@ form label {
 #profile .profile-image {
   width: 100%;
   height: 100%; /* Set a height for the container */
-  background-image: url('/assets/profile.jpg'); /* Adjust path if necessary */
+  background-image: url('./profile.jpg'); /* Adjust path if necessary */
   background-size: cover; /* Cover the entire container */
   background-position: center; /* Center the image */
 }
