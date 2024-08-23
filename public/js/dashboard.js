@@ -8,3 +8,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const response = await fetch('/api/quote');
+    if (response.ok) {
+      const quoteData = await response.json();
+      document.getElementById('quote').innerText = `${quoteData.q} - ${quoteData.a}`;
+    } else {
+      console.error('Failed to fetch quote');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+});
