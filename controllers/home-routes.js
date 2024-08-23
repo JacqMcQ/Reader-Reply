@@ -67,6 +67,7 @@ router.get("/profile", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 // Route to render the discover
 router.get("/discover", async (req, res) => {
   try {
@@ -90,6 +91,7 @@ router.get("/discover", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 // Route to render the editor page
 router.get("/editor", async (req, res) => {
   try {
