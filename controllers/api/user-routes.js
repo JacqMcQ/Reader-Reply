@@ -35,13 +35,13 @@ router.post("/login", async (req, res) => {
     const { username, password } = req.body;
     const dbUserData = await User.findOne({ where: { username } });
 
-    if (!dbUserData || !(await dbUserData.checkPassword(password))) {
+    if (!dbUserData || !dbUserData.checkPassword(password)) {
       return res
         .status(400)
         .json({ message: "Incorrect username or password. Please try again!" });
     }
 
-    saveSession(req, dbUserData, res, "You are now logged in!");
+    saveSession(req, dbUserData, res, "You are now logged in.");
   } catch (err) {
     handleError(res, err);
   }
