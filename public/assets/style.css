@@ -447,7 +447,14 @@ form label {
     border-radius: 4px;
 }
 
-#profile .change-password {
+#profile .form-buttons {
+    display: flex;
+    gap: 10px; /* Space between the Save and Change Password buttons */
+}
+
+#profile .form-buttons .save,
+#profile .form-buttons .change-password,
+#profile .update-bio {
     background-color: var(--bluevariable);
     color: var(--whitevariable);
     border: none;
@@ -456,7 +463,9 @@ form label {
     cursor: pointer;
 }
 
-#profile .change-password:hover {
+#profile .form-buttons .save:hover,
+#profile .form-buttons .change-password:hover,
+#profile .update-bio:hover {
     background-color: var(--redvariable);
 }
 
@@ -478,10 +487,20 @@ form label {
   color: var(--redvariable);
 }
 
+#profile .bio-save-container {
+    display: flex;
+    justify-content: flex-end; /* Align the Save Bio button to the right */
+    margin-top: 10px; /* Add some space above the Save Bio button */
+}
+
+#profile h2 {
+  padding-bottom: 1%;
+}
+
 #profile #bio {
-  padding: 20px;
-  border-radius: 5px;
-  width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
 }
 
 /* Footer Styles */
