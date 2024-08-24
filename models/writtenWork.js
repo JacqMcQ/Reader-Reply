@@ -34,17 +34,13 @@ WrittenWork.init(
       },
       allowNull: true,
     },
-    collectionTitle: {
-      type: DataTypes.STRING,
-      allowNull: true, // Optional field for collection title
-    },
   },
   {
     sequelize,
     modelName: "writtenWork",
     freezeTableName: true,
     underscored: true,
-    timestamps: false,
+    timestamps: true,
   }
 );
 

@@ -6,47 +6,23 @@
        <form id="editor-form">
         <input type="hidden" id="work-id" value="{{work.id}}" />
 
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" value="{{work.title}}" required />
+
         <label for="existing-works">Add to Existing Works</label>
         <select id="existing-works" name="existing-works">
           <option value="">Select an existing work (Optional)</option>
-          <option value="new">New Collection</option>
           <!-- Add options dynamically in your JavaScript if needed -->
         </select>
 
-        <!-- New Collection Title field, hidden initially -->
-        <div id="new-collection-title-container" style="display:none;">
-          <label for="new-collection-title">Collection Title</label>
-          <input
-            type="text"
-            id="new-collection-title"
-            name="new-collection-title"
-            placeholder="Enter Collection Title"
-          />
-        </div>
-
-        <label for="title">Title</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value="{{work.title}}"
-          required
-        />
-
         <label for="content">Content</label>
-        <textarea
-          id="content"
-          name="content"
-          rows="10"
-          required
-        >{{work.content}}</textarea>
+        <textarea id="content" name="content" rows="10" required>{{work.content}}</textarea>
 
         <div class="form-buttons">
           <button id="save-button" type="button">Save</button>
           <button id="post-button" type="submit">Post</button>
           <button id="delete-button" type="button">
-            <i class="fa-solid fa-trash-can"></i>
-            Delete
+            <i class="fa-solid fa-trash-can"></i> Delete
           </button>
         </div>
       </form>
