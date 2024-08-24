@@ -64,7 +64,14 @@ router.get("/profile", requireLogin, async (req, res) => {
 router.get("/discover", requireLogin, async (req, res) => {
   try {
     const works = await WrittenWork.findAll({
-      include: [{ model: User, attributes: ["username"] }],
+      include: [
+        { model: User, attributes: ["username"] },
+        {
+          model: Comment,
+          include: [{ model: User, attributes: ["username"] }],
+          order: [["createdAt", "DESC"]],
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
 
