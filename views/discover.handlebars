@@ -2,9 +2,9 @@
   <div class="discover-container">
     {{#each works}}
       <div class="post-box">
-        <div class="post-title">
-          <a href="/works/{{this.id}}" class="post-link">{{this.title}}</a>
-        </div>
+        <h3 class="post-title">
+          <a href="/story?id={{this.id}}" class="post-link">{{this.title}}</a>
+        </h3>
         <div class="post-metadata">
           <p class="post-author">By: {{this.user.username}}</p>
           <p class="post-date">{{format_date this.createdAt}}</p>
