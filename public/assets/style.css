@@ -243,6 +243,18 @@ form label {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
 }
 
+#dashboard #quote {
+  color: var(--redvariable);
+  font-size: 32px;
+  font-style: italic;
+  text-align: center;
+  margin-top: 20px; /* Space between button and quote container */
+  padding: 10px;
+  background-color: var(--grayvariable);
+  border-radius: 5px; /* Optional: Add rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+}
+
 #dashboard .continue-reading,
 #dashboard .continue-writing {
   width: 37.5%; /* Each takes up 37.5% of the body width (half of 75%) */
@@ -262,6 +274,123 @@ form label {
 
 #dashboard .view-more:hover {
   text-decoration: underline; /* Underline on hover */
+}
+
+/*Editor page specific styling*/
+/* Styling for the form and comments section */
+#editor .form-container {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Form styling */
+#editor .form-container .column-1 {
+  flex: 1;
+  background-color: var(--whitevariable);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+#editor .form-container label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#editor #title,
+#editor .form-container select,
+#editor .form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid var(--grayvariable);
+  border-radius: 5px;
+}
+
+#editor .form-container textarea {
+  resize: vertical;
+}
+
+#editor .form-container .form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+#editor .form-container .form-buttons button {
+  background-color: var(--bluevariable);
+  border: none;
+  color: var(--whitevariable);
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+#editor .form-container .form-buttons button:hover {
+  background-color: #035d6a;
+}
+
+#editor .form-container #delete-button {
+  background-color: var(--redvariable);
+}
+
+#editor .form-container #delete-button:hover {
+  background-color: #8a1e23;
+}
+
+#editor .form-container #delete-button i {
+  margin-right: 5px;
+}
+
+/* Comments section styling */
+#editor .comments-section {
+  flex: 1;
+  background-color: var(--whitevariable);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+#editor .comments-section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#editor .comments-section .comment {
+  border-bottom: 1px solid var(--grayvariable);
+  padding: 10px 0;
+}
+
+#editor .comments-section .comment:last-of-type {
+  border-bottom: none;
+}
+
+#editor .comments-section .username {
+  color: var(--blackvariable);
+  font-style: italic;
+}
+
+#editor .comments-section #placeholder {
+  color: var(--grayvariable);
+  text-align: center;
+  margin: 20px 0;
+}
+
+#editor .comments-section .view-more {
+  display: block;
+  text-align: center;
+  color: var(--bluevariable);
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+#editor .comments-section .view-more:hover {
+  text-decoration: underline;
 }
 
 /*Discover*/
@@ -318,7 +447,14 @@ form label {
     border-radius: 4px;
 }
 
-#profile .change-password {
+#profile .form-buttons {
+    display: flex;
+    gap: 10px; /* Space between the Save and Change Password buttons */
+}
+
+#profile .form-buttons .save,
+#profile .form-buttons .change-password,
+#profile .update-bio {
     background-color: var(--bluevariable);
     color: var(--whitevariable);
     border: none;
@@ -327,7 +463,9 @@ form label {
     cursor: pointer;
 }
 
-#profile .change-password:hover {
+#profile .form-buttons .save:hover,
+#profile .form-buttons .change-password:hover,
+#profile .update-bio:hover {
     background-color: var(--redvariable);
 }
 
@@ -349,10 +487,20 @@ form label {
   color: var(--redvariable);
 }
 
+#profile .bio-save-container {
+    display: flex;
+    justify-content: flex-end; /* Align the Save Bio button to the right */
+    margin-top: 10px; /* Add some space above the Save Bio button */
+}
+
+#profile h2 {
+  padding-bottom: 1%;
+}
+
 #profile #bio {
-  padding: 20px;
-  border-radius: 5px;
-  width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
 }
 
 /* Footer Styles */
@@ -394,118 +542,4 @@ footer .footer-row ul li a:hover {
 
 footer .footer-row p {
   margin: 0;
-}
-/* Styling for the form and comments section */
-#dashboard .form-container {
-  display: flex;
-  gap: 20px;
-  padding: 20px;
-}
-
-/* Form styling */
-#dashboard .form-container .column-1 {
-  flex: 1;
-  background-color: var(--whitevariable);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-#dashboard .form-container label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-#dashboard .form-container select,
-#dashboard .form-container textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid var(--grayvariable);
-  border-radius: 5px;
-}
-
-#dashboard .form-container textarea {
-  resize: vertical;
-}
-
-#dashboard .form-container .form-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 15px;
-}
-
-#dashboard .form-container .form-buttons button {
-  background-color: var(--bluevariable);
-  border: none;
-  color: var(--whitevariable);
-  padding: 10px 15px;
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-#dashboard .form-container .form-buttons button:hover {
-  background-color: #035d6a;
-}
-
-#dashboard .form-container #delete-button {
-  background-color: var(--redvariable);
-}
-
-#dashboard .form-container #delete-button:hover {
-  background-color: #8a1e23;
-}
-
-#dashboard .form-container #delete-button i {
-  margin-right: 5px;
-}
-
-/* Comments section styling */
-#dashboard .comments-section {
-  flex: 1;
-  background-color: var(--whitevariable);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-}
-
-#dashboard .comments-section h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-#dashboard .comments-section .comment {
-  border-bottom: 1px solid var(--grayvariable);
-  padding: 10px 0;
-}
-
-#dashboard .comments-section .comment:last-of-type {
-  border-bottom: none;
-}
-
-#dashboard .comments-section .username {
-  color: var(--blackvariable);
-  font-style: italic;
-}
-
-#dashboard .comments-section #placeholder {
-  color: var(--grayvariable);
-  text-align: center;
-  margin: 20px 0;
-}
-
-#dashboard .comments-section .view-more {
-  display: block;
-  text-align: center;
-  color: var(--bluevariable);
-  text-decoration: none;
-  font-weight: bold;
-  margin-top: 20px;
-}
-
-#dashboard .comments-section .view-more:hover {
-  text-decoration: underline;
 }

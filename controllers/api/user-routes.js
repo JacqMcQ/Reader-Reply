@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const { User } = require("../../models");
+const withAuth = require("../../utils/auth");
+const bcrypt = require("bcrypt");
 
 // Utility function to handle errors and responses
 const handleError = (res, err, statusCode = 500) => {
@@ -27,6 +29,42 @@ router.post("/", async (req, res) => {
   } catch (err) {
     handleError(res, err);
   }
+});
+
+// Route to update the user's password
+router.put("/change-password", withAuth, async (req, res) => {
+    try {
+        const userId = req.session.user_id;
+        const { password } = req.body;
+
+        if (!password) {
+            res.status(400).json({ message: "Password is required." });
+            return;
+        }
+
+        // Hash the new password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Update the user's password in the database
+        const updatedUser = await User.update(
+            { password: hashedPassword },
+            {
+                where: {
+                    id: userId,
+                },
+            }
+        );
+
+        if (updatedUser[0] === 0) {
+            res.status(404).json({ message: "User not found." });
+            return;
+        }
+
+        res.status(200).json({ message: "Password updated successfully." });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Failed to update password." });
+    }
 });
 
 // LOGIN
