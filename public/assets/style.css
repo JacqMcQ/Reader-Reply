@@ -393,7 +393,7 @@ form label {
   text-decoration: underline;
 }
 
-/*Discover*/
+/* Discover */
 #discover {
   padding: 20px;
   background-color: var(--whitevariable);
@@ -410,6 +410,14 @@ form label {
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex; /* Use flexbox to arrange title and metadata */
+  justify-content: space-between; /* Space between title and metadata */
+  align-items: center; /* Center vertically */
+}
+
+/* Title styling */
+#discover .post-title {
+  flex: 1; /* Title takes up remaining space */
 }
 
 #discover .post-title a {
@@ -420,12 +428,19 @@ form label {
 
 #discover .post-title a:hover {
   text-decoration: underline;
+  color: var(--redvariable);
+}
+
+/* Author and Date styling */
+#discover .post-metadata {
+  display: flex; /* Flexbox to arrange author and date inline */
+  gap: 10px; /* Space between author and date */
+  text-align: right; /* Align text to the right */
 }
 
 #discover .post-author, .post-date {
   font-size: 14px;
   color: var(--blackvariable);
-  margin-top: 5px;
 }
 
 #discover .post-author {
@@ -435,7 +450,6 @@ form label {
 #discover .post-date {
   font-style: italic;
 }
-
 
 /* Profile specific styles */
 #profile {
