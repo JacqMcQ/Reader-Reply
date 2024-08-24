@@ -19,7 +19,12 @@
       <div id="comment-form">
         <h4>Leave a Comment</h4>
         <form class="new-comment-form" data-work-id="{{work.id}}">
-          <textarea class="comment-content" name="comment-content" rows="4" required></textarea>
+          <textarea
+            class="comment-content"
+            name="comment-content"
+            rows="4"
+            required
+          ></textarea>
           <button type="submit">Post Comment</button>
         </form>
       </div>
@@ -31,7 +36,10 @@
           {{#each work.comments}}
             <div class="comment">
               <p>{{this.content}}</p>
-              <p class="username">- {{this.user.username}} on {{format_date this.createdAt}}</p>
+              <p class="username">-
+                {{this.user.username}}
+                on
+                {{format_date this.createdAt}}</p>
             </div>
           {{/each}}
         {{else}}
@@ -42,12 +50,17 @@
       <!-- Multiple Works View -->
       {{#each works}}
         <div class="post-box">
-          <h3 class="post-title">
-            <a href="/story?id={{this.id}}" class="post-link">{{this.title}}</a>
-          </h3>
-          <div class="post-metadata">
-            <p class="post-author">By: {{this.user.username}}</p>
-            <p class="post-date">{{format_date this.createdAt}}</p>
+          <div class="post-header">
+            <h3 class="post-title">
+              <a
+                href="/story?id={{this.id}}"
+                class="post-link"
+              >{{this.title}}</a>
+            </h3>
+            <div class="post-metadata">
+              <p class="post-author">By: {{this.user.username}}</p>
+              <p class="post-date">{{format_date this.createdAt}}</p>
+            </div>
           </div>
         </div>
       {{/each}}

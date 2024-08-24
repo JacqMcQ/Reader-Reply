@@ -402,7 +402,7 @@ form label {
 #discover .discover-container {
   display: flex;
   flex-direction: column;
-  gap: 40px; /* Gap between each post box */
+  gap: 40px;
 }
 
 #discover .post-box {
