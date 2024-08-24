@@ -243,6 +243,18 @@ form label {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
 }
 
+#dashboard #quote {
+  color: var(--redvariable);
+  font-size: 32px;
+  font-style: italic;
+  text-align: center;
+  margin-top: 20px; /* Space between button and quote container */
+  padding: 10px;
+  background-color: var(--grayvariable);
+  border-radius: 5px; /* Optional: Add rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+}
+
 #dashboard .continue-reading,
 #dashboard .continue-writing {
   width: 37.5%; /* Each takes up 37.5% of the body width (half of 75%) */
