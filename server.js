@@ -22,7 +22,7 @@ const sess = {
     secure: process.env.NODE_ENV === "production", // HTTPS for production
   },
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: new SequelizeStore({ db: sequelize }),
 };
 

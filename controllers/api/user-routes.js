@@ -145,15 +145,14 @@ router.put("/change-password", withAuth, async (req, res) => {
 });
 
 // LOGIN
+// LOGIN (no auth needed)
 router.post("/login", async (req, res) => {
   try {
     const { username, password } = req.body;
     const dbUserData = await User.findOne({ where: { username } });
 
     if (!dbUserData || !dbUserData.checkPassword(password)) {
-      return res
-        .status(400)
-        .json({ message: "Incorrect username or password. Please try again!" });
+      return res.status(400).json({ message: "Incorrect username or password." });
     }
 
     saveSession(req, dbUserData, res, "You are now logged in.");
@@ -161,7 +160,6 @@ router.post("/login", async (req, res) => {
     handleError(res, err);
   }
 });
-
 // LOGOUT
 router.get("/logout", (req, res) => {
   if (req.session.loggedIn) {
