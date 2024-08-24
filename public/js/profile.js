@@ -1,30 +1,71 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const changePasswordButton = document.querySelector(".change-password");
+document.addEventListener("DOMContentLoaded", function () {
+  const saveBioBtn = document.getElementById("saveBioBtn");
+  const bioTextarea = document.getElementById("bio");
+  const bioMessage = document.getElementById("bioMessage");
 
-  changePasswordButton.addEventListener("click", async () => {
-    const newPassword = prompt("Enter your new password:");
+  const saveUserInfoBtn = document.querySelector(".save");
+  const usernameInput = document.getElementById("username");
+  const firstNameInput = document.getElementById("first-name");
+  const lastNameInput = document.getElementById("last-name");
+  const emailInput = document.getElementById("email");
+  const userInfoMessage = document.getElementById("userInfoMessage");
 
-    if (newPassword && newPassword.trim().length > 0) {
-      try {
-        const response = await fetch("/api/users/change-password", {
-          method: "PUT",
-          body: JSON.stringify({ password: newPassword }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+  saveBioBtn.onclick = function () {
+    const bio = bioTextarea.value.trim();
 
-        if (response.ok) {
-          alert("Password changed successfully.");
-        } else {
-          alert("Failed to change password.");
-        }
-      } catch (err) {
-        console.error("Error:", err);
-        alert("An error occurred while changing the password.");
-      }
-    } else {
-      alert("Password cannot be empty.");
+    if (bio.length > 500) {
+      alert("Bio cannot exceed 500 characters.");
+      return;
     }
-  });
+
+    fetch("/api/users/save-bio", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ bio }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          bioMessage.textContent = "Bio Saved";
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  saveUserInfoBtn.onclick = function () {
+    const updatedInfo = {
+      username: usernameInput.value.trim(),
+      firstName: firstNameInput.value.trim(),
+      lastName: lastNameInput.value.trim(),
+      email: emailInput.value.trim(),
+    };
+
+    fetch("/api/users/update-info", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedInfo),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          userInfoMessage.textContent =
+            "User information updated successfully!";
+        } else {
+          userInfoMessage.textContent = "Error: " + data.message;
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        userInfoMessage.textContent =
+          "An error occurred while updating information.";
+      });
+  };
 });

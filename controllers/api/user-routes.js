@@ -31,40 +31,117 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Update user info on profile
+router.put("/update-info", withAuth, async (req, res) => {
+  try {
+    const userId = req.session.user_id;
+    const { username, firstName, lastName, email } = req.body;
+
+    const updatedUser = await User.update(
+      { username, firstName, lastName, email },
+      {
+        where: {
+          id: userId,
+        },
+      }
+    );
+
+    if (updatedUser[0] === 0) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "User information updated successfully.",
+      });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update user information." });
+  }
+});
+
+// update bio on profile
+router.put("/save-bio", withAuth, async (req, res) => {
+  try {
+    const userId = req.session.user_id;
+    const { bio } = req.body;
+
+    if (bio.length > 500) {
+      return res
+        .status(400)
+        .json({ message: "Bio cannot exceed 500 characters." });
+    }
+
+    const updatedUser = await User.update(
+      { bio },
+      {
+        where: {
+          id: userId,
+        },
+      }
+    );
+
+    if (updatedUser[0] === 0) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res
+      .status(200)
+      .json({ success: true, message: "Bio updated successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update bio." });
+  }
+});
+
 // Route to update the user's password
 router.put("/change-password", withAuth, async (req, res) => {
-    try {
-        const userId = req.session.user_id;
-        const { password } = req.body;
+  try {
+    const userId = req.session.user_id;
+    const { currentPassword, newPassword } = req.body;
 
-        if (!password) {
-            res.status(400).json({ message: "Password is required." });
-            return;
-        }
-
-        // Hash the new password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Update the user's password in the database
-        const updatedUser = await User.update(
-            { password: hashedPassword },
-            {
-                where: {
-                    id: userId,
-                },
-            }
-        );
-
-        if (updatedUser[0] === 0) {
-            res.status(404).json({ message: "User not found." });
-            return;
-        }
-
-        res.status(200).json({ message: "Password updated successfully." });
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: "Failed to update password." });
+    if (!currentPassword || !newPassword) {
+      return res
+        .status(400)
+        .json({ message: "Both current and new passwords are required." });
     }
+
+    // Find the user by ID
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Check if the current password matches
+    const validPassword = await bcrypt.compare(currentPassword, user.password);
+
+    if (!validPassword) {
+      return res.status(400).json({ message: "Incorrect current password." });
+    }
+
+    // Hash the new password
+    const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update the user's password in the database
+    await User.update(
+      { password: hashedNewPassword },
+      {
+        where: {
+          id: userId,
+        },
+      }
+    );
+
+    res
+      .status(200)
+      .json({ success: true, message: "Password updated successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update password." });
+  }
 });
 
 // LOGIN
