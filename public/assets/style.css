@@ -394,6 +394,48 @@ form label {
 }
 
 /*Discover*/
+#discover {
+  padding: 20px;
+  background-color: var(--whitevariable);
+}
+
+#discover .discover-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#discover .post-box {
+  background-color: var(--grayvariable);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#discover .post-title a {
+  font-size: 24px;
+  color: var(--bluevariable);
+  text-decoration: none;
+}
+
+#discover .post-title a:hover {
+  text-decoration: underline;
+}
+
+#discover .post-author, .post-date {
+  font-size: 14px;
+  color: var(--blackvariable);
+  margin-top: 5px;
+}
+
+#discover .post-author {
+  font-weight: bold;
+}
+
+#discover .post-date {
+  font-style: italic;
+}
+
 
 /* Profile specific styles */
 #profile {
