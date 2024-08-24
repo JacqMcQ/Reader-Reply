@@ -3,6 +3,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const bioTextarea = document.getElementById("bio");
   const bioMessage = document.getElementById("bioMessage");
 
+  const saveUserInfoBtn = document.querySelector(".save");
+  const usernameInput = document.getElementById("username");
+  const firstNameInput = document.getElementById("first-name");
+  const lastNameInput = document.getElementById("last-name");
+  const emailInput = document.getElementById("email");
+  const userInfoMessage = document.getElementById("userInfoMessage");
+
   saveBioBtn.onclick = function () {
     const bio = bioTextarea.value.trim();
 
@@ -28,6 +35,37 @@ document.addEventListener("DOMContentLoaded", function () {
       })
       .catch((error) => {
         console.error("Error:", error);
+      });
+  };
+
+  saveUserInfoBtn.onclick = function () {
+    const updatedInfo = {
+      username: usernameInput.value.trim(),
+      firstName: firstNameInput.value.trim(),
+      lastName: lastNameInput.value.trim(),
+      email: emailInput.value.trim(),
+    };
+
+    fetch("/api/users/update-info", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedInfo),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          userInfoMessage.textContent =
+            "User information updated successfully!";
+        } else {
+          userInfoMessage.textContent = "Error: " + data.message;
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        userInfoMessage.textContent =
+          "An error occurred while updating information.";
       });
   };
 });

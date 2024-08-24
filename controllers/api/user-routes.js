@@ -31,6 +31,38 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Update user info on profile
+router.put("/update-info", withAuth, async (req, res) => {
+  try {
+    const userId = req.session.user_id;
+    const { username, firstName, lastName, email } = req.body;
+
+    const updatedUser = await User.update(
+      { username, firstName, lastName, email },
+      {
+        where: {
+          id: userId,
+        },
+      }
+    );
+
+    if (updatedUser[0] === 0) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res
+      .status(200)
+      .json({
+        success: true,
+        message: "User information updated successfully.",
+      });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update user information." });
+  }
+});
+
+// update bio on profile
 router.put("/save-bio", withAuth, async (req, res) => {
   try {
     const userId = req.session.user_id;
