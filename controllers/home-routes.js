@@ -1,20 +1,8 @@
 const router = require("express").Router();
 const { User, WrittenWork, Comment } = require("../models");
+const withAuth = require("../utils/auth");
 
-// Helper function to check if user is logged in
-function requireLogin(req, res, next) {
-  if (!req.session.loggedIn) {
-    return res.redirect("/login");
-  }
-  if (!req.session.user_id) {
-    return res
-      .status(400)
-      .json({ error: "User ID is not defined in session." });
-  }
-  next();
-}
-
-// Render homepage
+// Render homepage (no auth required)
 router.get("/", (req, res) => {
   try {
     res.render("homepage", {
@@ -27,8 +15,8 @@ router.get("/", (req, res) => {
   }
 });
 
-// Render dashboard
-router.get("/dashboard", requireLogin, async (req, res) => {
+// Render dashboard (requires auth)
+router.get("/dashboard", withAuth, async (req, res) => {
   try {
     const writtenWorks = await WrittenWork.findAll({
       where: { userId: req.session.user_id },
@@ -43,8 +31,8 @@ router.get("/dashboard", requireLogin, async (req, res) => {
   }
 });
 
-// Render profile
-router.get("/profile", requireLogin, async (req, res) => {
+// Render profile (requires auth)
+router.get("/profile", withAuth, async (req, res) => {
   try {
     const user = await User.findByPk(req.session.user_id);
     if (!user) {
@@ -60,8 +48,8 @@ router.get("/profile", requireLogin, async (req, res) => {
   }
 });
 
-// Render discover page
-router.get("/discover", requireLogin, async (req, res) => {
+// Render discover page (requires auth)
+router.get("/discover", withAuth, async (req, res) => {
   try {
     const works = await WrittenWork.findAll({
       include: [
@@ -85,8 +73,8 @@ router.get("/discover", requireLogin, async (req, res) => {
   }
 });
 
-// Render editor page
-router.get("/editor", requireLogin, async (req, res) => {
+// Render editor page (requires auth)
+router.get("/editor", withAuth, async (req, res) => {
   try {
     const { id: workId } = req.query;
     let workData = {};
@@ -108,8 +96,8 @@ router.get("/editor", requireLogin, async (req, res) => {
   }
 });
 
-//Render story page
-router.get("/story", requireLogin, async (req, res) => {
+// Render story page (requires auth)
+router.get("/story", withAuth, async (req, res) => {
   try {
     const { id: workId } = req.query;
     let workData = {};
@@ -141,12 +129,12 @@ router.get("/story", requireLogin, async (req, res) => {
       work: workData,
     });
   } catch (err) {
-    console.error("Error in /story route:", err); // Log the actual error
+    console.error(err);
     res.status(500).json({ error: "Failed to retrieve work." });
   }
 });
 
-// Render signup page
+// Render signup (no auth required)
 router.get("/signup", (req, res) => {
   if (req.session.loggedIn) {
     return res.redirect("/");
@@ -154,7 +142,7 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-// Render login page
+// Render login (no auth required)
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
     return res.redirect("/");
@@ -162,18 +150,14 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-// Handle logout
-router.get("/logout", (req, res) => {
-  if (req.session.loggedIn) {
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ error: "Failed to log out." });
-      }
-      res.redirect("/");
-    });
-  } else {
-    res.redirect("/login"); // Redirect to login page if not logged in
-  }
+// Logout (requires auth)
+router.get("/logout", withAuth, (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to log out." });
+    }
+    res.redirect("/");
+  });
 });
 
 module.exports = router;
