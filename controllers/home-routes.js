@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { User, WrittenWork } = require("../models");
+const { User, WrittenWork, Comment } = require("../models");
 
 // Helper function to check if user is logged in
 function requireLogin(req, res, next) {
@@ -61,9 +61,17 @@ router.get("/profile", requireLogin, async (req, res) => {
 });
 
 // Render discover page
-router.get("/discover", requireLogin, (req, res) => {
+router.get("/discover", requireLogin, async (req, res) => {
   try {
-    res.render("discover", { loggedIn: req.session.loggedIn });
+    const works = await WrittenWork.findAll({
+      include: [{ model: User, attributes: ["username"] }],
+      order: [["createdAt", "DESC"]],
+    });
+
+    res.render("discover", {
+      loggedIn: req.session.loggedIn,
+      works: works.map((work) => work.get({ plain: true })),
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
@@ -89,6 +97,44 @@ router.get("/editor", requireLogin, async (req, res) => {
     });
   } catch (err) {
     console.error(err);
+    res.status(500).json({ error: "Failed to retrieve work." });
+  }
+});
+
+//Render story page
+router.get("/story", requireLogin, async (req, res) => {
+  try {
+    const { id: workId } = req.query;
+    let workData = {};
+
+    if (workId) {
+      const work = await WrittenWork.findOne({
+        where: { id: workId },
+        include: [
+          { model: WrittenWork, as: "OriginalWork", attributes: ["title"] },
+          { model: User, attributes: ["username"] },
+          {
+            model: Comment,
+            include: [{ model: User, attributes: ["username"] }],
+          },
+        ],
+      });
+
+      if (work) {
+        workData = work.get({ plain: true });
+      } else {
+        return res.status(404).json({ error: "Work not found." });
+      }
+    } else {
+      return res.status(400).json({ error: "No work ID provided." });
+    }
+
+    res.render("story", {
+      loggedIn: req.session.loggedIn,
+      work: workData,
+    });
+  } catch (err) {
+    console.error("Error in /story route:", err); // Log the actual error
     res.status(500).json({ error: "Failed to retrieve work." });
   }
 });

@@ -393,7 +393,157 @@ form label {
   text-decoration: underline;
 }
 
-/*Discover*/
+/* Discover */
+#discover {
+  padding: 20px;
+  background-color: var(--whitevariable);
+}
+
+#discover .discover-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#discover .post-box {
+  background-color: var(--grayvariable);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex; /* Use flexbox to arrange title and metadata */
+  justify-content: space-between; /* Space between title and metadata */
+  align-items: center; /* Center vertically */
+}
+
+/* Title styling */
+#discover .post-title {
+  flex: 1; /* Title takes up remaining space */
+}
+
+#discover .post-title a {
+  font-size: 24px;
+  color: var(--bluevariable);
+  text-decoration: none;
+}
+
+#discover .post-title a:hover {
+  text-decoration: underline;
+  color: var(--redvariable);
+}
+
+/* Author and Date styling */
+#discover .post-metadata {
+  display: flex; /* Flexbox to arrange author and date inline */
+  gap: 10px; /* Space between author and date */
+  text-align: right; /* Align text to the right */
+}
+
+#discover .post-author, .post-date {
+  font-size: 14px;
+  color: var(--blackvariable);
+}
+
+#discover .post-author {
+  font-weight: bold;
+}
+
+#discover .post-date {
+  font-style: italic;
+}
+
+/*Story specific styles*/
+/* Story Page Styles */
+#story {
+  padding: 20px;
+  margin-left: 1in;
+  margin-right: 1in;
+  background-color: var(--whitevariable);
+}
+
+#story .story-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center; /* Center content horizontally */
+}
+
+#story h1 {
+  text-align: center;
+  font-size: 32px;
+  color: var(--blackvariable);
+  margin-bottom: 20px;
+}
+
+#story p {
+  width: 100%;
+  max-width: 800px; /* Limit the width of the content for better readability */
+  text-align: left; /* Align the content to the left */
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--blackvariable);
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--grayvariable);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#story .comments-section {
+  width: 100%;
+  max-width: 800px;
+  margin-top: 40px;
+  padding: 20px;
+  background-color: var(--grayvariable);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#story .comments-section h2 {
+  text-align: left;
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: var(--blackvariable);
+}
+
+#story .comments-section .comment {
+  border-bottom: 1px solid var(--blackvariable);
+  padding: 10px 0;
+  color: var(--blackvariable);
+}
+
+#story .comments-section .comment:last-of-type {
+  border-bottom: none;
+}
+
+#story .comments-section .username {
+  font-weight: bold;
+  color: var(--blackvariable);
+}
+
+#story .comments-section #comment-form {
+  margin-top: 20px;
+}
+
+#story #comment-content {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--blackvariable);
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+#story #comment-form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--bluevariable);
+  color: var(--whitevariable);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#story #comment-form button:hover {
+  background-color: #035d6a;
+}
 
 /* Profile specific styles */
 #profile {

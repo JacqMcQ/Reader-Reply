@@ -22,4 +22,12 @@ WrittenWork.belongsTo(WrittenWork, {
   as: "OriginalWork",
 });
 
-module.exports = { User, WrittenWork };
+User.hasMany(WrittenWork, { foreignKey: "userId", onDelete: "CASCADE" });
+WrittenWork.belongsTo(User, { foreignKey: "userId" });
+
+WrittenWork.hasMany(Comment, { foreignKey: "workId", onDelete: "CASCADE" });
+Comment.belongsTo(WrittenWork, { foreignKey: "workId" });
+
+Comment.belongsTo(User, { foreignKey: "userId" });
+
+module.exports = { User, WrittenWork, Comment };
