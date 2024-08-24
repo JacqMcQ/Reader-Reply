@@ -2,13 +2,45 @@
   <div class="discover-container">
     {{#each works}}
       <div class="post-box">
-        <h3 class="post-title">
-          <a href="/story?id={{this.id}}" class="post-link">{{this.title}}</a>
-        </h3>
-        <div class="post-metadata">
-          <p class="post-author">By: {{this.user.username}}</p>
-          <p class="post-date">{{format_date this.createdAt}}</p>
+        <!-- Title and Metadata Container -->
+        <div class="post-header">
+          <h3 class="post-title">
+            <a href="/story?id={{this.id}}" class="post-link">{{this.title}}</a>
+          </h3>
+          <div class="post-metadata">
+            <p class="post-author">By: {{this.user.username}}</p>
+            <p class="post-date">{{format_date this.createdAt}}</p>
+          </div>
         </div>
+        
+        <!-- Post Content -->
+        <div class="post-content">
+          {{this.content}}
+        </div>
+      </div>
+
+      <!-- Add Comment Form Below Post Box -->
+      <div id="comment-form">
+        <h4>Leave a Comment</h4>
+        <form class="new-comment-form" data-work-id="{{this.id}}">
+          <textarea class="comment-content" name="comment-content" rows="4" required></textarea>
+          <button type="submit">Post Comment</button>
+        </form>
+      </div>
+
+      <!-- Comments Section Below Comment Form -->
+      <div class="comments-section">
+        <h4>Comments</h4>
+        {{#if this.comments.length}}
+          {{#each this.comments}}
+            <div class="comment">
+              <p>{{this.content}}</p>
+              <p class="username">- {{this.user.username}} on {{format_date this.createdAt}}</p>
+            </div>
+          {{/each}}
+        {{else}}
+          <p>No comments yet. Be the first to comment!</p>
+        {{/if}}
       </div>
     {{/each}}
   </div>

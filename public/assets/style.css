@@ -402,7 +402,7 @@ form label {
 #discover .discover-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 40px; /* Gap between each post box */
 }
 
 #discover .post-box {
@@ -410,14 +410,19 @@ form label {
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex; /* Use flexbox to arrange title and metadata */
-  justify-content: space-between; /* Space between title and metadata */
-  align-items: center; /* Center vertically */
+}
+
+/* Post Header: Title and Metadata */
+#discover .post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 /* Title styling */
 #discover .post-title {
-  flex: 1; /* Title takes up remaining space */
+  margin: 0;
 }
 
 #discover .post-title a {
@@ -433,9 +438,9 @@ form label {
 
 /* Author and Date styling */
 #discover .post-metadata {
-  display: flex; /* Flexbox to arrange author and date inline */
-  gap: 10px; /* Space between author and date */
-  text-align: right; /* Align text to the right */
+  display: flex;
+  gap: 10px;
+  text-align: right;
 }
 
 #discover .post-author, .post-date {
@@ -450,6 +455,90 @@ form label {
 #discover .post-date {
   font-style: italic;
 }
+
+/* Post Content */
+#discover .post-content {
+  margin-top: 10px;
+  font-size: 16px;
+  color: var(--blackvariable);
+  line-height: 1.6;
+}
+
+/* Add Comment Form */
+#discover #comment-form {
+  margin: 20px auto; /* Center the form horizontally with auto margins */
+  padding: 10px;
+  background-color: var(--grayvariable);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column; /* Stack the text box and button vertically */
+  width: 80%; /* Adjust width as needed (e.g., 50%, 60%) */
+  max-width: 600px; /* Optional: set a maximum width to prevent it from being too wide */
+}
+
+#discover #comment-form h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--blackvariable);
+  text-align: center; /* Center the heading text */
+}
+
+#discover #comment-content {
+  width: auto;
+  padding: 10px;
+  border: 1px solid var(--blackvariable);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-sizing: border-box; /* Include padding and border in the width calculation */
+}
+
+#discover #comment-form button {
+  width: 100%; /* Make the button span the full width of the form */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--bluevariable);
+  color: var(--whitevariable);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px; /* Ensure there's space between the text box and button */
+}
+
+#discover #comment-form button:hover {
+  background-color: #035d6a;
+}
+
+/* Comments Section */
+#discover .comments-section {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: var(--whitevariable);
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#discover .comments-section h4 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: var(--blackvariable);
+}
+
+#discover .comments-section .comment {
+  border-bottom: 1px solid var(--grayvariable);
+  padding: 10px 0;
+  color: var(--blackvariable);
+}
+
+#discover .comments-section .comment:last-of-type {
+  border-bottom: none;
+}
+
+#discover .comments-section .username {
+  font-style: italic;
+  color: var(--blackvariable);
+}
+
 
 /*Story specific styles*/
 /* Story Page Styles */
