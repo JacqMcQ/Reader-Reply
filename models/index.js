@@ -1,6 +1,6 @@
 const User = require("./User");
 const WrittenWork = require("./WrittenWork");
-const Comment = require("./Comment");
+const Comment = require("./Comment"
 
 // Define relationships
 User.hasMany(WrittenWork, {
