@@ -90,6 +90,8 @@ THEN they should be logged out, their session should end, and they should be red
 
 *   sequelize. (n.d.). npm. Retrieved August 10, 2024, from https://www.npmjs.com/package/sequelize
 
+*   W3Schools. (n.d.). AJAX Introduction. Retrieved Augus 23, 2024, from https://www.w3schools.com/js/js_ajax_intro.asp
+
 *   ZenQuotes. (n.d.). ZenQuotes API Documentation. ZenQuotes. Retrieved August 22, 2024, from https://docs.zenquotes.io/zenquotes-documentation/#api-structure
 
 ## License
