@@ -2,6 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("editor-form");
   const workId = document.getElementById("work-id")?.value;
   const existingWorksDropdown = document.getElementById("existing-works");
+  const newCollectionTitleContainer = document.getElementById(
+    "new-collection-title-container"
+  );
+  const newCollectionTitleInput = document.getElementById(
+    "new-collection-title"
+  );
 
   // Function to load existing works and populate dropdown
   const loadWorks = async () => {
@@ -10,16 +16,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const works = await response.json();
 
       if (existingWorksDropdown) {
-        existingWorksDropdown.innerHTML = `
-          <option value="">Select an existing work (Optional)</option>
-          ${works
-            .map(
-              (work) => `
-              <option value="${work.id}">${work.title}</option>
-            `
-            )
-            .join("")}
-        `;
+        existingWorksDropdown.innerHTML += works
+          .map(
+            (work) => `
+            <option value="${work.id}">${work.title}</option>
+          `
+          )
+          .join("");
       }
     } catch (error) {
       console.error("Error loading works:", error);
@@ -28,15 +31,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadWorks();
 
+  // Show or hide the new collection title input based on dropdown selection
+  existingWorksDropdown.addEventListener("change", (event) => {
+    if (event.target.value === "new") {
+      newCollectionTitleContainer.style.display = "block";
+    } else {
+      newCollectionTitleContainer.style.display = "none";
+    }
+  });
+
   // Function to save or update a work
   const saveOrUpdateWork = async (event) => {
     event.preventDefault();
 
     const title = document.getElementById("title").value.trim();
     const content = document.getElementById("content").value.trim();
-    const existingWork = document
-      .getElementById("existing-works")
-      ?.value.trim();
+    const existingWork = existingWorksDropdown.value;
+    const newCollectionTitle = newCollectionTitleInput.value.trim();
 
     const method = workId ? "PUT" : "POST";
     const url = workId ? `/api/writtenWorks/${workId}` : "/api/writtenWorks";
@@ -44,7 +55,12 @@ document.addEventListener("DOMContentLoaded", () => {
     try {
       const response = await fetch(url, {
         method,
-        body: JSON.stringify({ title, content, existingWork }),
+        body: JSON.stringify({
+          title,
+          content,
+          existingWork,
+          newCollectionTitle,
+        }),
         headers: {
           "Content-Type": "application/json",
         },

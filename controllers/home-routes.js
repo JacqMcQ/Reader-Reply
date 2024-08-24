@@ -32,13 +32,14 @@ router.get("/dashboard", requireLogin, async (req, res) => {
   try {
     const writtenWorks = await WrittenWork.findAll({
       where: { userId: req.session.user_id },
+      attributes: ["id", "title", "collectionTitle"],
     });
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
       writtenWorks: writtenWorks.map((work) => work.get({ plain: true })),
     });
   } catch (err) {
-    console.error(err);
+    console.error("Error in /dashboard route:", err);
     res.status(500).json({ error: err.message });
   }
 });

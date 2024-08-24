@@ -263,6 +263,14 @@ form label {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+#dashboard .collection-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--bluevariable);
+  margin-top: 5px;
+}
+
 #dashboard .view-more {
   display: block;
   margin-top: auto; /* Push the link to the bottom */
@@ -300,6 +308,7 @@ form label {
 }
 
 #editor #title,
+#editor #new-collection-title,
 #editor .form-container select,
 #editor .form-container textarea {
   width: 100%;
