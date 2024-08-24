@@ -1,13 +1,19 @@
-  <link rel="stylesheet" href="/assets/style.css"> 
+<link rel="stylesheet" href="/assets/style.css" />
 
 <div id="editor">
   <div class="form-container">
     <div class="column-1">
-       <form id="editor-form">
+      <form id="editor-form">
         <input type="hidden" id="work-id" value="{{work.id}}" />
 
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" value="{{work.title}}" required />
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value="{{work.title}}"
+          required
+        />
 
         <label for="existing-works">Add to Existing Works</label>
         <select id="existing-works" name="existing-works">
@@ -16,13 +22,19 @@
         </select>
 
         <label for="content">Content</label>
-        <textarea id="content" name="content" rows="10" required>{{work.content}}</textarea>
+        <textarea
+          id="content"
+          name="content"
+          rows="10"
+          required
+        >{{work.content}}</textarea>
 
         <div class="form-buttons">
           <button id="save-button" type="button">Save</button>
           <button id="post-button" type="submit">Post</button>
           <button id="delete-button" type="button">
-            <i class="fa-solid fa-trash-can"></i> Delete
+            <i class="fa-solid fa-trash-can"></i>
+            Delete
           </button>
         </div>
       </form>
@@ -30,18 +42,21 @@
     <div class="column-2">
       <div class="comments-section">
         <h2>Comments</h2>
-        <p id="placeholder">Comments will display here</p>
-        <div class="comment">
-          <p>Great work on this chapter!</p>
-          <p class="username">- JohnDoe</p>
-        </div>
-        <div class="comment">
-          <p>Really enjoyed reading this. Looking forward to more!</p>
-          <p class="username">- JaneSmith</p>
-        </div>
-        <a href="#view-more" class="view-more">View More</a>
+        {{#if comments.length}}
+          {{#each comments}}
+            <div class="comment">
+              <p>{{this.content}}</p>
+              <p class="username">-
+                {{this.user.username}}
+                on
+                {{format_date this.created_at}}</p>
+            </div>
+          {{/each}}
+        {{else}}
+          <p>No comments yet.</p>
+        {{/if}}
       </div>
     </div>
   </div>
 </div>
-<script src="/js/editor.js"></script> 
+<script src="/js/editor.js"></script>
