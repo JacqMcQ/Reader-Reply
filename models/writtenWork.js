@@ -40,7 +40,7 @@ WrittenWork.init(
     modelName: "writtenWork",
     freezeTableName: true,
     underscored: true,
-    timestamps: false,
+    timestamps: true,
   }
 );
 

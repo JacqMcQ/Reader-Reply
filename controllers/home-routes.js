@@ -61,9 +61,17 @@ router.get("/profile", requireLogin, async (req, res) => {
 });
 
 // Render discover page
-router.get("/discover", requireLogin, (req, res) => {
+router.get("/discover", requireLogin, async (req, res) => {
   try {
-    res.render("discover", { loggedIn: req.session.loggedIn });
+    const works = await WrittenWork.findAll({
+      include: [{ model: User, attributes: ["username"] }],
+      order: [["createdAt", "DESC"]],
+    });
+
+    res.render("discover", {
+      loggedIn: req.session.loggedIn,
+      works: works.map((work) => work.get({ plain: true })),
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json(err);

@@ -1,10 +1,14 @@
 <div id="discover">
-    <class="discover-container">
-  <div class="post-box">
-    <h3 class="post-title">
-      <a href="/post1.html" class="post-link">Post Title 1</a>
-    </h3>
-    <p class="post-author">by Author Name</p>
-    <p class="post-summary">Summary of the work goes here...</p>
+  <div class="discover-container">
+    {{#each works}}
+      <div class="post-box">
+        <h3 class="post-title">
+          <a href="/works/{{this.id}}" class="post-link">{{this.title}}</a>
+        </h3>
+        <p class="post-author">by {{this.User.username}}</p>
+        <p class="post-summary">{{this.content}}</p>
+        <p class="post-date">{{format_date this.createdAt}}</p>
+      </div>
+    {{/each}}
   </div>
 </div>
