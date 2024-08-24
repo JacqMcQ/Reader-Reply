@@ -45,24 +45,28 @@ app.use((err, req, res, next) => {
 
 // Use routes
 app.use(routes);
+sequelize
+  .authenticate()
+  .then(() => console.log("Database connected..."))
+  .catch((err) => console.error("Unable to connect to the database:", err));
 
-// Sync database and start server
-sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () =>
-    console.log(`Server listening at http://localhost:${PORT}`)
-  );
-});
-
-const { User, WrittenWork } = require("./models");
-
-const syncModels = async () => {
+const syncModelsAndStartServer = async () => {
   try {
-    await User.sync({ alter: true }); // Use alter to apply changes
-    await WrittenWork.sync({ alter: true });
+    // Sync models with { alter: true } to apply any schema changes without dropping tables
+    await sequelize.sync({ alter: true, logging: console.log }); // Sync all models at once
+
+    // Alternatively, you can sync individual models:
+    // await User.sync({ alter: true });
+    // await WrittenWork.sync({ alter: true });
+
     console.log("Models synced successfully");
+
+    // Start the server after models are synced
+    app.listen(PORT, () =>
+      console.log(`Server listening at http://localhost:${PORT}`)
+    );
   } catch (err) {
     console.error("Error syncing models:", err);
   }
 };
-
-syncModels();
+syncModelsAndStartServer();
