@@ -22,11 +22,14 @@ WrittenWork.belongsTo(WrittenWork, {
   as: "OriginalWork",
 });
 
-User.hasMany(WrittenWork, { foreignKey: "userId", onDelete: "CASCADE" });
-WrittenWork.belongsTo(User, { foreignKey: "userId" });
+WrittenWork.hasMany(Comment, {
+  foreignKey: "workId",
+  onDelete: "CASCADE",
+});
 
-WrittenWork.hasMany(Comment, { foreignKey: "workId", onDelete: "CASCADE" });
-Comment.belongsTo(WrittenWork, { foreignKey: "workId" });
+Comment.belongsTo(WrittenWork, {
+  foreignKey: "workId",
+});
 
 Comment.belongsTo(User, { foreignKey: "userId" });
 
