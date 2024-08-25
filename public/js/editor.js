@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("editor-form");
   const workId = document.getElementById("work-id")?.value;
   const existingWorksDropdown = document.getElementById("existing-works");
+  const collectionTitleLabel = document.getElementById(
+    "collection-title-label"
+  );
+  const collectionTitleInput = document.getElementById("collection-title");
 
   // Function to load existing works and populate dropdown
   const loadWorks = async () => {
@@ -12,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (existingWorksDropdown) {
         existingWorksDropdown.innerHTML = `
           <option value="">Select an existing work (Optional)</option>
+          <option value="new">New Collection</option>
           ${works
             .map(
               (work) => `
@@ -28,6 +33,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
   loadWorks();
 
+  // Logic to show/hide Collection Title field based on dropdown selection
+  existingWorksDropdown.addEventListener("change", function () {
+    if (existingWorksDropdown.value === "new") {
+      collectionTitleLabel.style.display = "block";
+      collectionTitleInput.style.display = "block";
+      collectionTitleInput.required = true;
+    } else {
+      collectionTitleLabel.style.display = "none";
+      collectionTitleInput.style.display = "none";
+      collectionTitleInput.required = false;
+    }
+  });
+
   // Function to save or update a work
   const saveOrUpdateWork = async (event) => {
     event.preventDefault();
@@ -37,14 +55,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const existingWork = document
       .getElementById("existing-works")
       ?.value.trim();
+    const collectionTitle = collectionTitleInput?.value.trim();
 
     const method = workId ? "PUT" : "POST";
     const url = workId ? `/api/writtenWorks/${workId}` : "/api/writtenWorks";
 
+    const requestBody = {
+      title,
+      content,
+      existingWork,
+    };
+
+    if (existingWork === "new") {
+      requestBody.collectionTitle = collectionTitle;
+    }
+
     try {
       const response = await fetch(url, {
         method,
-        body: JSON.stringify({ title, content, existingWork }),
+        body: JSON.stringify(requestBody),
         headers: {
           "Content-Type": "application/json",
         },

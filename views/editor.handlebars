@@ -1,10 +1,25 @@
-<link rel="stylesheet" href="/assets/style.css" />
-
 <div id="editor">
   <div class="form-container">
     <div class="column-1">
       <form id="editor-form">
         <input type="hidden" id="work-id" value="{{work.id}}" />
+
+        <!-- Move the existing works dropdown above the title field -->
+        <label for="existing-works">Add to Existing Works</label>
+        <select id="existing-works" name="existing-works">
+          <option value="">Select an existing work (Optional)</option>
+          <option value="new">New Collection</option>
+          <!-- Add options dynamically in your JavaScript if needed -->
+        </select>
+
+        <!-- New Collection Title field, hidden by default -->
+        <label for="collection-title" id="collection-title-label" style="display:none;">Collection Title</label>
+        <input
+          type="text"
+          id="collection-title"
+          name="collection-title"
+          style="display:none;"
+        />
 
         <label for="title">Title</label>
         <input
@@ -14,12 +29,6 @@
           value="{{work.title}}"
           required
         />
-
-        <label for="existing-works">Add to Existing Works</label>
-        <select id="existing-works" name="existing-works">
-          <option value="">Select an existing work (Optional)</option>
-          <!-- Add options dynamically in your JavaScript if needed -->
-        </select>
 
         <label for="content">Content</label>
         <textarea
