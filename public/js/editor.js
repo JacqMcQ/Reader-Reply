@@ -11,14 +11,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const works = await response.json();
 
       if (existingWorksDropdown) {
+        // Start by adding the constant 'new' option
         existingWorksDropdown.innerHTML = `
-          <option value="">Select an existing work (Optional)</option>
+          <option value="new">New Collection</option>
           ${works
             .filter((work) => work.collectionTitle) // Only include works with a collection title
             .map(
               (work) => `
               <option value="${work.id}" data-collection-title="${work.collectionTitle}">
-                ${work.collectionTitle}
+                ${work.title}
               </option>
             `
             )
@@ -32,7 +33,14 @@ document.addEventListener("DOMContentLoaded", () => {
           const collectionTitle = selectedOption.getAttribute(
             "data-collection-title"
           );
-          collectionTitleInput.value = collectionTitle || "";
+
+          if (selectedOption.value === "new") {
+            collectionTitleInput.value = ""; // Clear the input for new collection
+            collectionTitleInput.placeholder = "Enter new collection title";
+          } else {
+            collectionTitleInput.value = collectionTitle || "";
+            collectionTitleInput.placeholder = ""; // Clear the placeholder
+          }
         });
       }
     } catch (error) {
@@ -48,7 +56,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const title = document.getElementById("title").value.trim();
     const content = document.getElementById("content").value.trim();
-    const existingWorkId = existingWorksDropdown?.value.trim();
+    const existingWorkId =
+      existingWorksDropdown?.value === "new"
+        ? null
+        : existingWorksDropdown.value.trim();
     const collectionTitle = collectionTitleInput.value.trim();
 
     const method = workId ? "PUT" : "POST";
