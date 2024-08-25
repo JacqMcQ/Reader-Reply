@@ -82,7 +82,14 @@ router.get("/editor", withAuth, async (req, res) => {
     if (workId) {
       const work = await WrittenWork.findOne({
         where: { id: workId, userId: req.session.user_id },
+        include: [
+          {
+            model: Comment,
+            include: [{ model: User, attributes: ["username"] }],
+          },
+        ],
       });
+
       workData = work ? work.get({ plain: true }) : {};
     }
 

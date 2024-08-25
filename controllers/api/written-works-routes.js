@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { WrittenWork } = require("../../models");
+const withAuth = require("../../utils/auth");
 
 // Helper function to ensure user is logged in
 function requireLogin(req, res, next) {
@@ -82,6 +83,27 @@ router.get("/", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to retrieve works." });
+  }
+});
+
+// DELETE route to remove a work
+router.delete("/:id", withAuth, async (req, res) => {
+  try {
+    const work = await WrittenWork.destroy({
+      where: {
+        id: req.params.id,
+        userId: req.session.user_id,
+      },
+    });
+
+    if (!work) {
+      return res.status(404).json({ message: "No work found with this id!" });
+    }
+
+    res.status(200).json({ message: "Work deleted successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete work." });
   }
 });
 

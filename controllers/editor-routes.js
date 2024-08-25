@@ -1,29 +1,29 @@
-const router = require("express").Router();
-const { WrittenWork } = require("../../models");
+// Render editor page (requires auth)
+router.get("/editor", withAuth, async (req, res) => {
+  try {
+    const { id: workId } = req.query;
+    let workData = {};
 
-router.get("/editor", async (req, res) => {
-  const workId = req.query.id; 
+    if (workId) {
+      const work = await WrittenWork.findOne({
+        where: { id: workId, userId: req.session.user_id },
+        include: [
+          {
+            model: Comment,
+            include: [{ model: User, attributes: ["username"] }],
+          },
+        ],
+      });
 
-  if (workId) {
-    try {
-      const work = await WrittenWork.findByPk(workId);
-      if (work) {
-        res.render("editor", {
-          workId: work.id,
-          title: work.title,
-          content: work.content,
-          existingWorkId: work.existingWorkId,
-        });
-      } else {
-        res.status(404).send("Work not found");
-      }
-    } catch (err) {
-      console.log(err);
-      res.status(500).send("Failed to retrieve work.");
+      workData = work ? work.get({ plain: true }) : {};
     }
-  } else {
-    res.render("editor");
+
+    res.render("editor", {
+      loggedIn: req.session.loggedIn,
+      work: workData,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to retrieve work." });
   }
 });
-
-module.exports = router;

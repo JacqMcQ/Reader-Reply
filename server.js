@@ -38,9 +38,13 @@ app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 // Global error handler
+// Global error handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send("Something went wrong!");
+  res.status(err.status || 500).json({
+    message: err.message || "Something went wrong!",
+    error: process.env.NODE_ENV === "development" ? err : {},
+  });
 });
 
 // Use routes

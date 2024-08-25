@@ -1,5 +1,5 @@
 const User = require("./User");
-const WrittenWork = require("./writtenWork");
+const WrittenWork = require("./WrittenWork");
 const Comment = require("./Comment");
 
 // Define relationships
@@ -12,16 +12,6 @@ WrittenWork.belongsTo(User, {
   foreignKey: "userId",
 });
 
-WrittenWork.hasMany(WrittenWork, {
-  foreignKey: "existingWorkId",
-  as: "RelatedWorks",
-});
-
-WrittenWork.belongsTo(WrittenWork, {
-  foreignKey: "existingWorkId",
-  as: "OriginalWork",
-});
-
 WrittenWork.hasMany(Comment, {
   foreignKey: "workId",
   onDelete: "CASCADE",
@@ -31,6 +21,18 @@ Comment.belongsTo(WrittenWork, {
   foreignKey: "workId",
 });
 
-Comment.belongsTo(User, { foreignKey: "userId" });
+Comment.belongsTo(User, {
+  foreignKey: "userId",
+});
+
+WrittenWork.belongsTo(WrittenWork, {
+  foreignKey: "existingWorkId",
+  as: "OriginalWork",
+});
+
+WrittenWork.hasMany(WrittenWork, {
+  foreignKey: "existingWorkId",
+  as: "RelatedWorks",
+});
 
 module.exports = { User, WrittenWork, Comment };

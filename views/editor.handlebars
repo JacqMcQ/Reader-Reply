@@ -1,62 +1,48 @@
-<link rel="stylesheet" href="/assets/style.css" />
+  <h1>{{#if workId}}Edit{{else}}Create{{/if}} Work</h1>
+  <form id="editor-form">
+    <input type="hidden" id="work-id" value="{{workId}}">
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" value="{{title}}" required>
+    </div>
+    <div>
+      <label for="content">Content:</label>
+      <textarea id="content" required>{{content}}</textarea>
+    </div>
+    <div>
+      <label for="existing-works">Add to existing works (Optional):</label>
+      <select id="existing-works">
+        <option value="">Select an existing work (Optional)</option>
+        {{#each works}}
+          <option value="{{this.id}}">{{this.title}}</option>
+        {{/each}}
+      </select>
+    </div>
+    <button id="save-button">Save</button>
+    <button id="post-button">Post</button>
+    {{#if workId}}
+      <button id="delete-button" data-work-id="{{workId}}">Delete</button>
+    {{/if}}
+  </form>
 
-<div id="editor">
-  <div class="form-container">
-    <div class="column-1">
-      <form id="editor-form">
-        <input type="hidden" id="work-id" value="{{work.id}}" />
-
-        <label for="title">Title</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value="{{work.title}}"
-          required
-        />
-
-        <label for="existing-works">Add to Existing Works</label>
-        <select id="existing-works" name="existing-works">
-          <option value="">Select an existing work (Optional)</option>
-          <!-- Add options dynamically in your JavaScript if needed -->
-        </select>
-
-        <label for="content">Content</label>
-        <textarea
-          id="content"
-          name="content"
-          rows="10"
-          required
-        >{{work.content}}</textarea>
-
-        <div class="form-buttons">
-          <button id="save-button" type="button">Save</button>
-          <button id="post-button" type="submit">Post</button>
-          <button id="delete-button" type="button">
-            <i class="fa-solid fa-trash-can"></i>
-            Delete
-          </button>
+  <div id="comment-section">
+    <h2>Comments</h2>
+    <div id="comments-list">
+      {{#each comments}}
+        <div class="comment">
+          <p><strong>{{this.username}}:</strong> {{this.content}}</p>
+          <p><em>{{format_date this.createdAt}}</em></p>
         </div>
+      {{/each}}
+    </div>
+    {{#if loggedIn}}
+      <form id="new-comment-form" data-work-id="{{workId}}">
+        <textarea class="comment-content" placeholder="Add a comment..."></textarea>
+        <button type="submit">Submit Comment</button>
       </form>
-    </div>
-    <div class="column-2">
-      <div class="comments-section">
-        <h2>Comments</h2>
-        {{#if comments.length}}
-          {{#each comments}}
-            <div class="comment">
-              <p>{{this.content}}</p>
-              <p class="username">-
-                {{this.user.username}}
-                on
-                {{format_date this.created_at}}</p>
-            </div>
-          {{/each}}
-        {{else}}
-          <p>No comments yet.</p>
-        {{/if}}
-      </div>
-    </div>
+    {{/if}}
   </div>
-</div>
-<script src="/js/editor.js"></script>
+
+  <script src="/public/js/editor.js"></script>
+
+
