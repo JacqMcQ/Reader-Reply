@@ -4,23 +4,21 @@
       <!-- Row 1 -->
       <div class="section section-1">
         <h2>User Information</h2>
-        <p><strong>Username:</strong> {{username}}</p>
+        <h3><strong>Username:</strong></h3>
+        <p class="username">{{username}}</p>
 
-        <h2>About Me</h2>
-        <p>{{bio}}</p>
+        <h3>About Me</h3>
+        <p>{{#if bio}}{{bio}}{{else}}The author of this tale is as elusive as a shadow in the moonlight... perhaps the next chapter will reveal more.{{/if}}</p>
       </div>
 
       <div class="section section-2">
         <div class="profile-image">
-          <!-- Placeholder for the profile image -->
-          <!-- Replace with actual image handling if available -->
         </div>
       </div>
     </div>
 
     <div class="row">
-      <!-- Row 2 -->
-      <!-- Keep this row for additional content or styling purposes -->
+      <h3>My Works</h3>
     </div>
   </div>
 </div>

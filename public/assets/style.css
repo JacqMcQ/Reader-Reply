@@ -666,9 +666,10 @@ form label {
   background-color: #035d6a;
 }
 
-/* Profile specific styles */
+/* Profile Styles */
 #profile {
-  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
   background-color: var(--whitevariable);
 }
 
@@ -677,12 +678,10 @@ form label {
 }
 
 #profile .profile-container {
+  flex: 1;
   padding: 20px;
   background-color: var(--whitevariable);
   color: var(--bluevariable);
-  min-height: 100vh; 
-  display: flex;
-  flex-direction: column;
 }
 
 #profile .row {
@@ -699,7 +698,7 @@ form label {
 }
 
 #profile .section-1 {
-  width: 60%; 
+  width: 40%; 
 }
 
 #profile .user-info-form {
@@ -741,7 +740,7 @@ form label {
 }
 
 #profile .section-2 {
-  width: 40%; 
+  width: 60%; 
 }
 
 #profile .profile-image {
@@ -852,58 +851,65 @@ form label {
 
 /* Author Profile Styles*/
 #authorProfile {
-  min-height: 100vh; /* Minimum height of 100% of the viewport height */
+  display: flex;
+  flex-direction: column;
   background-color: var(--whitevariable);
-}
-
-#authorProfile h2 {
-  padding-bottom: 2%;
 }
 
 #authorProfile .profile-container {
+  flex: 1; 
   padding: 20px;
   background-color: var(--whitevariable);
-  color: var(--bluevariable);
-  min-height: 100vh; /* Minimum height of 100% of the viewport height */
-  display: flex;
-  flex-direction: column;
+  color: var(--blackvariable);
 }
 
 #authorProfile .row {
   display: flex;
-  gap: 20px; /* Space between sections */
-  margin-bottom: 20px; /* Space between rows */
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 #authorProfile .section {
-  background-color: var(--whitevariable);
+  background-color: var(--grayvariable);
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   padding: 20px;
 }
 
 #authorProfile .section-1 {
-  width: 50%; /* 50% of the width */
-  height: 40vh; /* 40% of the viewport height */
+  width: 35%; 
+  height: 40vh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Evenly space out the content vertically */
+}
+
+#authorProfile .section-1 h2 {
+  padding-bottom: 5%;
+  align-self: center;
+  color: var(--redvariable);
+}
+
+#authorProfile .username {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--blackvariable);
+  padding-bottom: 10%;
 }
 
 #authorProfile .section-1 p {
-  margin: 0;
+  margin: 2%;
 }
 
 #authorProfile .section-2 {
-  width: 40%; /* Adjust width as needed */
+  width: 65%; 
 }
 
 #authorProfile .profile-image {
   width: 100%;
-  height: 100%; /* Set a height for the container */
-  background-image: url('./profile.jpg'); /* Adjust path if necessary */
-  background-size: cover; /* Cover the entire container */
-  background-position: center; /* Center the image */
+  height: 100%;
+  background-image: url('./authorProfile.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 #authorProfile .section-3 {
@@ -914,8 +920,8 @@ form label {
 
 #authorProfile .bio-save-container {
     display: flex;
-    justify-content: flex-end; /* Align the Save Bio button to the right */
-    margin-top: 10px; /* Add some space above the Save Bio button */
+    justify-content: flex-end;
+    margin-top: 10px; 
 }
 
 #authorProfile h2 {
@@ -934,7 +940,7 @@ footer {
   color: var(--whitevariable);
   text-align: center;
   padding: 20px 0;
-  margin-top: auto;
+  margin-top: auto; /* Ensure the footer stays at the bottom */
   display: flex;
   flex-direction: column;
   font-size: 12px;
