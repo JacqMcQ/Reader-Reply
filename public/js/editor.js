@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("editor-form");
   const workId = document.getElementById("work-id")?.value;
   const existingWorksDropdown = document.getElementById("existing-works");
+  const commentForm = document.getElementById("new-comment-form");
   const collectionTitleInput = document.getElementById("collection-title");
 
   // Function to load existing works and populate dropdown
@@ -47,8 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
       console.error("Error loading works:", error);
     }
   };
-
-  loadWorks();
 
   // Function to save or update a work
   const saveOrUpdateWork = async (event) => {
@@ -104,4 +103,34 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     saveOrUpdateWork(event);
   });
+
+  const deleteButton = document.getElementById("delete-button");
+
+  if (deleteButton) {
+    deleteButton.addEventListener("click", async () => {
+      const workId = deleteButton.getAttribute("data-work-id");
+
+      if (confirm("Are you sure you want to delete this work?")) {
+        try {
+          const response = await fetch(`/api/writtenWorks/${workId}`, {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+
+          if (response.ok) {
+            alert("Work deleted successfully.");
+            window.location.href = "/dashboard"; // Redirect to the dashboard or another page
+          } else {
+            const error = await response.json();
+            alert(`Failed to delete work: ${error.message}`);
+          }
+        } catch (err) {
+          console.error("Error:", err);
+          alert("Failed to delete work.");
+        }
+      }
+    });
+  }
 });
