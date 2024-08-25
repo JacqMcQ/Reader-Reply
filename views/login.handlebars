@@ -4,12 +4,18 @@
     <h2 class="page-title">Login</h2>
 
     <!-- User login form -->
-    <form id="login-form" class="login-form">
+    <form id="login-form" class="login-form" action="/api/users/login" method="POST">
       <label for="username-login">Username:</label>
       <input class="form-input" type="text" id="username-login" required />
 
       <label for="password-login">Password:</label>
       <input class="form-input" type="password" id="password-login" required />
+
+    <div>
+      <img src="/api/captcha/login" alt="Captcha">
+    </div>
+    <label for="captcha">Enter Captcha:</label>
+    <input type="text" id="captcha" name="captcha" required>
 
       <button class="form-button" type="submit">Login</button>
     </form>

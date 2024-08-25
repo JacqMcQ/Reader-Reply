@@ -19,6 +19,8 @@
     "express-handlebars": "^6.0.7",
     "express-session": "^1.17.3",
     "pg": "^8.10.0",
-    "sequelize": "^6.32.0"
+    "sequelize": "^6.32.0",
+    "svg-captcha": "^1.4.0",
+    "vanilla-captcha": "^2.0.16"
   }
 }

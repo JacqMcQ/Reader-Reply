@@ -22,7 +22,13 @@ const saveSession = (req, user, res, successMessage, statusCode = 200) => {
 // CREATE new user
 router.post("/", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+
+    const { username, email, password, captcha } = req.body;
+
+    // Check if the captcha matches the session captcha
+    if (captcha !== req.session.captcha) {
+      return res.status(400).json({ message: "CAPTCHA verification failed." });
+    }
 
     // Check if the email already exists
     const existingUser = await User.findOne({ where: { email } });
@@ -30,7 +36,8 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "Email already in use." });
     }
 
-    // Proceed with user creation if email is unique
+    // Proceed with user creation if captcha and email is unique
+
     const dbUserData = await User.create({ username, email, password });
     console.log("New User Created:", dbUserData);
     saveSession(req, dbUserData, res, "User created successfully");
@@ -156,7 +163,12 @@ router.put("/change-password", withAuth, async (req, res) => {
 // LOGIN (no auth needed)
 router.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, captcha } = req.body;
+
+    if (captcha !== req.session.captcha) {
+      return res.status(400).json({ message: "CAPTCHA verification failed." });
+    }
+
     const dbUserData = await User.findOne({ where: { username } });
 
     if (!dbUserData || !dbUserData.checkPassword(password)) {
