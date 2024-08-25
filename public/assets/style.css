@@ -881,10 +881,11 @@ form label {
   height: 40vh;
   display: flex;
   flex-direction: column;
+  padding: 0 3%;
 }
 
 #authorProfile .section-1 h2 {
-  padding-bottom: 5%;
+  padding: 5% 0;
   align-self: center;
   color: var(--redvariable);
 }
@@ -893,7 +894,8 @@ form label {
   font-size: 1.5em;
   font-weight: bold;
   color: var(--blackvariable);
-  padding-bottom: 10%;
+  padding: 5% 0;
+  text-align: center;
 }
 
 #authorProfile .section-1 p {
@@ -915,23 +917,16 @@ form label {
 #authorProfile .section-3 {
   width: 100%;
   background-color: var(--grayvariable);
+  color: var(--blackvariable);
+}
+
+#authorProfile .section-3 h3 {
   color: var(--redvariable);
-}
-
-#authorProfile .bio-save-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px; 
-}
-
-#authorProfile h2 {
   padding-bottom: 1%;
 }
 
-#authorProfile #bio {
-    padding: 20px;
-    border-radius: 5px;
-    width: 100%;
+#authorProfile .section-3 div {
+  padding: 3%;
 }
 
 /* Footer Styles */

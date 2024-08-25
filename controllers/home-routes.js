@@ -49,26 +49,26 @@ router.get("/profile", withAuth, async (req, res) => {
 });
 
 // Route to render author profile page
-router.get('/author/:id', async (req, res) => {
+router.get("/author/:id", async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
       include: [{ model: WrittenWork }],
     });
 
     if (!user) {
-      return res.status(404).json({ error: 'Author not found.' });
+      return res.status(404).json({ error: "Author not found." });
     }
 
     const userProfile = user.get({ plain: true });
 
-    res.render('authorProfile', {
+    res.render("authorProfile", {
       loggedIn: req.session.loggedIn,
       ...userProfile,
-      works: userProfile.writtenWorks,
+      works: userProfile.writtenWorks, // Pass the author's works to the view
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to load author profile.' });
+    res.status(500).json({ error: "Failed to load author profile." });
   }
 });
 
