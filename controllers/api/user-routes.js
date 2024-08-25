@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ message: "Email already in use." });
     }
 
-    // Proceed with user creation if captcha email is unique
+    // Proceed with user creation if captcha and email is unique
 
     const dbUserData = await User.create({ username, email, password });
     console.log("New User Created:", dbUserData);
