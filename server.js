@@ -15,15 +15,18 @@ const PORT = process.env.PORT || 3001;
 
 // Configure session settings
 const sess = {
-  secret: process.env.SESSION_SECRET || "Super secret secret",
+  secret: "Super secret secret",
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
+    maxAge: 600000,
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // HTTPS for production
+    secure: false,
+    sameSite: "strict",
   },
   resave: false,
-  saveUninitialized: false,
-  store: new SequelizeStore({ db: sequelize }),
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
 };
 
 // Middleware setup
