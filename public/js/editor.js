@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("editor-form");
   const workId = document.getElementById("work-id")?.value;
   const existingWorksDropdown = document.getElementById("existing-works");
+  const collectionTitleInput = document.getElementById("collection-title");
 
   // Function to load existing works and populate dropdown
   const loadWorks = async () => {
@@ -13,13 +14,26 @@ document.addEventListener("DOMContentLoaded", () => {
         existingWorksDropdown.innerHTML = `
           <option value="">Select an existing work (Optional)</option>
           ${works
+            .filter((work) => work.collectionTitle) // Only include works with a collection title
             .map(
               (work) => `
-              <option value="${work.id}">${work.title}</option>
+              <option value="${work.id}" data-collection-title="${work.collectionTitle}">
+                ${work.title}
+              </option>
             `
             )
             .join("")}
         `;
+
+        // Auto-populate the collection title if an existing work is selected
+        existingWorksDropdown.addEventListener("change", function () {
+          const selectedOption =
+            existingWorksDropdown.options[existingWorksDropdown.selectedIndex];
+          const collectionTitle = selectedOption.getAttribute(
+            "data-collection-title"
+          );
+          collectionTitleInput.value = collectionTitle || "";
+        });
       }
     } catch (error) {
       console.error("Error loading works:", error);
@@ -34,17 +48,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const title = document.getElementById("title").value.trim();
     const content = document.getElementById("content").value.trim();
-    const existingWork = document
-      .getElementById("existing-works")
-      ?.value.trim();
+    const existingWorkId = existingWorksDropdown?.value.trim();
+    const collectionTitle = collectionTitleInput.value.trim();
 
     const method = workId ? "PUT" : "POST";
     const url = workId ? `/api/writtenWorks/${workId}` : "/api/writtenWorks";
 
+    const requestBody = {
+      title,
+      content,
+      existingWorkId,
+      collectionTitle, // Include the collection title in the request
+    };
+
     try {
       const response = await fetch(url, {
         method,
-        body: JSON.stringify({ title, content, existingWork }),
+        body: JSON.stringify(requestBody),
         headers: {
           "Content-Type": "application/json",
         },
