@@ -276,8 +276,8 @@ form label {
   text-decoration: underline; /* Underline on hover */
 }
 
-/* Editor page specific styling */
-/* Adjusting styles to include the new Collection Title field */
+/*Editor page specific styling*/
+/* Styling for the form and comments section */
 #editor .form-container {
   display: flex;
   gap: 20px;
@@ -286,7 +286,7 @@ form label {
 
 /* Form styling */
 #editor .form-container .column-1 {
-  flex: 0 0 75%; /* Fixed at 75% of the container width */
+  flex: 1;
   background-color: var(--whitevariable);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -300,7 +300,6 @@ form label {
 }
 
 #editor #title,
-#editor #collection-title, /* Add collection-title to the styles */
 #editor .form-container select,
 #editor .form-container textarea {
   width: 100%;
@@ -312,12 +311,6 @@ form label {
 
 #editor .form-container textarea {
   resize: vertical;
-}
-
-/* Hide collection title field by default */
-#editor #collection-title-label,
-#editor #collection-title {
-  display: none;
 }
 
 #editor .form-container .form-buttons {
@@ -354,11 +347,6 @@ form label {
 }
 
 /* Comments section styling */
-#editor .form-container .column-2 {
-  flex: 0 0 25%; /* Fixed at 25% of the container width */
-  background-color: var(--whitevariable);
-}
-
 #editor .comments-section {
   flex: 1;
   background-color: var(--whitevariable);
