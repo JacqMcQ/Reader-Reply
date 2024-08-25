@@ -1,0 +1,37 @@
+<div id="authorProfile">
+  <div class="profile-container">
+    <div class="row">
+      <!-- Row 1 -->
+      <div class="section section-1">
+        <h2>User Information</h2>
+        <h3><strong>Username:</strong></h3>
+        <p class="username">{{username}}</p>
+
+        <h3>About Me:</h3>
+        <p>{{#if bio}}{{bio}}{{else}}The author of this tale is as elusive as a shadow in the moonlight... perhaps the next chapter will reveal more.{{/if}}</p>
+      </div>
+
+      <div class="section section-2">
+        <div class="profile-image">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Row 2 - Section 3 for Author's Works -->
+      <div class="section section-3">
+        <h3>My Works</h3>
+        <div>
+        {{#if works.length}}
+          <ul>
+            {{#each works}}
+              <li><a href="/story?id={{this.id}}">{{this.title}}</a></li>
+            {{/each}}
+          </ul>
+        {{else}}
+          <p>No works available.</p>
+        {{/if}}
+        </div>
+    </div>
+  </div>
+</div>

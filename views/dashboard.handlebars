@@ -1,21 +1,31 @@
-
 <div id="dashboard" class="body">
   <div class="dashboard-container">
     <!-- Create New Section -->
     <div class="column create-new">
       <button id="create-new-btn" class="action-btn">Create New</button>
-    <div class="quote-container">
-    <div id="inspo">Need inspiration? Consider this: </div>
-    <div id="quote"></div>
+      <div class="quote-container">
+        <div id="inspo">Need inspiration? Consider this: </div>
+        <div id="quote"></div>
+      </div>
     </div>
-    </div>
+
     <!-- Continue Reading Section -->
     <div class="column continue-reading">
       <h2>Continue Reading</h2>
-      
-      <p><a href="/works/1">Story Title 1</a></p> <!-- Functional link -->
-      <p><a href="/works/2">Story Title 2</a></p> <!-- Functional link -->
-      <a href="/works" class="view-more">View More</a> <!-- Functional link -->
+      {{#if commentedWorks.length}}
+        {{#each commentedWorks}}
+          <div class="story-item">
+            <p><a href="/story?id={{this.id}}">{{this.title}}</a></p>
+            {{#if this.collectionTitle}}
+              <p class="collection-title"><em>Part of '{{this.collectionTitle}}' Collection</em></p>
+            {{/if}}
+          </div>
+        {{/each}}
+      {{else}}
+        <p>You haven't commented on any works yet.</p>
+      {{/if}}
+      <a href="/works" class="view-more">View More</a>
+      <!-- Link to view all reading works -->
     </div>
 
     <!-- Continue Writing Section -->
@@ -24,19 +34,19 @@
 
       {{#each writtenWorks}}
         <div class="story-item">
-          <p><a href="/editor?id={{this.id}}">{{this.title}}</a></p> <!-- Hyperlinked title -->
+          <p><a href="/editor?id={{this.id}}">{{this.title}}</a></p>
           {{#if this.collectionTitle}}
-            <p class="collection-title"><em>Part of '{{this.collectionTitle}}' Collection</em></p> <!-- Non-hyperlinked collection title -->
+            <p class="collection-title"><em>Part of '{{this.collectionTitle}}'
+                Collection</em></p>
           {{/if}}
           <p class="comment">{{this.comment}}</p>
         </div>
       {{/each}}
-      <a href="/works" class="view-more">View More</a> <!-- Link to view all written works -->
+      <a href="/works" class="view-more">View More</a>
+      <!-- Link to view all written works -->
     </div>
   </div>
 </div>
 
 <!-- Link to external JavaScript file -->
 <script src="/js/dashboard.js"></script>
-
-

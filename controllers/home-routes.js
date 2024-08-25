@@ -18,18 +18,35 @@ router.get("/", (req, res) => {
 // Render dashboard (requires auth)
 router.get("/dashboard", withAuth, async (req, res) => {
   try {
+    const userId = req.session.user_id;
+
+    // Fetch works the user has written
     const writtenWorks = await WrittenWork.findAll({
-      where: { userId: req.session.user_id },
+      where: { userId: userId },
     });
+
+    // Fetch works the user has commented on
+    const commentedWorks = await WrittenWork.findAll({
+      include: [
+        {
+          model: Comment,
+          where: { userId: userId },
+          required: true, // Only include works with comments from this user
+        },
+      ],
+    });
+
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
       writtenWorks: writtenWorks.map((work) => work.get({ plain: true })),
+      commentedWorks: commentedWorks.map((work) => work.get({ plain: true })),
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // Render profile (requires auth)
 router.get("/profile", withAuth, async (req, res) => {
@@ -48,12 +65,36 @@ router.get("/profile", withAuth, async (req, res) => {
   }
 });
 
+// Route to render author profile page
+router.get("/author/:id", async (req, res) => {
+  try {
+    const user = await User.findByPk(req.params.id, {
+      include: [{ model: WrittenWork }],
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: "Author not found." });
+    }
+
+    const userProfile = user.get({ plain: true });
+
+    res.render("authorProfile", {
+      loggedIn: req.session.loggedIn,
+      ...userProfile,
+      works: userProfile.writtenWorks, // Pass the author's works to the view
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to load author profile." });
+  }
+});
+
 // Render discover page (requires auth)
 router.get("/discover", withAuth, async (req, res) => {
   try {
     const works = await WrittenWork.findAll({
       include: [
-        { model: User, attributes: ["username"] },
+        { model: User, attributes: ["id", "username"] }, // Ensure 'id' is included
         {
           model: Comment,
           include: [{ model: User, attributes: ["username"] }],

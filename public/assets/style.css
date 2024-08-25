@@ -265,6 +265,11 @@ form label {
   font-weight: 700;
 }
 
+#dashboard .continue-reading div,
+#dashboard .continue-writing div {
+  padding-bottom: 2%;
+}
+
 #dashboard .continue-reading h2,
 #dashboard .continue-writing h2 {
   padding-bottom: 2%;
@@ -666,9 +671,10 @@ form label {
   background-color: #035d6a;
 }
 
-/* Profile specific styles */
+/* Profile Styles */
 #profile {
-  min-height: 100vh; 
+  display: flex;
+  flex-direction: column;
   background-color: var(--whitevariable);
 }
 
@@ -677,12 +683,10 @@ form label {
 }
 
 #profile .profile-container {
+  flex: 1;
   padding: 20px;
   background-color: var(--whitevariable);
   color: var(--bluevariable);
-  min-height: 100vh; 
-  display: flex;
-  flex-direction: column;
 }
 
 #profile .row {
@@ -699,7 +703,7 @@ form label {
 }
 
 #profile .section-1 {
-  width: 60%; 
+  width: 40%; 
 }
 
 #profile .user-info-form {
@@ -741,7 +745,7 @@ form label {
 }
 
 #profile .section-2 {
-  width: 40%; 
+  width: 60%; 
 }
 
 #profile .profile-image {
@@ -848,6 +852,90 @@ form label {
 
 #profile .modal-content form button:hover {
   background-color: var(--redvariable);
+}
+
+/* Author Profile Styles*/
+#authorProfile {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--whitevariable);
+}
+
+#authorProfile .profile-container {
+  flex: 1; 
+  padding: 20px;
+  background-color: var(--whitevariable);
+  color: var(--blackvariable);
+}
+
+#authorProfile .row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+#authorProfile .section {
+  background-color: var(--grayvariable);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+#authorProfile .section-1 {
+  width: 35%; 
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 3%;
+}
+
+#authorProfile .section-1 h2 {
+  padding: 5% 0;
+  align-self: center;
+  color: var(--redvariable);
+}
+
+#authorProfile .username {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: var(--blackvariable);
+  padding: 5% 0;
+  text-align: center;
+}
+
+#authorProfile .section-1 p {
+  margin: 2%;
+}
+
+#authorProfile .section-2 {
+  width: 65%; 
+}
+
+#authorProfile .profile-image {
+  width: 100%;
+  height: 100%;
+  background-image: url('./authorProfile.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+#authorProfile .section-3 {
+  width: 100%;
+  background-color: var(--grayvariable);
+  color: var(--blackvariable);
+}
+
+#authorProfile .section-3 h3 {
+  color: var(--redvariable);
+  padding-bottom: 1%;
+}
+
+#authorProfile .section-3 div {
+  padding: 2%;
+}
+
+#authorProfile .section-3 li {
+  padding-bottom: 1%;
 }
 
 /* Footer Styles */
