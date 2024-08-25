@@ -15,15 +15,18 @@ const PORT = process.env.PORT || 3001;
 
 // Configure session settings
 const sess = {
-  secret: process.env.SESSION_SECRET || "Super secret secret",
+  secret: "Super secret secret",
   cookie: {
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
+    maxAge: 600000,
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // HTTPS for production
+    secure: false,
+    sameSite: "strict",
   },
   resave: false,
   saveUninitialized: true,
-  store: new SequelizeStore({ db: sequelize }),
+  store: new SequelizeStore({
+    db: sequelize,
+  }),
 };
 
 // Middleware setup
@@ -45,10 +48,28 @@ app.use((err, req, res, next) => {
 
 // Use routes
 app.use(routes);
+sequelize
+  .authenticate()
+  .then(() => console.log("Database connected..."))
+  .catch((err) => console.error("Unable to connect to the database:", err));
 
-// Sync database and start server
-sequelize.sync({ force: true }).then(() => {
-  app.listen(PORT, () =>
-    console.log(`Server listening at http://localhost:${PORT}`)
-  );
-});
+const syncModelsAndStartServer = async () => {
+  try {
+    // Sync models with { alter: true } to apply any schema changes without dropping tables
+    await sequelize.sync({ alter: true, logging: console.log }); // Sync all models at once
+
+    // Alternatively, you can sync individual models:
+    // await User.sync({ alter: true });
+    // await WrittenWork.sync({ alter: true });
+
+    console.log("Models synced successfully");
+
+    // Start the server after models are synced
+    app.listen(PORT, () =>
+      console.log(`Server listening at http://localhost:${PORT}`)
+    );
+  } catch (err) {
+    console.error("Error syncing models:", err);
+  }
+};
+syncModelsAndStartServer();
