@@ -265,7 +265,8 @@ form label {
   font-weight: 700;
 }
 
-#dashboard .continue-writing div{
+#dashboard .continue-reading div,
+#dashboard .continue-writing div {
   padding-bottom: 2%;
 }
 

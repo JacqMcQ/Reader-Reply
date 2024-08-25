@@ -18,18 +18,35 @@ router.get("/", (req, res) => {
 // Render dashboard (requires auth)
 router.get("/dashboard", withAuth, async (req, res) => {
   try {
+    const userId = req.session.user_id;
+
+    // Fetch works the user has written
     const writtenWorks = await WrittenWork.findAll({
-      where: { userId: req.session.user_id },
+      where: { userId: userId },
     });
+
+    // Fetch works the user has commented on
+    const commentedWorks = await WrittenWork.findAll({
+      include: [
+        {
+          model: Comment,
+          where: { userId: userId },
+          required: true, // Only include works with comments from this user
+        },
+      ],
+    });
+
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
       writtenWorks: writtenWorks.map((work) => work.get({ plain: true })),
+      commentedWorks: commentedWorks.map((work) => work.get({ plain: true })),
     });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // Render profile (requires auth)
 router.get("/profile", withAuth, async (req, res) => {
