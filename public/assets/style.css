@@ -938,6 +938,40 @@ form label {
   padding-bottom: 1%;
 }
 
+/*Terms of Use Styles*/
+#terms section {
+  margin: 5% 10%;
+}
+
+/* Heading */
+#terms section h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Headings */
+#terms section h3 {
+  margin-bottom: 1rem;
+}
+
+/* Paragraphs and Text */
+#terms section p, section ul, section pre {
+  text-align: justify;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+  padding: 0 1%;
+}
+
+/* Lists */
+#terms section ul {
+  padding-left: 5%; 
+}
+
+#terms section ul li {
+  margin-bottom: 0.5rem; 
+}
+
 /* Footer Styles */
 footer {
   background-color: var(--blackvariable);
