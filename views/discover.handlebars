@@ -1,10 +1,74 @@
 <div id="discover">
-    <class="discover-container">
-  <div class="post-box">
-    <h3 class="post-title">
-      <a href="/post1.html" class="post-link">Post Title 1</a>
-    </h3>
-    <p class="post-author">by Author Name</p>
-    <p class="post-summary">Summary of the work goes here...</p>
+  <div class="discover-container">
+    {{#if work}}
+      <!-- Single Work View -->
+      <div class="post-box">
+        <h3 class="post-title">
+          <a href="/story?id={{work.id}}" class="post-link">{{work.title}}</a>
+        </h3>
+        <div class="post-metadata">
+          <p class="post-author">By: {{work.user.username}}</p>
+          <p class="post-date">{{format_date work.createdAt}}</p>
+        </div>
+        <div class="post-content">
+          {{work.content}}
+        </div>
+      </div>
+
+      <!-- Add Comment Form -->
+      <div id="comment-form">
+        <h4>Leave a Comment</h4>
+        <form class="new-comment-form" data-work-id="{{work.id}}">
+          <textarea
+            class="comment-content"
+            name="comment-content"
+            rows="4"
+            required
+          ></textarea>
+          <button type="submit">Post Comment</button>
+        </form>
+      </div>
+
+      <!-- Comments Section -->
+      <div class="comments-section">
+        <h4>Comments</h4>
+        {{#if work.comments.length}}
+          {{#each work.comments}}
+            <div class="comment">
+              <p>{{this.content}}</p>
+              <p class="username">-
+                {{this.user.username}}
+                on
+                {{format_date this.createdAt}}</p>
+            </div>
+          {{/each}}
+        {{else}}
+          <p>No comments yet. Be the first to comment!</p>
+        {{/if}}
+      </div>
+    {{else}}
+      <!-- Multiple Works View -->
+      {{#each works}}
+        <div class="post-box">
+          <div class="post-header">
+            <h3 class="post-title">
+              <a
+                href="/story?id={{this.id}}"
+                class="post-link"
+              >{{this.title}}</a>
+            </h3>
+            {{#if this.collectionTitle}}
+              <p class="collection-title"><em>Part of '{{this.collectionTitle}}' Collection </em></p>
+            {{/if}}
+            <div class="post-metadata">
+              <p class="post-author">By: {{this.user.username}}</p>
+              <p class="post-date">{{format_date this.createdAt}}</p>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
   </div>
 </div>
+
+<script src="/js/discover.js"></script>

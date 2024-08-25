@@ -1,0 +1,29 @@
+<div id="story">
+  <div class="story-container">
+    {{#if work.OriginalWork}}
+      <p>Part of: {{work.OriginalWork.title}}</p>
+    {{/if}}
+
+    <h1>{{work.title}}</h1>
+
+    <p>{{work.content}}</p>
+
+    <div class="comments-section">
+      <h2>Comments</h2>
+      <form id="comment-form">
+        <textarea id="comment-content" rows="4" required></textarea>
+        <button type="submit">Post Comment</button>
+      </form>
+
+      <div id="comments-list">
+        {{#each work.comments}}
+          <div class="comment">
+            <p>{{this.content}}</p>
+            <p class="username">- {{this.username}}</p>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/story.js"></script>

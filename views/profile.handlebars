@@ -1,6 +1,6 @@
 <div id="profile">
-    <div class="profile-container">
-      <div class="row">
+  <div class="profile-container">
+    <div class="row">
       <!-- Row 1 -->
       <div class="section section-1">
         <h2>User Information</h2>
@@ -32,19 +32,74 @@
           <label for="email">Email Address:</label>
           <input type="email" id="email" name="email" value="{{email}}" />
 
-          <button type="button" class="change-password">Change Password</button>
+          <div class="form-buttons">
+            <button type="button" class="save">Save</button>
+            <span id="userInfoMessage" style="color: var(--redvariable); margin-left: 10px;"></span>
+            <button
+              id="changePasswordBtn"
+              type="button"
+              class="change-password"
+            >Change Password</button>
+            <span
+              id="changePasswordMessage"
+              style="color: var(--redvariable); margin-left: 10px;"
+            ></span>
+          </div>
         </form>
       </div>
+
       <div class="section section-2">
         <div class="profile-image"></div>
       </div>
     </div>
+
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Change Password</h2>
+        <form id="changePasswordForm">
+          <label for="currentPassword">Current Password:</label>
+          <input
+            type="password"
+            id="currentPassword"
+            name="currentPassword"
+            required
+          />
+
+          <label for="newPassword">New Password:</label>
+          <input type="password" id="newPassword" name="newPassword" required />
+
+          <label for="confirmNewPassword">Confirm New Password:</label>
+          <input
+            type="password"
+            id="confirmNewPassword"
+            name="confirmNewPassword"
+            required
+          />
+
+          <button type="submit">Change Password</button>
+        </form>
+      </div>
+    </div>
+
     <div class="row">
       <!-- Row 2 -->
       <div class="section section-3">
-        <h2>Bio</h2>
-        <textarea id="bio" name="bio">{{bio}}</textarea>
+        <h2>About Me</h2>
+        <textarea id="bio" name="bio" maxlength="500">{{bio}}</textarea>
+        <div class="bio-save-container">
+          <button type="button" class="update-bio" id="saveBioBtn">Save Bio</button>
+          <span
+            id="bioMessage"
+            style="color: var(--redvariable); margin-left: 10px;"
+          ></span>
+        </div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Link to external JavaScript file -->
+<script src="/js/profile.js"></script>
+<script src="/js/changePassword.js"></script>

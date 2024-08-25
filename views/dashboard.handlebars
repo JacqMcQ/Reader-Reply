@@ -4,7 +4,10 @@
     <!-- Create New Section -->
     <div class="column create-new">
       <button id="create-new-btn" class="action-btn">Create New</button>
-    <div id="quote" class="quote-container">Inspirational quote here...</div>
+    <div class="quote-container">
+    <div id="inspo">Need inspiration? Consider this: </div>
+    <div id="quote"></div>
+    </div>
     </div>
     <!-- Continue Reading Section -->
     <div class="column continue-reading">
@@ -21,7 +24,10 @@
 
       {{#each writtenWorks}}
         <div class="story-item">
-          <p><a href="/editor?id={{this.id}}">{{this.title}}</a></p> <!-- Dynamic link to work -->
+          <p><a href="/editor?id={{this.id}}">{{this.title}}</a></p> <!-- Hyperlinked title -->
+          {{#if this.collectionTitle}}
+            <p class="collection-title"><em>Part of '{{this.collectionTitle}}' Collection</em></p> <!-- Non-hyperlinked collection title -->
+          {{/if}}
           <p class="comment">{{this.comment}}</p>
         </div>
       {{/each}}

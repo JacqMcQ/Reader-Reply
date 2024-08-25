@@ -24,10 +24,9 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        isEmail: true,
+      },
     },
     firstName: {
       type: DataTypes.STRING,
@@ -41,10 +40,13 @@ User.init(
       type: DataTypes.TEXT,
       allowNull: true,
     },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
     hooks: {
-      // Hash password before creating or updating user
       async beforeCreate(newUserData) {
         newUserData.password = await bcrypt.hash(newUserData.password, 10);
         return newUserData;
@@ -64,6 +66,7 @@ User.init(
     freezeTableName: true,
     underscored: true,
     modelName: "user",
+    tableName: "user",
   }
 );
 

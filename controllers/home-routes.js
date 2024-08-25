@@ -1,142 +1,163 @@
-// Create a new router instance
 const router = require("express").Router();
-// Import the User model
-const { User, WrittenWork } = require("../models");
-// Route to render the homepage
-router.get("/", async (req, res) => {
+const { User, WrittenWork, Comment } = require("../models");
+const withAuth = require("../utils/auth");
+
+// Render homepage (no auth required)
+router.get("/", (req, res) => {
   try {
-    // Render the homepage template with the isHomepage flag set to true
     res.render("homepage", {
       isHomepage: true,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
-    console.log(err); // Log any errors
-    res.status(500).json(err); // Respond with a server error
-  }
-});
-// Route to render the dashboard
-router.get("/dashboard", async (req, res) => {
-  try {
-    if (!req.session.loggedIn) {
-      return res.redirect("/login");
-    }
-    if (!req.session.user_id) {
-      throw new Error("User ID is not defined in the session.");
-    }
-    // Fetch the written works created by the user
-    const writtenWorks = await WrittenWork.findAll({
-      where: { userId: req.session.user_id }
-    });
-    // Pass the written works to the dashboard template
-    res.render("dashboard", {
-      loggedIn: req.session.loggedIn,
-      writtenWorks: writtenWorks.map(work => work.get({ plain: true })), // Send plain JS objects
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// Route to render the profile
-router.get("/profile", async (req, res) => {
-  try {
-    if (!req.session.loggedIn) {
-      return res.redirect("/login");
-    }
-    if (!req.session.user_id) {
-      throw new Error("User ID is not defined in the session.");
-    }
-    // Fetch the user data from the database
-    const user = await User.findByPk(req.session.user_id);
-    if (!user) {
-      throw new Error("User not found.");
-    }
-    // Render the profile template, passing in the user data
-    res.render("profile", {
-      loggedIn: req.session.loggedIn,
-      username: user.username,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      bio: user.bio
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// Route to render the discover
-router.get("/discover", async (req, res) => {
-  try {
-    if (!req.session.loggedIn) {
-      return res.redirect("/login");
-    }
-    if (!req.session.user_id) {
-      throw new Error("User ID is not defined in the session.");
-    }
-    // Fetch the user data from the database
-    const user = await User.findByPk(req.session.user_id);
-    if (!user) {
-      throw new Error("User not found.");
-    }
-    // Render the profile template, passing in the user data
-    res.render("discover", {
-      loggedIn: req.session.loggedIn,
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// Route to render the editor page
-router.get("/editor", async (req, res) => {
-  try {
-    if (!req.session.loggedIn) {
-      return res.redirect("/login");
-    }
-
-    // Render the editor template
-    res.render("editor", {
-      loggedIn: req.session.loggedIn,
-    });
-  } catch (err) {
-    console.log(err);
+    console.error(err);
     res.status(500).json(err);
   }
 });
 
-// Route to render the signup page
+// Render dashboard (requires auth)
+router.get("/dashboard", withAuth, async (req, res) => {
+  try {
+    const writtenWorks = await WrittenWork.findAll({
+      where: { userId: req.session.user_id },
+    });
+    res.render("dashboard", {
+      loggedIn: req.session.loggedIn,
+      writtenWorks: writtenWorks.map((work) => work.get({ plain: true })),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Render profile (requires auth)
+router.get("/profile", withAuth, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.session.user_id);
+    if (!user) {
+      return res.status(404).json({ error: "User not found." });
+    }
+    res.render("profile", {
+      loggedIn: req.session.loggedIn,
+      ...user.get({ plain: true }),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Render discover page (requires auth)
+router.get("/discover", withAuth, async (req, res) => {
+  try {
+    const works = await WrittenWork.findAll({
+      include: [
+        { model: User, attributes: ["username"] },
+        {
+          model: Comment,
+          include: [{ model: User, attributes: ["username"] }],
+          order: [["createdAt", "DESC"]],
+        },
+      ],
+      order: [["createdAt", "DESC"]],
+    });
+
+    res.render("discover", {
+      loggedIn: req.session.loggedIn,
+      works: works.map((work) => work.get({ plain: true })),
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+});
+
+// Render editor page (requires auth)
+router.get("/editor", withAuth, async (req, res) => {
+  try {
+    const { id: workId } = req.query;
+    let workData = {};
+
+    if (workId) {
+      const work = await WrittenWork.findOne({
+        where: { id: workId, userId: req.session.user_id },
+      });
+      workData = work ? work.get({ plain: true }) : {};
+    }
+
+    res.render("editor", {
+      loggedIn: req.session.loggedIn,
+      work: workData,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to retrieve work." });
+  }
+});
+
+// Render story page (requires auth)
+router.get("/story", withAuth, async (req, res) => {
+  try {
+    const { id: workId } = req.query;
+    let workData = {};
+
+    if (workId) {
+      const work = await WrittenWork.findOne({
+        where: { id: workId },
+        include: [
+          { model: WrittenWork, as: "OriginalWork", attributes: ["title"] },
+          { model: User, attributes: ["username"] },
+          {
+            model: Comment,
+            include: [{ model: User, attributes: ["username"] }],
+          },
+        ],
+      });
+
+      if (work) {
+        workData = work.get({ plain: true });
+      } else {
+        return res.status(404).json({ error: "Work not found." });
+      }
+    } else {
+      return res.status(400).json({ error: "No work ID provided." });
+    }
+
+    res.render("story", {
+      loggedIn: req.session.loggedIn,
+      work: workData,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to retrieve work." });
+  }
+});
+
+// Render signup (no auth required)
 router.get("/signup", (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect("/");
-    return;
+    return res.redirect("/");
   }
   res.render("signup");
 });
-// Route to render the login page
+
+// Render login (no auth required)
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
-    res.redirect("/");
-    return;
+    return res.redirect("/");
   }
   res.render("login");
 });
-// Route to handle logout
-router.get("/logout", (req, res) => {
-  if (req.session.loggedIn) {
-    req.session.destroy((err) => {
-      if (err) {
-        return res.status(500).json({ error: "Failed to log out." });
-      }
-      res.redirect("/"); // Redirect to homepage
-    });
-  } else {
-    res.redirect("/login"); // Redirect to login page if not logged in
-  }
+
+// Logout (requires auth)
+router.get("/logout", withAuth, (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed to log out." });
+    }
+    res.redirect("/");
+  });
 });
 
 module.exports = router;
