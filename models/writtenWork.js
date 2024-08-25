@@ -34,6 +34,10 @@ WrittenWork.init(
       },
       allowNull: true,
     },
+    collectionTitle: {
+      type: DataTypes.STRING,
+      allowNull: true, // Allow null because it won't always be set
+    },
   },
   {
     sequelize,

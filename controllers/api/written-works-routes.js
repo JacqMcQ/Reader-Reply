@@ -14,13 +14,14 @@ function requireLogin(req, res, next) {
 // Create new work
 router.post("/", requireLogin, async (req, res) => {
   try {
-    const { title, content, existingWorkId } = req.body;
+    const { title, content, existingWorkId, collectionTitle } = req.body;
 
     const newWork = await WrittenWork.create({
       title,
       content,
       userId: req.session.user_id,
       existingWorkId: existingWorkId || null,
+      collectionTitle: existingWorkId ? null : collectionTitle || null,
     });
 
     res.status(200).json(newWork);
@@ -33,12 +34,20 @@ router.post("/", requireLogin, async (req, res) => {
 // Update existing work
 router.put("/:id", requireLogin, async (req, res) => {
   try {
-    const { title, content, existingWork } = req.body;
+    const { title, content, existingWorkId, collectionTitle } = req.body;
     const workId = req.params.id;
 
     const [updated] = await WrittenWork.update(
-      { title, content, existingWorkId: existingWork || null },
-      { where: { id: workId, userId: req.session.user_id }, returning: true }
+      {
+        title,
+        content,
+        existingWorkId: existingWorkId || null,
+        collectionTitle: existingWorkId ? null : collectionTitle || null,
+      },
+      {
+        where: { id: workId, userId: req.session.user_id },
+        returning: true,
+      }
     );
 
     if (!updated) {
@@ -59,6 +68,7 @@ router.get("/:id", requireLogin, async (req, res) => {
   try {
     const work = await WrittenWork.findOne({
       where: { id: req.params.id, userId: req.session.user_id },
+      attributes: ["id", "title", "content", "collectionTitle", "existingWorkId"], // Include necessary fields
     });
 
     if (!work) {
@@ -77,7 +87,9 @@ router.get("/:id", requireLogin, async (req, res) => {
 // Retrieve all works
 router.get("/", async (req, res) => {
   try {
-    const works = await WrittenWork.findAll();
+    const works = await WrittenWork.findAll({
+      attributes: ["id", "title", "collectionTitle"], // Include collectionTitle in the response
+    });
     res.status(200).json(works);
   } catch (err) {
     console.error(err);

@@ -24,7 +24,10 @@
 
       {{#each writtenWorks}}
         <div class="story-item">
-          <p><a href="/editor?id={{this.id}}">{{this.title}}</a></p> <!-- Dynamic link to work -->
+          <p><a href="/editor?id={{this.id}}">{{this.title}}</a></p> <!-- Hyperlinked title -->
+          {{#if this.collectionTitle}}
+            <p class="collection-title"><em>Part of '{{this.collectionTitle}}' Collection</em></p> <!-- Non-hyperlinked collection title -->
+          {{/if}}
           <p class="comment">{{this.comment}}</p>
         </div>
       {{/each}}
