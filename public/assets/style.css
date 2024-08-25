@@ -466,6 +466,14 @@ form label {
   font-style: italic;
 }
 
+#discover .collection-title {
+  font-size: 0.9em; /* Slightly smaller than the main title */
+  font-style: italic; /* Italicize the text */
+  color: #666; /* Optional: a light color to differentiate it */
+  margin-top: 5px; /* Space between the main title and collection title */
+}
+
+
 /* Post Content */
 #discover .post-content {
   margin-top: 10px;

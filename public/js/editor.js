@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .map(
               (work) => `
               <option value="${work.id}" data-collection-title="${work.collectionTitle}">
-                ${work.title}
+                ${work.collectionTitle}
               </option>
             `
             )

@@ -57,6 +57,9 @@
                 class="post-link"
               >{{this.title}}</a>
             </h3>
+            {{#if this.collectionTitle}}
+              <p class="collection-title"><em>Part of '{{this.collectionTitle}}' Collection </em></p>
+            {{/if}}
             <div class="post-metadata">
               <p class="post-author">By: {{this.user.username}}</p>
               <p class="post-date">{{format_date this.createdAt}}</p>
