@@ -926,7 +926,11 @@ form label {
 }
 
 #authorProfile .section-3 div {
-  padding: 3%;
+  padding: 2%;
+}
+
+#authorProfile .section-3 li {
+  padding-bottom: 1%;
 }
 
 /* Footer Styles */
