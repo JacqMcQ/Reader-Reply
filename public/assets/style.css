@@ -883,45 +883,15 @@ form label {
 }
 
 #authorProfile .section-1 {
-  width: 60%; /* Adjust width as needed */
+  width: 50%; /* 50% of the width */
+  height: 40vh; /* 40% of the viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Evenly space out the content vertically */
 }
 
-#authorProfile .user-info-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-#authorProfile .user-info-form label {
-    font-weight: bold;
-}
-
-#authorProfile .user-info-form input {
-    padding: 8px;
-    border: 1px solid var(--grayvariable);
-    border-radius: 4px;
-}
-
-#authorProfile .form-buttons {
-    display: flex;
-    gap: 10px; /* Space between the Save and Change Password buttons */
-}
-
-#authorProfile .form-buttons .save,
-#authorProfile .form-buttons .change-password,
-#authorProfile .update-bio {
-    background-color: var(--bluevariable);
-    color: var(--whitevariable);
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-#authorProfile .form-buttons .save:hover,
-#authorProfile .form-buttons .change-password:hover,
-#authorProfile .update-bio:hover {
-    background-color: var(--redvariable);
+#authorProfile .section-1 p {
+  margin: 0;
 }
 
 #authorProfile .section-2 {
@@ -956,82 +926,6 @@ form label {
     padding: 20px;
     border-radius: 5px;
     width: 100%;
-}
-
-/* Change Password Modal */
-#authorProfile .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
-
-#authorProfile .modal h2 {
-  color: var(--redvariable);
-  text-align: center;
-}
-
-/* Modal Content/Box */
-#authorProfile .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
-  padding: 20px;
-  border: 1px solid #888;
-  width: 50%; /* Set to 50% width for a smaller modal */
-}
-
-/* The Close Button */
-#authorProfile .close {
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-#authorProfile .close:hover,
-#authorProfile .close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* Form styling within the modal */
-#authorProfile .modal-content form {
-  display: flex;
-  flex-direction: column; /* Stack fields vertically */
-  gap: 15px; /* Add space between fields */
-}
-
-#authorProfile .modal-content form label {
-  font-weight: bold;
-  margin-bottom: 1px;
-}
-
-#authorProfile .modal-content form input {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-#authorProfile .modal-content form button {
-  margin-top: 20px; /* Add some space between the last input field and the button */
-  padding: 10px;
-  background-color: var(--redvariable);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-#authorProfile .modal-content form button:hover {
-  background-color: var(--redvariable);
 }
 
 /* Footer Styles */
