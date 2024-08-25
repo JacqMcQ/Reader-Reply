@@ -1,10 +1,22 @@
-<link rel="stylesheet" href="/assets/style.css" />
-
 <div id="editor">
   <div class="form-container">
     <div class="column-1">
       <form id="editor-form">
         <input type="hidden" id="work-id" value="{{work.id}}" />
+
+        <label for="existing-works">Add to Existing Works (Optional)</label>
+        <select id="existing-works" name="existing-works">
+          <option value="">Select an existing work (Optional)</option>
+          <!-- Options will be dynamically populated in JavaScript -->
+        </select>
+
+        <label for="collection-title">Collection Title (Optional)</label>
+        <input
+        type="text"
+        id="collection-title"
+        name="collection-title"
+        value="{{#if work.collectionTitle}}{{work.collectionTitle}}{{/if}}"
+        />
 
         <label for="title">Title</label>
         <input
@@ -14,12 +26,6 @@
           value="{{work.title}}"
           required
         />
-
-        <label for="existing-works">Add to Existing Works</label>
-        <select id="existing-works" name="existing-works">
-          <option value="">Select an existing work (Optional)</option>
-          <!-- Add options dynamically in your JavaScript if needed -->
-        </select>
 
         <label for="content">Content</label>
         <textarea
