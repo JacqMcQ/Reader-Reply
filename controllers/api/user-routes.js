@@ -23,6 +23,14 @@ const saveSession = (req, user, res, successMessage, statusCode = 200) => {
 router.post("/", async (req, res) => {
   try {
     const { username, email, password } = req.body;
+
+    // Check if the email already exists
+    const existingUser = await User.findOne({ where: { email } });
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already in use." });
+    }
+
+    // Proceed with user creation if email is unique
     const dbUserData = await User.create({ username, email, password });
     console.log("New User Created:", dbUserData);
     saveSession(req, dbUserData, res, "User created successfully");
@@ -30,6 +38,7 @@ router.post("/", async (req, res) => {
     handleError(res, err);
   }
 });
+
 
 // Update user info on profile
 router.put("/update-info", withAuth, async (req, res) => {
@@ -144,7 +153,6 @@ router.put("/change-password", withAuth, async (req, res) => {
   }
 });
 
-// LOGIN
 // LOGIN (no auth needed)
 router.post("/login", async (req, res) => {
   try {
@@ -152,7 +160,9 @@ router.post("/login", async (req, res) => {
     const dbUserData = await User.findOne({ where: { username } });
 
     if (!dbUserData || !dbUserData.checkPassword(password)) {
-      return res.status(400).json({ message: "Incorrect username or password." });
+      return res
+        .status(400)
+        .json({ message: "Incorrect username or password." });
     }
 
     saveSession(req, dbUserData, res, "You are now logged in.");
@@ -160,6 +170,7 @@ router.post("/login", async (req, res) => {
     handleError(res, err);
   }
 });
+
 // LOGOUT
 router.get("/logout", (req, res) => {
   if (req.session.loggedIn) {
