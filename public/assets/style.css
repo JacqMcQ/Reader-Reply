@@ -265,6 +265,10 @@ form label {
   font-weight: 700;
 }
 
+#dashboard .continue-writing div{
+  padding-bottom: 2%;
+}
+
 #dashboard .continue-reading h2,
 #dashboard .continue-writing h2 {
   padding-bottom: 2%;
@@ -939,7 +943,7 @@ footer {
   color: var(--whitevariable);
   text-align: center;
   padding: 20px 0;
-  margin-top: auto; /* Ensure the footer stays at the bottom */
+  margin-top: auto;
   display: flex;
   flex-direction: column;
   font-size: 12px;
