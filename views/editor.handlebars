@@ -47,17 +47,14 @@
       </form>
     </div>
 
-<div class="column-2">
-      <div class="comments-section">
+    <div class="column-2">
+      <div id="comments-list" class="comments-section">
         <h2>Comments</h2>
         {{#if comments.length}}
           {{#each comments}}
             <div class="comment">
               <p>{{this.content}}</p>
-              <p class="username">-
-                {{this.user.username}}
-                on
-                {{format_date this.created_at}}</p>
+              <p class="username">- {{this.user.username}} on {{format_date this.createdAt}}</p>
             </div>
           {{/each}}
         {{else}}

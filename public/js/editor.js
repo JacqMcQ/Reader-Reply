@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("editor-form");
   const workId = document.getElementById("work-id")?.value;
   const existingWorksDropdown = document.getElementById("existing-works");
-  const commentForm = document.getElementById("new-comment-form");
   const collectionTitleInput = document.getElementById("collection-title");
 
   // Function to load existing works and populate dropdown
@@ -12,7 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const works = await response.json();
 
       if (existingWorksDropdown) {
-        // Start by adding the constant 'new' option
         existingWorksDropdown.innerHTML = `
           <option value="new">New Collection</option>
           ${works
@@ -27,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         `;
 
-        // Auto-populate the collection title if an existing work is selected
         existingWorksDropdown.addEventListener("change", function () {
           const selectedOption =
             existingWorksDropdown.options[existingWorksDropdown.selectedIndex];
@@ -36,11 +33,11 @@ document.addEventListener("DOMContentLoaded", () => {
           );
 
           if (selectedOption.value === "new") {
-            collectionTitleInput.value = ""; // Clear the input for new collection
+            collectionTitleInput.value = "";
             collectionTitleInput.placeholder = "Enter new collection title";
           } else {
             collectionTitleInput.value = collectionTitle || "";
-            collectionTitleInput.placeholder = ""; // Clear the placeholder
+            collectionTitleInput.placeholder = "";
           }
         });
       }
@@ -68,7 +65,7 @@ document.addEventListener("DOMContentLoaded", () => {
       title,
       content,
       existingWorkId,
-      collectionTitle, // Include the collection title in the request
+      collectionTitle,
     };
 
     try {
@@ -121,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           if (response.ok) {
             alert("Work deleted successfully.");
-            window.location.href = "/dashboard"; // Redirect to the dashboard or another page
+            window.location.href = "/dashboard";
           } else {
             const error = await response.json();
             alert(`Failed to delete work: ${error.message}`);
@@ -133,4 +130,64 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // Function to load comments for the specific work
+  const loadComments = async (workId) => {
+    try {
+      const response = await fetch(`/api/comments?workId=${workId}`);
+
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+
+      const comments = await response.json();
+      displayComments(comments);
+    } catch (err) {
+      console.error("Error loading comments:", err);
+      alert("Failed to load comments.");
+    }
+  };
+
+  // Function to display comments on the page
+  const displayComments = (comments) => {
+    const commentsList = document.getElementById("comments-list");
+    if (!commentsList) {
+      console.error("Comments list element not found.");
+      return;
+    }
+
+    commentsList.innerHTML = comments.length
+      ? comments
+          .map(
+            (comment) => `
+          <div class="comment">
+            <p>${comment.content}</p>
+            <p class="username">- ${comment.user.username}</p>
+            <p class="date">${formatDate(comment.createdAt)} at ${formatTime(
+              comment.createdAt
+            )}</p>
+          </div>
+        `
+          )
+          .join("")
+      : "<p>No comments yet.</p>";
+  };
+
+  const formatDate = (date) => {
+    const d = new Date(date);
+    return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;
+  };
+
+  const formatTime = (date) => {
+    const d = new Date(date);
+    return d.toLocaleTimeString();
+  };
+
+  // Load comments if workId is present
+  if (workId) {
+    loadComments(workId);
+  }
+
+  // Load works on page load
+  loadWorks();
 });

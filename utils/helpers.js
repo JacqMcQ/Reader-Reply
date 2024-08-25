@@ -1,4 +1,4 @@
-// Export helper functions
+// utils/helpers.js
 module.exports = {
   // Format time as a string
   format_time: (date) => {
@@ -6,8 +6,8 @@ module.exports = {
   },
   // Format date as MM/DD/YYYY
   format_date: (date) => {
-    return `${new Date(date).getMonth() + 1}/${new Date(date).getDate()}/${
-      new Date(date).getFullYear() + 5
-    }`;
+    return `${new Date(date).getMonth() + 1}/${new Date(
+      date
+    ).getDate()}/${new Date(date).getFullYear()}`;
   },
 };

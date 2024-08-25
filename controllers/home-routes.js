@@ -47,7 +47,6 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
-
 // Render profile (requires auth)
 router.get("/profile", withAuth, async (req, res) => {
   try {

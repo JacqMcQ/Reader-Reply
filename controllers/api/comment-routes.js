@@ -1,30 +1,26 @@
 const router = require("express").Router();
-const { Comment, User } = require("../../models");
-const withAuth = require("../../utils/auth");
+const { Comment, User } = require("../../models"); // Import User model
 
-// POST route to create a new comment
-router.post("/", withAuth, async (req, res) => {
+// Retrieve comments for a specific work
+router.get("/", async (req, res) => {
   try {
-    const newComment = await Comment.create({
-      content: req.body.content,
-      workId: req.body.workId,
-      userId: req.session.user_id,
-    });
-    res.status(200).json(newComment);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Failed to create comment." });
-  }
-});
+    const { workId } = req.query;
 
-// GET route to retrieve comments for a specific work
-router.get("/:workId", async (req, res) => {
-  try {
+    if (!workId) {
+      return res.status(400).json({ error: "workId is required" });
+    }
+
     const comments = await Comment.findAll({
-      where: { workId: req.params.workId },
-      include: [{ model: User, attributes: ["username"] }],
+      where: { workId },
+      include: [
+        {
+          model: User,
+          attributes: ["username"],
+        },
+      ],
       order: [["createdAt", "DESC"]],
     });
+
     res.status(200).json(comments);
   } catch (err) {
     console.error(err);

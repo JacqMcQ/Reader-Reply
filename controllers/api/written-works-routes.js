@@ -69,7 +69,13 @@ router.get("/:id", requireLogin, async (req, res) => {
   try {
     const work = await WrittenWork.findOne({
       where: { id: req.params.id, userId: req.session.user_id },
-      attributes: ["id", "title", "content", "collectionTitle", "existingWorkId"], // Include necessary fields
+      attributes: [
+        "id",
+        "title",
+        "content",
+        "collectionTitle",
+        "existingWorkId",
+      ], // Include necessary fields
     });
 
     if (!work) {
