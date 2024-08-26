@@ -29,3 +29,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("Error:", error);
   }
 });
+
+//Wait for DOM to be fully loaded and fetch best sellers lists
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    
+    const response = await fetch('/api/books/books');
+    if (!response.ok) {
+      throw new Error('Failed to fetch best sellers');
+    }
+
+    const bestSellers = await response.json();
+    const bestSellersContainer = document.getElementById('best-sellers');
+
+    
+    bestSellersContainer.innerHTML = '';
+
+    
+    bestSellers.forEach(list => {
+      const listTitle = document.createElement('h3');
+      listTitle.textContent = list.list_name;
+      bestSellersContainer.appendChild(listTitle);
+
+      const bookList = document.createElement('ul');
+      list.books.forEach(book => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${book.title} by ${book.author}`;
+        bookList.appendChild(listItem);
+      });
+
+      bestSellersContainer.appendChild(bookList);
+    });
+  } catch (error) {
+    console.error('Error displaying best sellers:', error);
+  }
+});
