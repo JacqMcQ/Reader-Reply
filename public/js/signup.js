@@ -1,5 +1,5 @@
 const signupFormHandler = async (event) => {
-  event.preventDefault(); // Prevent default form submission
+  event.preventDefault(); 
 
   // Get email, username, and password values
   const email = document.querySelector("#email-signup").value.trim();
@@ -20,14 +20,14 @@ const signupFormHandler = async (event) => {
         // Redirect to dashboard on success
         document.location.replace("/dashboard");
       } else {
-        alert("Failed to sign up."); // Alert on failure
+        alert("Failed to sign up.");
       }
     } catch (error) {
       console.error("Error during signup:", error);
       alert("An error occurred. Please try again.");
     }
   } else {
-    alert("Please fill out all fields."); // Alert if any field is missing
+    alert("Please fill out all fields.");
   }
 };
 

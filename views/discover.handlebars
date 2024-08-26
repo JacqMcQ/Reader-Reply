@@ -23,22 +23,6 @@
             {{this.content}}
           </div>
 
-          <!-- Display comments associated with the work -->
-          <div class="comments-section">
-            <h4>Comments</h4>
-            {{#if this.comments.length}}
-              {{#each this.comments}}
-                <div class="comment">
-                  <p>{{this.content}}</p>
-                  <p class="comment-author">
-                    - {{this.user.username}} on {{format_date this.createdAt}}
-                  </p>
-                </div>
-              {{/each}}
-            {{else}}
-              <p>No comments yet.</p>
-            {{/if}}
-          </div>
         </div>
       {{/each}}
     {{else}}

@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { Comment, User } = require("../../models"); // Import User model
+const { Comment, User } = require("../../models");
 const withAuth = require("../../utils/auth");
 
 // Route to create a new comment
@@ -17,7 +17,7 @@ router.post("/", withAuth, async (req, res) => {
     const newComment = await Comment.create({
       content,
       workId,
-      userId: req.session.user_id, // Assuming you store the user's ID in the session
+      userId: req.session.user_id,
     });
 
     // Respond with the newly created comment
@@ -37,6 +37,7 @@ router.get("/", async (req, res) => {
       return res.status(400).json({ error: "workId is required" });
     }
 
+    // Find all comments for the given workId and include the username of the commenter
     const comments = await Comment.findAll({
       where: { workId },
       include: [
@@ -48,6 +49,7 @@ router.get("/", async (req, res) => {
       order: [["createdAt", "DESC"]],
     });
 
+    // Respond with the retrieved comments
     res.status(200).json(comments);
   } catch (err) {
     console.error(err);

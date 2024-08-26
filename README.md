@@ -84,6 +84,8 @@ THEN they should be logged out, their session should end, and they should be red
 
 *   express-session. (n.d.). npm. Retrieved August 10, 2024, from https://www.npmjs.com/package/express-session
 
+*   npm, Inc. (n.d.). svg-captcha (Version 1.4.0). npm. Retrieved August 23, 2024 https://www.npmjs.com/package/svg-captcha
+
 *   OpenAI. (2024, August 22). Explanation of Axios and how to use it [ChatGPT conversation]. Retrieved from https://chatgpt.com/share/70dabd4d-34a7-4826-8c90-dffdd2d9dcf2
 
 *   pg. (n.d.). npm. Retrieved August 10, 2024, from https://www.npmjs.com/package/pg

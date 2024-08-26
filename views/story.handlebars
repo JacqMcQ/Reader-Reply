@@ -1,22 +1,30 @@
 <div id="story">
   <div class="story-container">
+    <!-- Display the title of the original work if this work is part of a collection -->
     {{#if work.OriginalWork}}
       <p>Part of: {{work.OriginalWork.title}}</p>
     {{/if}}
 
+    <!-- Display the title of the current work -->
     <h1>{{work.title}}</h1>
+
+    <!-- Display the content of the current work -->
     <p>{{work.content}}</p>
 
+    <!-- Comments section -->
     <div class="comments-section">
       <h2>Comments</h2>
+      <!-- Form for posting a new comment -->
       <form id="comment-form">
         <textarea id="comment-content" rows="4" required></textarea>
         <button type="submit">Post Comment</button>
       </form>
 
+      <!-- List of comments -->
       <div id="comments-list">
         {{#each work.comments}}
           <div class="comment">
+            <!-- Display the comment content -->
             <p>{{this.content}}</p>
             <p class="username">- {{this.user.username}}</p>
             <p class="date">{{format_date this.createdAt}} at {{format_time this.createdAt}}</p>
@@ -27,4 +35,5 @@
   </div>
 </div>
 
+<!-- Include JavaScript for handling story functions -->
 <script src="/js/story.js"></script>
