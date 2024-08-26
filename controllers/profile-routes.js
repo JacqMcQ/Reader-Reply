@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const { User } = require("../../models");
-const withAuth = require("../../utils/auth");
+const { User } = require("../models");
+const withAuth = require("../utils/auth");
 
 // Define the route for fetching the user profile
 router.get("/profile", withAuth, async (req, res) => {

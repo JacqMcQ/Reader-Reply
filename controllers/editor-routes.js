@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const { WrittenWork } = require("../../models");
 
+// Route to render the editor page with pre-existing work content
 router.get("/editor", async (req, res) => {
   const workId = req.query.id;
 

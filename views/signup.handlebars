@@ -4,7 +4,12 @@
     <h2 class="page-title">Sign Up</h2>
 
     <!-- User signup form -->
-    <form id="signup-form" class="signup-form" action="/api/users" method="POST">     
+    <form
+      id="signup-form"
+      class="signup-form"
+      action="/api/users"
+      method="POST"
+    >
 
       <!-- Username Field -->
       <label for="username-signup">Username:</label>
@@ -18,11 +23,12 @@
       <label for="password-signup">Password:</label>
       <input class="form-input" type="password" id="password-signup" required />
 
-    <div>
-    <img src="/api/captcha/signup" alt="Captcha">
-    </div>
-    <label for="captcha">Enter Captcha:</label>
-    <input type="text" id="captcha" name="captcha" required>
+      <!-- Captcha for signup -->
+      <div>
+        <img src="/api/captcha/signup" alt="Captcha" />
+      </div>
+      <label for="captcha">Enter Captcha:</label>
+      <input type="text" id="captcha" name="captcha" required />
 
       <!-- Sign Up Button -->
       <button class="form-button" type="submit">Sign Up!</button>

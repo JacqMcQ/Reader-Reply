@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const axios = require('axios');
 
+// Route to get a random quote from the ZenQuotes API
 router.get('/quote', async (req, res) => {
   try {
     const response = await axios.get('https://zenquotes.io/api/random');

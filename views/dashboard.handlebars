@@ -4,6 +4,7 @@
     <div class="column create-new">
       <button id="create-new-btn" class="action-btn">Create New</button>
       <div class="quote-container">
+        <!-- Inspirational quote section -->
         <div id="inspo">Need inspiration? Consider this: </div>
         <div id="quote"></div>
       </div>
@@ -12,38 +13,41 @@
     <!-- Continue Reading Section -->
     <div class="column continue-reading">
       <h2>Continue Reading</h2>
+      <!-- Check if there are any works the user has commented on -->
       {{#if commentedWorks.length}}
         {{#each commentedWorks}}
           <div class="story-item">
+            <!-- Link to the story the user has commented on -->
             <p><a href="/story?id={{this.id}}">{{this.title}}</a></p>
+            <!-- Display the collection title if it exists -->
             {{#if this.collectionTitle}}
               <p class="collection-title"><em>Part of '{{this.collectionTitle}}' Collection</em></p>
             {{/if}}
           </div>
         {{/each}}
       {{else}}
+        <!-- Message if no commented works are available -->
         <p>You haven't commented on any works yet.</p>
       {{/if}}
-      <a href="/works" class="view-more">View More</a>
-      <!-- Link to view all reading works -->
     </div>
 
     <!-- Continue Writing Section -->
     <div class="column continue-writing">
       <h2>Continue Writing</h2>
-
+      <!-- Loop through the user's written works -->
       {{#each writtenWorks}}
         <div class="story-item">
+          <!-- Link to the editor to continue writing -->
           <p><a href="/editor?id={{this.id}}">{{this.title}}</a></p>
+          <!-- Display the collection title if it exists -->
           {{#if this.collectionTitle}}
             <p class="collection-title"><em>Part of '{{this.collectionTitle}}'
                 Collection</em></p>
           {{/if}}
+          <!-- Display any comments related to the work -->
           <p class="comment">{{this.comment}}</p>
         </div>
       {{/each}}
-      <a href="/works" class="view-more">View More</a>
-      <!-- Link to view all written works -->
     </div>
   </div>
 </div>

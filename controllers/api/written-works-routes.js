@@ -75,7 +75,7 @@ router.get("/:id", requireLogin, async (req, res) => {
         "content",
         "collectionTitle",
         "existingWorkId",
-      ], // Include necessary fields
+      ], 
     });
 
     if (!work) {
@@ -95,7 +95,7 @@ router.get("/:id", requireLogin, async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const works = await WrittenWork.findAll({
-      attributes: ["id", "title", "collectionTitle"], // Include collectionTitle in the response
+      attributes: ["id", "title", "collectionTitle"],
     });
     res.status(200).json(works);
   } catch (err) {

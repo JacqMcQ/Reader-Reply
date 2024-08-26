@@ -1,10 +1,12 @@
 <div id="profile">
   <div class="profile-container">
     <div class="row">
-      <!-- Row 1 -->
+      <!-- Row 1: User Information Section -->
       <div class="section section-1">
         <h2>User Information</h2>
+        <!-- Form for editing user information -->
         <form class="user-info-form">
+          <!-- Input for the username -->
           <label for="username">Username:</label>
           <input
             type="text"
@@ -13,6 +15,7 @@
             value="{{username}}"
           />
 
+          <!-- Input for the first name -->
           <label for="first-name">First Name:</label>
           <input
             type="text"
@@ -21,6 +24,7 @@
             value="{{firstName}}"
           />
 
+          <!-- Input for the last name -->
           <label for="last-name">Last Name:</label>
           <input
             type="text"
@@ -29,9 +33,11 @@
             value="{{lastName}}"
           />
 
+          <!-- Input for the email address -->
           <label for="email">Email Address:</label>
           <input type="email" id="email" name="email" value="{{email}}" />
 
+          <!-- Buttons for saving changes and changing the password -->
           <div class="form-buttons">
             <button type="button" class="save">Save</button>
             <span id="userInfoMessage" style="color: var(--redvariable); margin-left: 10px;"></span>
@@ -48,6 +54,7 @@
         </form>
       </div>
 
+      <!-- Row 1: Profile Image Section -->
       <div class="section section-2">
         <div class="profile-image"></div>
       </div>
@@ -67,9 +74,11 @@
             required
           />
 
+          <!-- Input for the new password -->
           <label for="newPassword">New Password:</label>
           <input type="password" id="newPassword" name="newPassword" required />
 
+          <!-- Input to confirm the new password -->
           <label for="confirmNewPassword">Confirm New Password:</label>
           <input
             type="password"
@@ -78,17 +87,20 @@
             required
           />
 
+          <!-- Submit button for changing the password -->
           <button type="submit">Change Password</button>
         </form>
       </div>
     </div>
 
     <div class="row">
-      <!-- Row 2 -->
+      <!-- Row 2: About Me Section -->
       <div class="section section-3">
         <h2>About Me</h2>
+        <!-- Textarea for the user bio -->
         <textarea id="bio" name="bio" maxlength="500">{{bio}}</textarea>
         <div class="bio-save-container">
+          <!-- Button to save the bio -->
           <button type="button" class="update-bio" id="saveBioBtn">Save Bio</button>
           <span
             id="bioMessage"
@@ -100,6 +112,6 @@
   </div>
 </div>
 
-<!-- Link to external JavaScript file -->
+<!-- Link to external JavaScript files -->
 <script src="/js/profile.js"></script>
 <script src="/js/changePassword.js"></script>
