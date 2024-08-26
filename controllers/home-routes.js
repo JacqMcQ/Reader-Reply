@@ -20,12 +20,10 @@ router.get("/dashboard", withAuth, async (req, res) => {
   try {
     const userId = req.session.user_id;
 
-    // Fetch works the user has written
     const writtenWorks = await WrittenWork.findAll({
       where: { userId: userId },
     });
 
-    // Fetch works the user has commented on
     const commentedWorks = await WrittenWork.findAll({
       include: [
         {
@@ -38,6 +36,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
+      dashboardActive: true, // Active page indicator
       writtenWorks: writtenWorks.map((work) => work.get({ plain: true })),
       commentedWorks: commentedWorks.map((work) => work.get({ plain: true })),
     });
@@ -56,6 +55,7 @@ router.get("/profile", withAuth, async (req, res) => {
     }
     res.render("profile", {
       loggedIn: req.session.loggedIn,
+      profileActive: true, // Active page indicator
       ...user.get({ plain: true }),
     });
   } catch (err) {
@@ -91,19 +91,18 @@ router.get("/author/:id", async (req, res) => {
 // Render discover page with only published works
 router.get("/discover", withAuth, async (req, res) => {
   try {
-   
     const works = await WrittenWork.findAll({
       where: {
-        isPublished: true, 
+        isPublished: true,
       },
       include: [
         {
           model: Comment,
-          include: [User], 
+          include: [User],
         },
         {
-          model: User, 
-          attributes: ["username"], 
+          model: User,
+          attributes: ["username"],
         },
       ],
       order: [["createdAt", "DESC"]],
@@ -111,10 +110,10 @@ router.get("/discover", withAuth, async (req, res) => {
 
     const worksData = works.map((work) => work.get({ plain: true }));
 
-    // Render the discover page with the published works
     res.render("discover", {
       works: worksData,
-      logged_in: req.session.logged_in,
+      loggedIn: req.session.loggedIn,
+      discoverActive: true, // Active page indicator
     });
   } catch (err) {
     console.error(err);
