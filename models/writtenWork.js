@@ -41,6 +41,10 @@ WrittenWork.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
+    isPublished: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
     sequelize,

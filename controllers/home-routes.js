@@ -88,24 +88,33 @@ router.get("/author/:id", async (req, res) => {
   }
 });
 
-// Render discover page
+// Render discover page with only published works
 router.get("/discover", withAuth, async (req, res) => {
   try {
+   
     const works = await WrittenWork.findAll({
+      where: {
+        isPublished: true, 
+      },
       include: [
-        { model: User, attributes: ["id", "username"] },
         {
           model: Comment,
-          include: [{ model: User, attributes: ["username"] }],
-          order: [["createdAt", "DESC"]],
+          include: [User], 
+        },
+        {
+          model: User, 
+          attributes: ["username"], 
         },
       ],
       order: [["createdAt", "DESC"]],
     });
 
+    const worksData = works.map((work) => work.get({ plain: true }));
+
+    // Render the discover page with the published works
     res.render("discover", {
-      loggedIn: req.session.loggedIn,
-      works: works.map((work) => work.get({ plain: true })),
+      works: worksData,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     console.error(err);
@@ -113,6 +122,7 @@ router.get("/discover", withAuth, async (req, res) => {
   }
 });
 
+module.exports = router;
 // Render editor page
 router.get("/editor", withAuth, async (req, res) => {
   try {
@@ -135,7 +145,6 @@ router.get("/editor", withAuth, async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve work." });
   }
 });
-
 // Render story page
 router.get("/story", withAuth, async (req, res) => {
   try {
@@ -174,7 +183,7 @@ router.get("/story", withAuth, async (req, res) => {
   }
 });
 
-// Render signup 
+// Render signup
 router.get("/signup", (req, res) => {
   if (req.session.loggedIn) {
     return res.redirect("/");
@@ -182,7 +191,7 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-// Render login 
+// Render login
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
     return res.redirect("/");
@@ -190,7 +199,7 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-// Render logout 
+// Render logout
 router.get("/logout", withAuth, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -208,6 +217,6 @@ router.get("/terms", (req, res) => {
     console.error(err);
     res.status(500).json(err);
   }
-})
+});
 
 module.exports = router;

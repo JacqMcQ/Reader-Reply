@@ -32,8 +32,8 @@ Comment.belongsTo(WrittenWork, {
   foreignKey: "workId",
 });
 
-Comment.belongsTo(User, { 
-  foreignKey: "userId", 
+Comment.belongsTo(User, {
+  foreignKey: "userId",
 });
 
 // Export the models with their defined associations

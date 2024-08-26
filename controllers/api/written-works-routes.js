@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { WrittenWork } = require("../../models");
 const withAuth = require("../../utils/auth");
 
-// Helper function to ensure user is logged in
+// Helper function to ensure user is logged in UPDATE middleware
 function requireLogin(req, res, next) {
   if (!req.session.loggedIn || !req.session.user_id) {
     return res
@@ -13,32 +13,38 @@ function requireLogin(req, res, next) {
 }
 
 // Create new work
-router.post("/", requireLogin, async (req, res) => {
+router.post("/", withAuth, async (req, res) => {
   try {
-    const { title, content, existingWorkId, collectionTitle } = req.body;
+    const { title, content, existingWorkId, collectionTitle, isPublished } =
+      req.body;
 
-    const newWork = await WrittenWork.create({
-      title,
-      content,
-      userId: req.session.user_id,
-      existingWorkId: existingWorkId || null,
-      collectionTitle: existingWorkId ? null : collectionTitle || null,
-    });
+    let work;
+    if (existingWorkId) {
+      work = await WrittenWork.update(
+        { title, content, collectionTitle, isPublished },
+        { where: { id: existingWorkId }, returning: true }
+      );
+    } else {
+      work = await WrittenWork.create({
+        title,
+        content,
+        collectionTitle,
+        isPublished,
+        userId: req.session.user_id, 
+      });
+    }
 
-    res.status(200).json(newWork);
+    res.status(200).json(work);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to create new work." });
+    res.status(500).json(err);
   }
 });
-
 // Update existing work
-router.put("/:id", requireLogin, async (req, res) => {
+router.put("/:id", withAuth, async (req, res) => {
   try {
     const { title, content, existingWorkId, collectionTitle } = req.body;
-    const workId = req.params.id;
-
-    const [updated] = await WrittenWork.update(
+    const work = await WrittenWork.update(
       {
         title,
         content,
@@ -46,21 +52,21 @@ router.put("/:id", requireLogin, async (req, res) => {
         collectionTitle: existingWorkId ? null : collectionTitle || null,
       },
       {
-        where: { id: workId, userId: req.session.user_id },
-        returning: true,
+        where: {
+          id: req.params.id,
+        },
       }
     );
 
-    if (!updated) {
-      return res
-        .status(404)
-        .json({ error: "Work not found or not owned by user." });
+    if (!work) {
+      res.status(404).json({ message: "No work found with this id!" });
+      return;
     }
 
-    res.status(200).json({ message: "Work updated successfully." });
+    res.status(200).json(work);
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to update work." });
+    res.status(500).json(err);
   }
 });
 
@@ -75,7 +81,7 @@ router.get("/:id", requireLogin, async (req, res) => {
         "content",
         "collectionTitle",
         "existingWorkId",
-      ], 
+      ],
     });
 
     if (!work) {
@@ -107,22 +113,21 @@ router.get("/", async (req, res) => {
 // DELETE route to remove a work
 router.delete("/:id", withAuth, async (req, res) => {
   try {
-    const work = await WrittenWork.destroy({
+    const workId = req.params.id;
+    const deletedWork = await WrittenWork.destroy({
       where: {
-        id: req.params.id,
-        userId: req.session.user_id,
+        id: workId,
       },
     });
 
-    if (!work) {
-      return res.status(404).json({ message: "No work found with this id!" });
+    if (deletedWork) {
+      res.status(200).json({ message: "Work deleted successfully." });
+    } else {
+      res.status(404).json({ message: "Work not found." });
     }
-
-    res.status(200).json({ message: "Work deleted successfully." });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to delete work." });
+    res.status(500).json({ message: "Failed to delete work." });
   }
 });
-
 module.exports = router;
