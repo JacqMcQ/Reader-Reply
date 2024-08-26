@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { WrittenWork } = require("../../models");
 
 router.get("/editor", async (req, res) => {
-  const workId = req.query.id; 
+  const workId = req.query.id;
 
   if (workId) {
     try {
