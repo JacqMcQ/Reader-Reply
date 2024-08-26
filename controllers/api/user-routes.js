@@ -165,21 +165,29 @@ router.post("/login", async (req, res) => {
   try {
     const { username, password, captcha } = req.body;
 
+    // Validate CAPTCHA
     if (captcha !== req.session.captcha) {
       return res.status(400).json({ message: "CAPTCHA verification failed." });
     }
 
+    // Find the user
     const dbUserData = await User.findOne({ where: { username } });
 
+    // Check user and password
     if (!dbUserData || !dbUserData.checkPassword(password)) {
       return res
         .status(400)
         .json({ message: "Incorrect username or password." });
     }
 
-    saveSession(req, dbUserData, res, "You are now logged in.");
+    // Set user session
+    req.session.user_id = dbUserData.id;
+    req.session.loggedIn = true;
+
+    res.status(200).json({ message: "Logged in successfully" });
   } catch (err) {
-    handleError(res, err);
+    console.error("Error during login:", err);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 

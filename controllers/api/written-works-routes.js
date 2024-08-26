@@ -113,22 +113,21 @@ router.get("/", async (req, res) => {
 // DELETE route to remove a work
 router.delete("/:id", withAuth, async (req, res) => {
   try {
-    const work = await WrittenWork.destroy({
+    const workId = req.params.id;
+    const deletedWork = await WrittenWork.destroy({
       where: {
-        id: req.params.id,
-        userId: req.session.user_id,
+        id: workId,
       },
     });
 
-    if (!work) {
-      return res.status(404).json({ message: "No work found with this id!" });
+    if (deletedWork) {
+      res.status(200).json({ message: "Work deleted successfully." });
+    } else {
+      res.status(404).json({ message: "Work not found." });
     }
-
-    res.status(200).json({ message: "Work deleted successfully." });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Failed to delete work." });
+    res.status(500).json({ message: "Failed to delete work." });
   }
 });
-
 module.exports = router;

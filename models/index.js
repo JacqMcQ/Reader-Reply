@@ -1,8 +1,9 @@
+// Import required modules
 const User = require("./User");
 const WrittenWork = require("./writtenWork");
 const Comment = require("./Comment");
 
-// Define relationships
+// Define associations between User and WrittenWork
 User.hasMany(WrittenWork, {
   foreignKey: "userId",
   onDelete: "CASCADE",
@@ -31,6 +32,9 @@ Comment.belongsTo(WrittenWork, {
   foreignKey: "workId",
 });
 
-Comment.belongsTo(User, { foreignKey: "userId" });
+Comment.belongsTo(User, {
+  foreignKey: "userId",
+});
 
+// Export the models with their defined associations
 module.exports = { User, WrittenWork, Comment };

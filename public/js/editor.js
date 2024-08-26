@@ -1,3 +1,4 @@
+// Wait for the DOM to be fully loaded
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("editor-form");
   const workId = document.getElementById("work-id")?.value;
@@ -5,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const collectionTitleInput = document.getElementById("collection-title");
   const saveButton = document.getElementById("save-button");
   const postButton = document.getElementById("post-button");
-  const deleteButton = document.getElementById("delete-button");
+  const deleteButton = document.querySelector(".delete-btn"); // Updated selector
 
   // Function to load existing works and populate dropdown
   const loadWorks = async () => {
@@ -14,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const works = await response.json();
 
       if (existingWorksDropdown) {
-        // Populate the dropdown with options, including an option for a new collection
         existingWorksDropdown.innerHTML = `
           <option value="new">New Collection</option>
           ${works
@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         `;
 
-        // Event listener for when the dropdown selection changes
         existingWorksDropdown.addEventListener("change", function () {
           const selectedOption =
             existingWorksDropdown.options[existingWorksDropdown.selectedIndex];
@@ -37,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
             "data-collection-title"
           );
 
-          // Update the collection title input based on the selected option
           if (selectedOption.value === "new") {
             collectionTitleInput.value = "";
             collectionTitleInput.placeholder = "Enter new collection title";
@@ -56,7 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveOrUpdateWork = async (event, post = false) => {
     event.preventDefault();
 
-    // Get the values from the form fields
     const title = document.getElementById("title").value.trim();
     const content = document.getElementById("content").value.trim();
     const existingWorkId =
@@ -73,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
       content,
       existingWorkId,
       collectionTitle,
-      isPublished: post, // Add the `isPublished` flag here
+      isPublished: post,
     };
 
     try {
@@ -114,35 +111,37 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  if (deleteButton) {
-    deleteButton.addEventListener("click", async () => {
-      const workId = deleteButton.getAttribute("data-work-id");
+  // Delete work handler
+  const deleteWorkHandler = async (event) => {
+    event.preventDefault(); // Prevent default form submission
 
-      if (confirm("Are you sure you want to delete this work?")) {
-        try {
-          const response = await fetch(`/api/writtenWorks/${workId}`, {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
+    const workId = document.querySelector("#work-id").value; // Get work ID
 
-          if (response.ok) {
-            alert("Work deleted successfully.");
-            window.location.href = "/discover";
-          } else {
-            const error = await response.json();
-            alert(`Failed to delete work: ${error.message}`);
-          }
-        } catch (err) {
-          console.error("Error:", err);
-          alert("Failed to delete work.");
-        }
+    try {
+      // Send DELETE request
+      const response = await fetch(`/api/writtenWorks/${workId}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (response.ok) {
+        alert("Work deleted successfully.");
+        window.location.href = "/dashboard"; // Redirect or refresh the page
+      } else {
+        const result = await response.json();
+        alert(result.message || "Failed to delete work.");
       }
-    });
+    } catch (error) {
+      console.error("Error during deletion:", error);
+      alert("An error occurred. Please try again.");
+    }
+  };
+
+  // Add event listener for delete button if the button exists
+  if (deleteButton) {
+    deleteButton.addEventListener("click", deleteWorkHandler);
   }
 
-  // Function to load comments for the specific work
   // Function to load comments for the specific work
   const loadComments = async (workId) => {
     try {
@@ -168,7 +167,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    // Populate the comments list with the fetched comments or a "No comments yet" message
     commentsList.innerHTML = comments.length
       ? comments
           .map(
