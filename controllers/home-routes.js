@@ -201,14 +201,4 @@ router.get("/logout", withAuth, (req, res) => {
   });
 });
 
-// Render Terms of Use and License page (no auth required)
-router.get("/terms", (req, res) => {
-  try {
-    res.render("terms");
-  } catch (err) {
-    console.error(err);
-    res.status(500).json(err);
-  }
-});
-
 module.exports = router;
