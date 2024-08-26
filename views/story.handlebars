@@ -5,7 +5,6 @@
     {{/if}}
 
     <h1>{{work.title}}</h1>
-
     <p>{{work.content}}</p>
 
     <div class="comments-section">
@@ -19,11 +18,13 @@
         {{#each work.comments}}
           <div class="comment">
             <p>{{this.content}}</p>
-            <p class="username">- {{this.username}}</p>
+            <p class="username">- {{this.user.username}}</p>
+            <p class="date">{{format_date this.createdAt}} at {{format_time this.createdAt}}</p>
           </div>
         {{/each}}
       </div>
     </div>
   </div>
 </div>
+
 <script src="/js/story.js"></script>
