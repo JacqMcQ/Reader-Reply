@@ -301,6 +301,46 @@ form label {
   text-decoration: underline;
 }
 
+#dashboard .nyt-best-sellers {
+  padding: 20px;
+  background-color: var(--grayvariable);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#dashboard .nyt-best-sellers h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+#dashboard .best-seller-list {
+  margin-bottom: 20px;
+}
+
+#dashboard .best-seller-list h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#dashboard .best-seller-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#dashboard .best-seller-list li {
+  margin-bottom: 10px;
+}
+
+#dashboard .best-seller-list li strong {
+  display: block;
+  font-size: 18px;
+}
+
+#dashboard .best-seller-list li p {
+  margin: 5px 0 0;
+  color: #666;
+}
+
 /* Editor page specific styling */
 #editor .form-container {
   display: flex;
