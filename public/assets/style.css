@@ -358,15 +358,16 @@ form label {
   background-color: #035d6a;
 }
 
-#editor .form-container #delete-button {
+/* Updated to use the class selector for delete-btn */
+#editor .form-container .form-buttons .delete-btn {
   background-color: var(--redvariable);
 }
 
-#editor .form-container #delete-button:hover {
+#editor .form-container .form-buttons .delete-btn:hover {
   background-color: #8a1e23;
 }
 
-#editor .form-container #delete-button i {
+#editor .form-container .form-buttons .delete-btn i {
   margin-right: 5px;
 }
 
