@@ -51,53 +51,55 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   // Function to save or update a work
-  const saveOrUpdateWork = async (event, post = false) => {
-    event.preventDefault();
+const saveOrUpdateWork = async (event, post = false) => {
+  event.preventDefault();
 
-    const title = document.getElementById("title").value.trim();
-    const content = document.getElementById("content").value.trim();
-    const existingWorkId =
-      existingWorksDropdown?.value === "new"
-        ? null
-        : existingWorksDropdown.value.trim();
-    const collectionTitle = collectionTitleInput.value.trim();
+  const title = document.getElementById("title").value.trim();
+  const content = document.getElementById("content").value.trim();
+  const existingWorkId =
+    existingWorksDropdown?.value === "new"
+      ? null
+      : existingWorksDropdown.value.trim();
+  const collectionTitle = collectionTitleInput.value.trim();
 
-    const method = workId ? "PUT" : "POST";
-    const url = workId ? `/api/writtenWorks/${workId}` : "/api/writtenWorks";
+  // Use POST if workId doesn't exist, otherwise use PUT to update
+  const method = workId ? "PUT" : "POST";
+  const url = workId ? `/api/writtenWorks/${workId}` : "/api/writtenWorks";
 
-    const requestBody = {
-      title,
-      content,
-      existingWorkId,
-      collectionTitle,
-      isPublished: post,
-    };
-
-    try {
-      const response = await fetch(url, {
-        method,
-        body: JSON.stringify(requestBody),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      if (response.ok) {
-        if (post) {
-          window.location.href = "/discover";
-        } else {
-          window.location.href = "/dashboard";
-        }
-      } else {
-        const error = await response.json();
-        alert(`Failed to save your work: ${error.message}`);
-      }
-    } catch (error) {
-      console.error("Error saving work:", error);
-      alert("Failed to save your work.");
-    }
+  // Prepare the request body
+  const requestBody = {
+    title,
+    content,
+    existingWorkId,
+    collectionTitle,
+    isPublished: post, // Update the isPublished flag based on the post argument
   };
 
+  try {
+    const response = await fetch(url, {
+      method,
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      // Redirect to the appropriate page based on whether the post flag is set
+      if (post) {
+        window.location.href = "/discover";
+      } else {
+        window.location.href = "/dashboard"; 
+      }
+    } else {
+      const error = await response.json();
+      alert(`Failed to save your work: ${error.message}`);
+    }
+  } catch (error) {
+    console.error("Error saving work:", error);
+    alert("Failed to save your work.");
+  }
+};
   // Add event listeners for buttons
   if (saveButton) {
     saveButton.addEventListener("click", (event) => {
