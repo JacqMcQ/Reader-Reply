@@ -1,8 +1,11 @@
+// Import required modules
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../config/connection");
 
+// Define the WrittenWork model class
 class WrittenWork extends Model {}
 
+// Initialize the WrittenWork model with its schema
 WrittenWork.init(
   {
     id: {
@@ -36,7 +39,11 @@ WrittenWork.init(
     },
     collectionTitle: {
       type: DataTypes.STRING,
-      allowNull: true, // Allow null because it won't always be set
+      allowNull: true,
+    },
+    isPublished: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {
@@ -48,4 +55,5 @@ WrittenWork.init(
   }
 );
 
+// Export the WrittenWork model
 module.exports = WrittenWork;

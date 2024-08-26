@@ -2,7 +2,7 @@ const router = require("express").Router();
 const { User, WrittenWork, Comment } = require("../models");
 const withAuth = require("../utils/auth");
 
-// Render homepage (no auth required)
+// Render homepage
 router.get("/", (req, res) => {
   try {
     res.render("homepage", {
@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
   }
 });
 
-// Render dashboard (requires auth)
+// Render dashboard
 router.get("/dashboard", withAuth, async (req, res) => {
   try {
     const userId = req.session.user_id;
@@ -31,7 +31,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
         {
           model: Comment,
           where: { userId: userId },
-          required: true, // Only include works with comments from this user
+          required: true,
         },
       ],
     });
@@ -47,7 +47,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
   }
 });
 
-// Render profile (requires auth)
+// Render profile
 router.get("/profile", withAuth, async (req, res) => {
   try {
     const user = await User.findByPk(req.session.user_id);
@@ -80,7 +80,7 @@ router.get("/author/:id", async (req, res) => {
     res.render("authorProfile", {
       loggedIn: req.session.loggedIn,
       ...userProfile,
-      works: userProfile.writtenWorks, // Pass the author's works to the view
+      works: userProfile.writtenWorks,
     });
   } catch (err) {
     console.error(err);
@@ -88,24 +88,33 @@ router.get("/author/:id", async (req, res) => {
   }
 });
 
-// Render discover page (requires auth)
+// Render discover page with only published works
 router.get("/discover", withAuth, async (req, res) => {
   try {
+   
     const works = await WrittenWork.findAll({
+      where: {
+        isPublished: true, 
+      },
       include: [
-        { model: User, attributes: ["id", "username"] }, // Ensure 'id' is included
         {
           model: Comment,
-          include: [{ model: User, attributes: ["username"] }],
-          order: [["createdAt", "DESC"]],
+          include: [User], 
+        },
+        {
+          model: User, 
+          attributes: ["username"], 
         },
       ],
       order: [["createdAt", "DESC"]],
     });
 
+    const worksData = works.map((work) => work.get({ plain: true }));
+
+    // Render the discover page with the published works
     res.render("discover", {
-      loggedIn: req.session.loggedIn,
-      works: works.map((work) => work.get({ plain: true })),
+      works: worksData,
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     console.error(err);
@@ -113,7 +122,8 @@ router.get("/discover", withAuth, async (req, res) => {
   }
 });
 
-// Render editor page (requires auth)
+module.exports = router;
+// Render editor page
 router.get("/editor", withAuth, async (req, res) => {
   try {
     const { id: workId } = req.query;
@@ -135,8 +145,7 @@ router.get("/editor", withAuth, async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve work." });
   }
 });
-
-// Render story page (requires auth)
+// Render story page
 router.get("/story", withAuth, async (req, res) => {
   try {
     const { id: workId } = req.query;
@@ -174,7 +183,7 @@ router.get("/story", withAuth, async (req, res) => {
   }
 });
 
-// Render signup (no auth required)
+// Render signup
 router.get("/signup", (req, res) => {
   if (req.session.loggedIn) {
     return res.redirect("/");
@@ -182,7 +191,7 @@ router.get("/signup", (req, res) => {
   res.render("signup");
 });
 
-// Render login (no auth required)
+// Render login
 router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
     return res.redirect("/");
@@ -190,7 +199,7 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-// Logout (requires auth)
+// Render logout
 router.get("/logout", withAuth, (req, res) => {
   req.session.destroy((err) => {
     if (err) {
@@ -200,7 +209,7 @@ router.get("/logout", withAuth, (req, res) => {
   });
 });
 
-// Render Terms of Use and License page (no auth required)
+// Render Terms of Use and License page
 router.get("/terms", (req, res) => {
   try {
     res.render("terms");
@@ -208,6 +217,6 @@ router.get("/terms", (req, res) => {
     console.error(err);
     res.status(500).json(err);
   }
-})
+});
 
 module.exports = router;
