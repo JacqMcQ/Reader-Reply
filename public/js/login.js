@@ -1,11 +1,12 @@
 const loginFormHandler = async (event) => {
-  event.preventDefault(); // Prevent default form submission
+  event.preventDefault();
 
   // Get username and password values
   const username = document.querySelector("#username-login").value.trim();
   const password = document.querySelector("#password-login").value.trim();
   const captcha = document.querySelector("#captcha").value.trim();
 
+  // Check if all required fields are filled
   if (username && password && captcha) {
     try {
       // Send POST request to log in
@@ -18,14 +19,14 @@ const loginFormHandler = async (event) => {
       if (response.ok) {
         document.location.replace("/dashboard");
       } else {
-        alert("Failed to log in."); 
+        alert("Failed to log in.");
       }
     } catch (error) {
       console.error("Error during login:", error);
       alert("An error occurred. Please try again.");
     }
   } else {
-    alert("Please enter both username and password."); // Alert if missing
+    alert("Please enter both username and password.");
   }
 };
 

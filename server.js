@@ -5,6 +5,7 @@ const session = require("express-session");
 const exphbs = require("express-handlebars");
 const SequelizeStore = require("connect-session-sequelize")(session.Store);
 const apiRoutes = require("./controllers/api");
+
 // Import routes, database connection, and helpers
 const routes = require("./controllers");
 const sequelize = require("./config/connection");
@@ -49,6 +50,8 @@ app.use((err, req, res, next) => {
 // Use routes
 app.use(routes);
 app.use("/api", apiRoutes);
+
+// Authenticate the database connection
 sequelize
   .authenticate()
   .then(() => console.log("Database connected..."))
@@ -57,11 +60,7 @@ sequelize
 const syncModelsAndStartServer = async () => {
   try {
     // Sync models with { alter: true } to apply any schema changes without dropping tables
-    await sequelize.sync({ alter: true, logging: console.log }); // Sync all models at once
-
-    // Alternatively, you can sync individual models:
-    // await User.sync({ alter: true });
-    // await WrittenWork.sync({ alter: true });
+    await sequelize.sync({ alter: true, logging: console.log }); 
 
     console.log("Models synced successfully");
 
@@ -73,4 +72,6 @@ const syncModelsAndStartServer = async () => {
     console.error("Error syncing models:", err);
   }
 };
+
+// Sync models and start the server
 syncModelsAndStartServer();

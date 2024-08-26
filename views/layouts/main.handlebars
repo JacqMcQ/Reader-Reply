@@ -3,11 +3,14 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>My Application</title>
+  <title>Reader-Reply</title>
+  <!-- Link to the external CSS file -->
   <link rel="stylesheet" href="/assets/style.css" />
 </head>
 
+<!-- Add 'homepage' class if it's the homepage -->
 <body class="{{#if isHomepage}}homepage{{/if}}">
+  <!-- Include navigation details if not on the homepage -->
   {{#unless isHomepage}}
     <header>
       {{> navdetails}}
@@ -22,10 +25,12 @@
     {{/if}}
   </main>
 
+  <!-- Include footer details if not on the homepage -->
   {{#unless isHomepage}}
     {{> footerdetails}}
   {{/unless}}
 
+  <!-- Load the login script -->
   <script src="/js/login.js"></script>
 </body>
 

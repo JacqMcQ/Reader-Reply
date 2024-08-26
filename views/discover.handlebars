@@ -1,16 +1,21 @@
 <div id="discover">
   <div class="discover-container">
+    <!-- Loop through each work to display its details -->
     {{#each works}}
       <div class="post-box">
+        <!-- Display the title of the work with a link to the full story -->
         <h3 class="post-title">
           <a href="/story?id={{this.id}}" class="post-link">{{this.title}}</a>
         </h3>
         <div class="post-metadata">
+          <!-- Display the author of the work with a link to their profile -->
           <p class="post-author">
             By: <a href="/author/{{this.user.id}}">{{this.user.username}}</a>
           </p>
+          <!-- Display the date the work was created, formatted nicely -->
           <p class="post-date">{{format_date this.createdAt}}</p>
         </div>
+        <!-- Display a preview of the work's content -->
         <div class="post-content">
           {{this.content}}
         </div>
@@ -19,4 +24,5 @@
   </div>
 </div>
 
+<!-- Link to external JavaScript file -->
 <script src="/js/discover.js"></script>

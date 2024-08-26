@@ -37,7 +37,6 @@ router.post("/", async (req, res) => {
     }
 
     // Proceed with user creation if captcha and email is unique
-
     const dbUserData = await User.create({ username, email, password });
     console.log("New User Created:", dbUserData);
     saveSession(req, dbUserData, res, "User created successfully");
@@ -160,7 +159,7 @@ router.put("/change-password", withAuth, async (req, res) => {
   }
 });
 
-// LOGIN (no auth needed)
+// LOGIN 
 router.post("/login", async (req, res) => {
   try {
     const { username, password, captcha } = req.body;
@@ -190,10 +189,10 @@ router.get("/logout", (req, res) => {
       if (err) {
         return handleError(res, err);
       }
-      res.redirect("/login"); // Redirect to the login page on successful logout
+      res.redirect("/login"); 
     });
   } else {
-    res.redirect("/login"); // Redirect to login page if not logged in
+    res.redirect("/login"); 
   }
 });
 

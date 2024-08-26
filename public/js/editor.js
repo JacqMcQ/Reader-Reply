@@ -11,10 +11,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const works = await response.json();
 
       if (existingWorksDropdown) {
+        // Populate the dropdown with options, including an option for a new collection
         existingWorksDropdown.innerHTML = `
           <option value="new">New Collection</option>
           ${works
-            .filter((work) => work.collectionTitle) // Only include works with a collection title
+            .filter((work) => work.collectionTitle)
             .map(
               (work) => `
               <option value="${work.id}" data-collection-title="${work.collectionTitle}">
@@ -25,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("")}
         `;
 
+        // Event listener for when the dropdown selection changes
         existingWorksDropdown.addEventListener("change", function () {
           const selectedOption =
             existingWorksDropdown.options[existingWorksDropdown.selectedIndex];
@@ -32,6 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "data-collection-title"
           );
 
+          // Update the collection title input based on the selected option
           if (selectedOption.value === "new") {
             collectionTitleInput.value = "";
             collectionTitleInput.placeholder = "Enter new collection title";
@@ -50,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const saveOrUpdateWork = async (event) => {
     event.preventDefault();
 
+    // Get the values from the form fields
     const title = document.getElementById("title").value.trim();
     const content = document.getElementById("content").value.trim();
     const existingWorkId =
@@ -89,8 +93,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  // Attach the saveOrUpdateWork function to the form's submit event
   form.addEventListener("submit", saveOrUpdateWork);
 
+  // Attach the saveOrUpdateWork function to the "Save" and "Post" buttons
   document.getElementById("save-button")?.addEventListener("click", (event) => {
     event.preventDefault();
     saveOrUpdateWork(event);
@@ -104,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const deleteButton = document.getElementById("delete-button");
 
   if (deleteButton) {
+    // Attach event listener to the delete button for deleting the work
     deleteButton.addEventListener("click", async () => {
       const workId = deleteButton.getAttribute("data-work-id");
 
@@ -156,6 +163,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    // Populate the comments list with the fetched comments or a "No comments yet" message
     commentsList.innerHTML = comments.length
       ? comments
           .map(
@@ -173,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
       : "<p>No comments yet.</p>";
   };
 
+  // Helper functions to format the date and time
   const formatDate = (date) => {
     const d = new Date(date);
     return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`;

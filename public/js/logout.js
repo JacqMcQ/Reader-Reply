@@ -1,9 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   const logoutLink = document.querySelector("#logout-link");
 
+  // Check if the logout link exists
   if (logoutLink) {
     logoutLink.addEventListener("click", (event) => {
-      event.preventDefault(); // Prevent default link behavior
+      event.preventDefault();
 
       // Send a GET request to the logout endpoint
       fetch("/api/users/logout", {
@@ -11,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
       })
         .then((response) => {
           if (response.ok) {
-            window.location.href = "/login"; // Redirect to the login page
+            window.location.href = "/login";
           } else {
             alert("Failed to log out.");
           }

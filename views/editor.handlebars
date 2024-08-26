@@ -1,17 +1,22 @@
 <div id="editor">
   <div class="form-container">
     <div class="column-1">
+      <!-- Header to indicate whether the user is editing or creating a new work -->
       <h1>{{#if workId}} Edit {{else}} Create {{/if}} Work</h1> 
 
+      <!-- Form for creating or editing a work -->
       <form id="editor-form">
+        <!-- Hidden input to store the work ID if editing an existing work -->
         <input type="hidden" id="work-id" value="{{work.id}}" />
 
+        <!-- Dropdown to optionally add the work to an existing collection -->
         <label for="existing-works">Add to Existing Collection (Optional)</label>
         <select id="existing-works" name="existing-works">
           <option value="">Select an existing work (Optional)</option>
           <!-- Options will be dynamically populated in JavaScript -->
         </select>
 
+        <!-- Input field for specifying the collection title -->
         <label for="collection-title">Collection Title (Optional)</label>
         <input
         type="text"
@@ -20,6 +25,7 @@
         value="{{#if work.collectionTitle}}{{work.collectionTitle}}{{/if}}"
         />
 
+        <!-- Input field for the work's title -->
         <label for="title">Title</label>
         <input
           type="text"
@@ -29,6 +35,7 @@
           required
         />
 
+        <!-- Textarea for the content of the work -->
         <label for="content">Content</label>
         <textarea
           id="content"
@@ -37,6 +44,7 @@
           required
         >{{work.content}}</textarea>
 
+        <!-- Form buttons for saving, posting, or deleting the work -->
         <div class="form-buttons">
           <button id="save-button">Save</button>
           {{#if workId}}          
@@ -48,8 +56,10 @@
     </div>
 
     <div class="column-2">
+      <!-- Section for displaying comments related to the work -->
       <div id="comments-list" class="comments-section">
         <h2>Comments</h2>
+        <!-- Loop through and display each comment if there are any -->
         {{#if comments.length}}
           {{#each comments}}
             <div class="comment">
@@ -58,6 +68,7 @@
             </div>
           {{/each}}
         {{else}}
+          <!-- Display a message if no comments are available -->
           <p>No comments yet.</p>
         {{/if}}
       </div>
@@ -65,4 +76,5 @@
   </div>
 </div>
 
+<!-- Link to external JavaScript file -->
 <script src="/js/editor.js"></script>

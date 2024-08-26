@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
+  // Get references to the bio save button, textarea, and message element
   const saveBioBtn = document.getElementById("saveBioBtn");
   const bioTextarea = document.getElementById("bio");
   const bioMessage = document.getElementById("bioMessage");
 
+  // Get references to the user info save button, input fields, and message element
   const saveUserInfoBtn = document.querySelector(".save");
   const usernameInput = document.getElementById("username");
   const firstNameInput = document.getElementById("first-name");
@@ -10,14 +12,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const emailInput = document.getElementById("email");
   const userInfoMessage = document.getElementById("userInfoMessage");
 
+  // Event listener for saving the bio
   saveBioBtn.onclick = function () {
     const bio = bioTextarea.value.trim();
 
+    // Check if the bio exceeds 500 characters
     if (bio.length > 500) {
       alert("Bio cannot exceed 500 characters.");
       return;
     }
 
+    // Send a PUT request to save the bio
     fetch("/api/users/save-bio", {
       method: "PUT",
       headers: {
@@ -38,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   };
 
+  // Event listener for saving user information
   saveUserInfoBtn.onclick = function () {
     const updatedInfo = {
       username: usernameInput.value.trim(),
@@ -46,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
       email: emailInput.value.trim(),
     };
 
+    // Send a PUT request to update user information
     fetch("/api/users/update-info", {
       method: "PUT",
       headers: {
