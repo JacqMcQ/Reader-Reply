@@ -38,6 +38,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
+      dashboardActive: true,
       writtenWorks: writtenWorks.map((work) => work.get({ plain: true })),
       commentedWorks: commentedWorks.map((work) => work.get({ plain: true })),
     });
@@ -56,6 +57,7 @@ router.get("/profile", withAuth, async (req, res) => {
     }
     res.render("profile", {
       loggedIn: req.session.loggedIn,
+      profileActive: true, // Active page indicator
       ...user.get({ plain: true }),
     });
   } catch (err) {
@@ -105,6 +107,7 @@ router.get("/discover", withAuth, async (req, res) => {
 
     res.render("discover", {
       loggedIn: req.session.loggedIn,
+      discoverActive: true, // Active page indicator
       works: works.map((work) => work.get({ plain: true })),
     });
   } catch (err) {

@@ -1,9 +1,9 @@
 <nav>
   <ul>
     <!-- Navigation links for different sections of the application -->
-    <li><a href="/dashboard">Dashboard</a></li>
-    <li><a href="/discover">Discover</a></li>
-    <li><a href="/profile">Profile</a></li>
+    <li><a href="/dashboard" class="{{#if dashboardActive}}current-page{{/if}}">Dashboard</a></li>
+    <li><a href="/discover" class="{{#if discoverActive}}current-page{{/if}}">Discover</a></li>
+    <li><a href="/profile" class="{{#if profileActive}}current-page{{/if}}">Profile</a></li>
     <li><a href="/api/users/logout" id="logout-link" class="nav-item">Logout</a></li>
   </ul>
 </nav>

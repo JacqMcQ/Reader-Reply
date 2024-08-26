@@ -54,6 +54,11 @@ nav a:hover {
   text-decoration: underline;
 }
 
+nav .current-page {
+  text-shadow: 0 0 10px var(--bluevariable), 0 0 20px var(--bluevariable), 0 0 30px var(--bluevariable);
+  font-weight: bold;
+}
+
 /* Page Heading Styles */
 h2.page-title {
   text-align: center;
