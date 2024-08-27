@@ -13,31 +13,44 @@ function requireLogin(req, res, next) {
 }
 
 // Create new work
+// Create or add to existing collection
 router.post("/", withAuth, async (req, res) => {
   try {
-    const { title, content, existingWorkId, collectionTitle, isPublished } =
-      req.body;
+    const { title, content, existingWorkId, collectionTitle, isPublished } = req.body;
 
-    let work;
+    // If an existingWorkId is provided, append the new work to the collection
     if (existingWorkId) {
-      work = await WrittenWork.update(
-        { title, content, collectionTitle, isPublished },
-        { where: { id: existingWorkId }, returning: true }
-      );
-    } else {
-      work = await WrittenWork.create({
-        title,
-        content,
-        collectionTitle,
-        isPublished,
-        userId: req.session.user_id,
-      });
+      const parentWork = await WrittenWork.findOne({ where: { id: existingWorkId } });
+
+      if (parentWork) {
+        const newWork = await WrittenWork.create({
+          title,
+          content,
+          collectionTitle: parentWork.collectionTitle, // inherit the collection title
+          isPublished,
+          userId: req.session.user_id,
+          existingWorkId: parentWork.id, // link to the existing work as part of the collection
+        });
+
+        return res.status(200).json(newWork);
+      } else {
+        return res.status(404).json({ message: "Parent work not found." });
+      }
     }
 
-    res.status(200).json(work);
+    // If no existingWorkId, create a new work and potentially a new collection
+    const newWork = await WrittenWork.create({
+      title,
+      content,
+      collectionTitle,
+      isPublished,
+      userId: req.session.user_id,
+    });
+
+    res.status(200).json(newWork);
   } catch (err) {
     console.error(err);
-    res.status(500).json(err);
+    res.status(500).json({ error: err.message });
   }
 });
 
