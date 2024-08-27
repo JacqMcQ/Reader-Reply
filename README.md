@@ -152,6 +152,11 @@ Before you begin, ensure you have the following installed on your local machine:
 *   To log out, click the "Log Out" button in the navigation bar. This will end your session and redirect you to the login page.
 
 ## Mock-Up
+
+*  Link to deployed application: https://reader-reply.onrender.com/ 
+
+*  Link to application repository: https://github.com/JacqMcQ/Reader-Reply
+  
 The following image shows the web application's appearance and functionality:
 
 ![Homepage welcoming user](/public/assets/01_homepage.png)
