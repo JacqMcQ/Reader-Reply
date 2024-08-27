@@ -240,6 +240,8 @@ The following image shows the web application's appearance and functionality:
 
 *   Wikipedia. (n.d.). Model-View-Controller (MVC). Retrieved August 14, 2024, from https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
 
+*   vanilla-captcha. (n.d.). npm. Retrieved August 23, 2024, from https://www.npmjs.com/package/vanilla-captcha
+
 *   ZenQuotes. (n.d.). ZenQuotes API Documentation. ZenQuotes. Retrieved August 22, 2024, from https://docs.zenquotes.io/zenquotes-documentation/#api-structure
 
 ## License
