@@ -30,37 +30,45 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 });
 
-//Wait for DOM to be fully loaded and fetch best sellers lists
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener("DOMContentLoaded", async () => {
+  // Fetch and display the New York Times Best Sellers list
   try {
-    
-    const response = await fetch('/api/books/books');
+    const response = await fetch("/api/books/books");
     if (!response.ok) {
-      throw new Error('Failed to fetch best sellers');
+      throw new Error("Failed to fetch best sellers");
     }
 
     const bestSellers = await response.json();
-    const bestSellersContainer = document.getElementById('best-sellers');
+    const bestSellersContainer = document.querySelector(".best-seller-list");
 
-    
-    bestSellersContainer.innerHTML = '';
+    bestSellersContainer.innerHTML = ""; // Clear any existing content
 
-    
-    bestSellers.forEach(list => {
-      const listTitle = document.createElement('h3');
-      listTitle.textContent = list.list_name;
-      bestSellersContainer.appendChild(listTitle);
+    bestSellers.forEach((list, index) => {
+      if (index < 5) {
+        // Only display the first 5 lists
+        const bookCard = document.createElement("div");
+        bookCard.classList.add("best-seller-card");
 
-      const bookList = document.createElement('ul');
-      list.books.forEach(book => {
-        const listItem = document.createElement('li');
-        listItem.textContent = `${book.title} by ${book.author}`;
-        bookList.appendChild(listItem);
-      });
+        bookCard.innerHTML = `
+          <h3>${list.list_name}</h3>
+          <ul>
+            ${list.books
+              .map(
+                (book) => `
+              <li>
+                <strong>${book.title}</strong>
+                <p>by ${book.author}</p>
+              </li>
+            `
+              )
+              .join("")}
+          </ul>
+        `;
 
-      bestSellersContainer.appendChild(bookList);
+        bestSellersContainer.appendChild(bookCard);
+      }
     });
   } catch (error) {
-    console.error('Error displaying best sellers:', error);
+    console.error("Error displaying best sellers:", error);
   }
 });
