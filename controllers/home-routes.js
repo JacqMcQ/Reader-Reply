@@ -36,7 +36,7 @@ router.get("/dashboard", withAuth, async (req, res) => {
 
     res.render("dashboard", {
       loggedIn: req.session.loggedIn,
-      dashboardActive: true, // Active page indicator
+      dashboardActive: true,
       writtenWorks: writtenWorks.map((work) => work.get({ plain: true })),
       commentedWorks: commentedWorks.map((work) => work.get({ plain: true })),
     });
@@ -55,7 +55,7 @@ router.get("/profile", withAuth, async (req, res) => {
     }
     res.render("profile", {
       loggedIn: req.session.loggedIn,
-      profileActive: true, // Active page indicator
+      profileActive: true,
       ...user.get({ plain: true }),
     });
   } catch (err) {
@@ -99,11 +99,11 @@ router.get("/discover", withAuth, async (req, res) => {
       include: [
         {
           model: Comment,
-          include: [User], // Include user data in comments
+          include: [User],
         },
         {
           model: User,
-          attributes: ["id", "username"], // Include user id and username
+          attributes: ["id", "username"],
         },
       ],
       order: [["createdAt", "DESC"]],
@@ -116,7 +116,7 @@ router.get("/discover", withAuth, async (req, res) => {
     res.render("discover", {
       works: worksData,
       loggedIn: req.session.loggedIn,
-      discoverActive: true, // Active page indicator
+      discoverActive: true,
     });
   } catch (err) {
     console.error(err);
@@ -146,6 +146,7 @@ router.get("/editor", withAuth, async (req, res) => {
     res.status(500).json({ error: "Failed to retrieve work." });
   }
 });
+
 // Render story page
 router.get("/story", withAuth, async (req, res) => {
   try {

@@ -22,7 +22,6 @@ const saveSession = (req, user, res, successMessage, statusCode = 200) => {
 // CREATE new user
 router.post("/", async (req, res) => {
   try {
-
     const { username, email, password, captcha } = req.body;
 
     // Check if the captcha matches the session captcha
@@ -45,7 +44,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-
 // Update user info on profile
 router.put("/update-info", withAuth, async (req, res) => {
   try {
@@ -65,12 +63,10 @@ router.put("/update-info", withAuth, async (req, res) => {
       return res.status(404).json({ message: "User not found." });
     }
 
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "User information updated successfully.",
-      });
+    res.status(200).json({
+      success: true,
+      message: "User information updated successfully.",
+    });
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to update user information." });
@@ -159,7 +155,7 @@ router.put("/change-password", withAuth, async (req, res) => {
   }
 });
 
-// LOGIN 
+// LOGIN
 router.post("/login", async (req, res) => {
   try {
     const { username, password, captcha } = req.body;
@@ -197,10 +193,10 @@ router.get("/logout", (req, res) => {
       if (err) {
         return handleError(res, err);
       }
-      res.redirect("/login"); 
+      res.redirect("/login");
     });
   } else {
-    res.redirect("/login"); 
+    res.redirect("/login");
   }
 });
 

@@ -4,7 +4,12 @@
     <h2 class="page-title">Login</h2>
 
     <!-- User login form -->
-    <form id="login-form" class="login-form" action="/api/users/login" method="POST">
+    <form
+      id="login-form"
+      class="login-form"
+      action="/api/users/login"
+      method="POST"
+    >
       <!-- Username input field -->
       <label for="username-login">Username:</label>
       <input class="form-input" type="text" id="username-login" required />
@@ -13,14 +18,14 @@
       <label for="password-login">Password:</label>
       <input class="form-input" type="password" id="password-login" required />
 
-    <!-- Captcha image and input field -->
-    <div>
-      <!-- Display captcha image -->
-      <img src="/api/captcha/login" alt="Captcha">
-    </div>
-    <label for="captcha">Enter Captcha:</label>
-    <!-- Captcha input field -->
-    <input type="text" id="captcha" name="captcha" required>
+      <!-- Captcha image and input field -->
+      <div>
+        <!-- Display captcha image -->
+        <img src="/api/captcha/login" alt="Captcha" />
+      </div>
+      <label for="captcha">Enter Captcha:</label>
+      <!-- Captcha input field -->
+      <input type="text" id="captcha" name="captcha" required />
 
       <button class="form-button" type="submit">Login</button>
     </form>

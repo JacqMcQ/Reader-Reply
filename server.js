@@ -60,7 +60,7 @@ sequelize
 const syncModelsAndStartServer = async () => {
   try {
     // Sync models with { alter: true } to apply any schema changes without dropping tables
-    await sequelize.sync({ alter: true, logging: console.log }); 
+    await sequelize.sync({ alter: true, logging: console.log });
 
     console.log("Models synced successfully");
 

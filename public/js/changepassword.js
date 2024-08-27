@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // The fetch function goes here
     fetch("/api/users/change-password", {
-      method: "PUT", 
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

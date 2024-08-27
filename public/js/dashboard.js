@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const bestSellers = await response.json();
     const bestSellersContainer = document.querySelector(".best-seller-list");
 
-    bestSellersContainer.innerHTML = ""; // Clear any existing content
+    bestSellersContainer.innerHTML = "";
 
     bestSellers.forEach((list, index) => {
       if (index < 5) {
