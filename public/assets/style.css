@@ -288,20 +288,8 @@ form label {
   font-weight: 100;
 }
 
-#dashboard .view-more {
-  display: block;
-  margin-top: 2%;
-  text-align: center;
-  color: var(--redvariable);
-  text-decoration: none;
-  font-weight: bold;
-}
-
-#dashboard .view-more:hover {
-  text-decoration: underline;
-}
-
 #dashboard .nyt-best-sellers {
+  margin: 30px 20px 20px 20px;
   padding: 20px;
   background-color: var(--grayvariable);
   border-radius: 5px;
@@ -310,35 +298,48 @@ form label {
 
 #dashboard .nyt-best-sellers h2 {
   font-size: 24px;
-  margin-bottom: 20px;
+  color: var(--redvariable);
 }
 
 #dashboard .best-seller-list {
-  margin-bottom: 20px;
-}
-
-#dashboard .best-seller-list h3 {
-  font-size: 20px;
-  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
 }
 
 #dashboard .best-seller-list ul {
   list-style-type: none;
-  padding: 0;
+  padding-left: 0; 
 }
 
 #dashboard .best-seller-list li {
   margin-bottom: 10px;
 }
 
-#dashboard .best-seller-list li strong {
-  display: block;
-  font-size: 18px;
+#dashboard .best-seller-card {
+  flex: 1 0 18%;
+  margin-top: 30px;
+  padding: 20px;
+  background-color: var(--whitevariable);
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
 }
 
-#dashboard .best-seller-list li p {
-  margin: 5px 0 0;
+#dashboard .best-seller-card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+#dashboard .best-seller-card h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  color: var(--bluevariable);
+}
+
+#dashboard .best-seller-card p {
+  font-size: 14px;
   color: #666;
+  margin-bottom: 10px;
 }
 
 /* Editor page specific styling */
