@@ -2,7 +2,7 @@ const router = require('express').Router();
 const axios = require("axios");
 
 // Access the API key from ENV file
-const API_KEY = process.env.NYT_API_KEY;
+const API_KEY = "v6GAwbArLTOE7OAO2KMdRlx8KYDI268D";
 
 // Route to get Best sellers list from NY times
 router.get('/books', async (req, res) => {
