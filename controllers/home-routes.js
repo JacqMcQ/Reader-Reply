@@ -91,6 +91,7 @@ router.get("/author/:id", async (req, res) => {
 // Render discover page with only published works
 router.get("/discover", withAuth, async (req, res) => {
   try {
+    // Fetch published works along with associated comments and users
     const works = await WrittenWork.findAll({
       where: {
         isPublished: true,
@@ -98,18 +99,20 @@ router.get("/discover", withAuth, async (req, res) => {
       include: [
         {
           model: Comment,
-          include: [User],
+          include: [User], // Include user data in comments
         },
         {
           model: User,
-          attributes: ["username"],
+          attributes: ["id", "username"], // Include user id and username
         },
       ],
       order: [["createdAt", "DESC"]],
     });
 
+    // Convert Sequelize objects to plain JavaScript objects
     const worksData = works.map((work) => work.get({ plain: true }));
 
+    // Render the discover page with works data
     res.render("discover", {
       works: worksData,
       loggedIn: req.session.loggedIn,
@@ -121,7 +124,6 @@ router.get("/discover", withAuth, async (req, res) => {
   }
 });
 
-module.exports = router;
 // Render editor page
 router.get("/editor", withAuth, async (req, res) => {
   try {
