@@ -27,7 +27,9 @@
             <!-- Display the comment content -->
             <p>{{this.content}}</p>
             <p class="username">- {{this.user.username}}</p>
-            <p class="date">{{format_date this.createdAt}} at {{format_time this.createdAt}}</p>
+            <p class="date">{{format_date this.createdAt}}
+              at
+              {{format_time this.createdAt}}</p>
           </div>
         {{/each}}
       </div>

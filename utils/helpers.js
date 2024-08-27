@@ -1,4 +1,3 @@
-// utils/helpers.js
 module.exports = {
   // Format time as a string
   format_time: (date) => {

@@ -30,7 +30,7 @@ router.post("/", withAuth, async (req, res) => {
         content,
         collectionTitle,
         isPublished,
-        userId: req.session.user_id, 
+        userId: req.session.user_id,
       });
     }
 
@@ -40,20 +40,21 @@ router.post("/", withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
+
 // Update existing work
-router.put('/:id', withAuth, async (req, res) => {
+router.put("/:id", withAuth, async (req, res) => {
   try {
     const { id } = req.params;
-    const { title, content, collectionTitle, existingWorkId, isPublished } = req.body;
+    const { title, content, collectionTitle, existingWorkId, isPublished } =
+      req.body;
 
-    //
     const updatedWork = await WrittenWork.update(
       {
         title,
         content,
         collectionTitle,
         existingWorkId,
-        isPublished,  // Ensure isPublished field is updated
+        isPublished,
       },
       {
         where: { id },
@@ -61,7 +62,7 @@ router.put('/:id', withAuth, async (req, res) => {
     );
 
     if (updatedWork[0] === 0) {
-      return res.status(404).json({ message: 'No work found with this id!' });
+      return res.status(404).json({ message: "No work found with this id!" });
     }
 
     res.status(200).json(updatedWork);
@@ -70,6 +71,7 @@ router.put('/:id', withAuth, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 // Retrieve a work by ID
 router.get("/:id", requireLogin, async (req, res) => {
   try {

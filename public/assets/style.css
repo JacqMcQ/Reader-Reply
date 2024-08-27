@@ -41,7 +41,7 @@ nav ul {
   margin: 0;
   display: flex;
   justify-content: space-around;
-  align-items: center; 
+  align-items: center;
 }
 
 nav ul li a {
@@ -55,7 +55,8 @@ nav a:hover {
 }
 
 nav .current-page {
-  text-shadow: 0 0 10px var(--bluevariable), 0 0 20px var(--bluevariable), 0 0 30px var(--bluevariable);
+  text-shadow: 0 0 10px var(--bluevariable), 0 0 20px var(--bluevariable),
+    0 0 30px var(--bluevariable);
   font-weight: bold;
 }
 
@@ -220,10 +221,8 @@ form label {
 
 #dashboard .create-new button {
   width: 100%;
-  box-sizing: border-box; 
-  background-color: var(
-    --bluevariable
-  );
+  box-sizing: border-box;
+  background-color: var(--bluevariable);
   color: var(--whitevariable);
   font-size: 36px;
   padding: 10px;
@@ -235,12 +234,12 @@ form label {
 }
 
 #dashboard .create-new button:hover {
-  background-color: #035d6a; 
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); 
+  background-color: #035d6a;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
 #dashboard .create-new .quote-container {
-  flex-grow: 1; 
+  flex-grow: 1;
   margin-top: 20px;
   padding: 10px;
   background-color: var(--grayvariable);
@@ -309,7 +308,7 @@ form label {
 
 #dashboard .best-seller-list ul {
   list-style-type: none;
-  padding-left: 0; 
+  padding-left: 0;
 }
 
 #dashboard .best-seller-list li {
@@ -520,7 +519,8 @@ form label {
   text-align: right;
 }
 
-#discover .post-author, .post-date {
+#discover .post-author,
+.post-date {
   font-size: 14px;
   color: var(--blackvariable);
 }
@@ -647,7 +647,7 @@ form label {
 
 #story p {
   width: 100%;
-  max-width: 800px; 
+  max-width: 800px;
   text-align: left;
   font-size: 18px;
   line-height: 1.6;
@@ -736,8 +736,8 @@ form label {
 
 #profile .row {
   display: flex;
-  gap: 20px; 
-  margin-bottom: 20px; 
+  gap: 20px;
+  margin-bottom: 20px;
 }
 
 #profile .section {
@@ -748,57 +748,57 @@ form label {
 }
 
 #profile .section-1 {
-  width: 40%; 
+  width: 40%;
 }
 
 #profile .user-info-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 #profile .user-info-form label {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 #profile .user-info-form input {
-    padding: 8px;
-    border: 1px solid var(--grayvariable);
-    border-radius: 4px;
+  padding: 8px;
+  border: 1px solid var(--grayvariable);
+  border-radius: 4px;
 }
 
 #profile .form-buttons {
-    display: flex;
-    gap: 10px; 
+  display: flex;
+  gap: 10px;
 }
 
 #profile .form-buttons .save,
 #profile .form-buttons .change-password,
 #profile .update-bio {
-    background-color: var(--bluevariable);
-    color: var(--whitevariable);
-    border: none;
-    padding: 10px;
-    border-radius: 4px;
-    cursor: pointer;
+  background-color: var(--bluevariable);
+  color: var(--whitevariable);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 #profile .form-buttons .save:hover,
 #profile .form-buttons .change-password:hover,
 #profile .update-bio:hover {
-    background-color: var(--redvariable);
+  background-color: var(--redvariable);
 }
 
 #profile .section-2 {
-  width: 60%; 
+  width: 60%;
 }
 
 #profile .profile-image {
   width: 100%;
-  height: 100%; 
-  background-image: url('./profile.jpg'); 
-  background-size: cover; 
-  background-position: center; 
+  height: 100%;
+  background-image: url("./profile.jpg");
+  background-size: cover;
+  background-position: center;
 }
 
 #profile .section-3 {
@@ -808,9 +808,9 @@ form label {
 }
 
 #profile .bio-save-container {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 10px; 
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
 }
 
 #profile h2 {
@@ -818,23 +818,23 @@ form label {
 }
 
 #profile #bio {
-    padding: 20px;
-    border-radius: 5px;
-    width: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  width: 100%;
 }
 
 /* Change Password Modal */
 #profile .modal {
   display: none;
-  position: fixed; 
-  z-index: 1; 
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 #profile .modal h2 {
@@ -907,7 +907,7 @@ form label {
 }
 
 #authorProfile .profile-container {
-  flex: 1; 
+  flex: 1;
   padding: 20px;
   background-color: var(--whitevariable);
   color: var(--blackvariable);
@@ -927,7 +927,7 @@ form label {
 }
 
 #authorProfile .section-1 {
-  width: 35%; 
+  width: 35%;
   height: 40vh;
   display: flex;
   flex-direction: column;
@@ -953,13 +953,13 @@ form label {
 }
 
 #authorProfile .section-2 {
-  width: 65%; 
+  width: 65%;
 }
 
 #authorProfile .profile-image {
   width: 100%;
   height: 100%;
-  background-image: url('./authorProfile.jpg');
+  background-image: url("./authorProfile.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -1001,7 +1001,9 @@ form label {
 }
 
 /* Paragraphs and Text */
-#terms section p, section ul, section pre {
+#terms section p,
+section ul,
+section pre {
   text-align: justify;
   margin-bottom: 1rem;
   line-height: 1.6;
@@ -1010,11 +1012,11 @@ form label {
 
 /* Lists */
 #terms section ul {
-  padding-left: 5%; 
+  padding-left: 5%;
 }
 
 #terms section ul li {
-  margin-bottom: 0.5rem; 
+  margin-bottom: 0.5rem;
 }
 
 /* Footer Styles */
